@@ -22,22 +22,35 @@
 
 # print(ocr_core(img))
 
-# import the cv2 library
-import cv2
+# # import the cv2 library
+# import cv2
  
-# The function cv2.imread() is used to read an image.
-#img_grayscale = cv2.imread('D:\\Documents\\GitHub\\FYP-Pharmaceutical-Optical-Chracter-Reader\\Docker_SetUp\\testing\\img.jpeg',0)
-img_grayscale = cv2.imread('img.jpeg', cv2.IMREAD_UNCHANGED)
+# # The function cv2.imread() is used to read an image.
+# #img_grayscale = cv2.imread('D:\\Documents\\GitHub\\FYP-Pharmaceutical-Optical-Chracter-Reader\\Docker_SetUp\\testing\\img.jpeg',0)
+# img_grayscale = cv2.imread('img.jpeg', cv2.IMREAD_UNCHANGED)
  
-# get dimensions of image
-dimensions = img_grayscale.shape
+# # get dimensions of image
+# dimensions = img_grayscale.shape
  
-# height, width, number of channels in image
-height = img_grayscale.shape[0]
-width = img_grayscale.shape[1]
-channels = img_grayscale.shape[2]
+# # height, width, number of channels in image
+# height = img_grayscale.shape[0]
+# width = img_grayscale.shape[1]
+# channels = img_grayscale.shape[2]
  
-print('Image Dimension    : ',dimensions)
-print('Image Height       : ',height)
-print('Image Width        : ',width)
-print('Number of Channels : ',channels)
+# print('Image Dimension    : ',dimensions)
+# print('Image Height       : ',height)
+# print('Image Width        : ',width)
+# print('Number of Channels : ',channels)
+
+from flask import Flask
+import os
+app = Flask(__name__)
+
+@app.route('/')
+def hello_geek():
+    return '<h1>Hello from Flask & Docker</h2>'
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)

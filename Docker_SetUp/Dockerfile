@@ -48,7 +48,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 #OpenCV 
 RUN apt-get install python3-opencv -y
 
-RUN echo "$PWD"
+#Flask
+RUN pip3 install Flask
 
 #copy source file
 COPY testing/test1.py .
@@ -56,6 +57,7 @@ COPY testing/img.jpeg .
 
 #CMD pip3 freeze; apt list --installed
 CMD python3 test1.py
+
 
 # #EXPOSE (port number)
 

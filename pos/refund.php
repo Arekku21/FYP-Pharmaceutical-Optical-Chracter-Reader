@@ -121,7 +121,8 @@ include "../menu/menu.php";
         <td>".$row["dt"]."</td>
         <td>".$row["tm"]."</td>
         <td>RM ".$row["totalAmount"]."</td>
-        <td align='center'><input type='button' value='Proceed Refund' id='".$row["purchaseInvoiceID"]."' class='btnRefund button is-small is-primary' style='font-weight: bold;margin-right: 1%;'></td>
+        <td align='center'><input type='button' value='Proceed Refund' id='".$row["purchaseInvoiceID"]."' class='btnRefund button is-small is-primary' style='font-weight: bold;margin-right: 1%;'>
+        <input type='button' value='View Invoice' id='".$row["purchaseInvoiceID"]."' class='btnViewInvoice button is-small is-info' style='font-weight: bold;margin-right: 1%;' onclick='javascript:window.open(\"invoice.php?invoiceID=".$row['purchaseInvoiceID']."\");'></td>
         </tr>";
       }
     }

@@ -145,7 +145,7 @@ if($_GET["invoiceID"] != "")
                                         }
                                         if($flag == true)
                                         {
-                                            echo '<div class="col-9 col-sm-5"><b>(REFUND)</b>'.ucwords(strtolower($drugName[$i])).' - '.$drugBatchNo[$i].'</div>';
+                                            echo '<div class="col-9 col-sm-5"><b>(REFUND - '.$refundedDateTime[$j].') </b>'.ucwords(strtolower($drugName[$i])).' - '.$drugBatchNo[$i].'</div>';
                                             echo '<div class="d-none d-sm-block col-2">'.$drugQty[$i].'</div>';
                                             echo '<div class="d-none d-sm-block col-2 text-95">'.$drugPrice[$i].'</div>';
                                             $substotal += ($drugQty[$i] * $drugPrice[$i]);

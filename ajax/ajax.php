@@ -294,7 +294,7 @@ else if($_POST["action"] == "reportDaily" || $_POST["action"] == "reportMonth")
 {
     if($_POST["action"] == "reportDaily")
         $sql = mysqli_query($Links, "SELECT * FROM tblpurchase_invoice WHERE DATE_FORMAT(purchaseDate, '%Y-%m-%d') = '".$_POST["date"]."'");
-    else $sql = mysqli_query($Links, "SELECT * FROM tblpurchase_invoice WHERE DATE_FORMAT(purchaseDate, '%M') = '".$_POST["month"]."'");
+    else $sql = mysqli_query($Links, "SELECT * FROM tblpurchase_invoice WHERE DATE_FORMAT(purchaseDate, '%M') = '".$_POST["month"]."' AND DATE_FORMAT(purchaseDate, '%Y') = '".$_POST["year"]."' ");
     if(mysqli_num_rows($sql) > 0)
     {
       $drugBatchArr = array();
@@ -498,10 +498,14 @@ else if($_POST["action"] == "refund")
                 $drugPrice = explode(":", $row["drugPrice"]);
                 $tax = explode(":", $row["tax"]);
                 $refundedBatchNo = explode(":", $row["refundedBatchNo"]);
+                $refundedDrugPrice = explode(":", $row["refundedDrugPrice"]);
                 $refundedDrugQty = explode(":", $row["refundedDrugQty"]);
+                $refundedDateTime = explode("|", $row["refundedDateTime"]);
+                $refundedTax = explode(":", $row["refundedTax"]);
                 for($i = 0; $i < count($item); $i++)
                 {
                     $flag = false;
+                    $refund = array_sum($refundedDrugPrice);
                     if($qty[$i] != 0)
                     {
                         echo '<tr class="tabletitle">
@@ -514,7 +518,7 @@ else if($_POST["action"] == "refund")
                         {
                             if($itemBatchNo[$i] == $refundedBatchNo[$j] && $qty[$i] == $refundedDrugQty[$j])
                             {
-                                echo "Refunded";
+                                echo "<font style='color: red;'>Refunded (".$refundedDateTime[$j].")</font>";
                                 $flag = true;
                                 break;
                             }
@@ -532,7 +536,6 @@ else if($_POST["action"] == "refund")
 					<td class="Rate"><h2>Refund(6% tax inclusive)</h2></td>
 					<td class="payment"><h2>RM <span id="refundAmount">0</span></h2></td>
 				</tr>
-
 			</table>
     <?php
     }
@@ -577,12 +580,27 @@ else if($_POST["action"] == "proceedRefund")
         $tax = explode(":", $row["tax"]);
         $position = explode(":", $_POST["position"]);
 
-        $refundedItem = array();
-        $refundedDrugPrice = array();
-        $refundedBatchNo = array();
-        $refundedDrugQty = array();
-        $refundedTax = 0;
-        $refundedAmount = 0;
+        if($row["refundedItem"] == NULL)
+        {
+            $refundedItem = array();
+            $refundedDrugPrice = array();
+            $refundedBatchNo = array();
+            $refundedDrugQty = array();
+            $refundedDateTime = array();
+            $refundedTax = 0;
+            $refundedAmount = 0;
+        }
+        else
+        {
+            $refundedItem = explode(":", $row["refundedItem"]);
+            $refundedDrugPrice = explode(":", $row["refundedDrugPrice"]);
+            $refundedBatchNo = explode(":", $row["refundedBatchNo"]);
+            $refundedDrugQty = explode(":", $row["refundedDrugQty"]);
+            $refundedDateTime = explode("|", $row["refundedDateTime"]);
+            $refundedTax = explode(":", $row["refundedTax"])[1];
+            $refundedAmount = array_sum($refundedDrugPrice) + $refundedTax;
+        }
+
         for($i = 0; $i < count($item); $i++)
         {
             for($j = 0; $j < count($position); $j++)
@@ -593,6 +611,7 @@ else if($_POST["action"] == "proceedRefund")
                     array_push($refundedDrugPrice, $drugPrice[$i]);
                     array_push($refundedBatchNo, $itemBatchNo[$i]);
                     array_push($refundedDrugQty, $qty[$i]);
+                    array_push($refundedDateTime, date('Y-m-d H:i:s'));
                     $refundedTax += ($drugPrice[$i] * 0.06 * $qty[$i]);
                     $refundedAmount += ($drugPrice[$i] * 0.06 * $qty[$i]) + ($drugPrice[$i] * $qty[$i]);
                 }
@@ -602,8 +621,10 @@ else if($_POST["action"] == "proceedRefund")
         $refundedDrugPrice = implode(":", $refundedDrugPrice);
         $refundedBatchNo = implode(":", $refundedBatchNo);
         $refundedDrugQty = implode(":", $refundedDrugQty);
+        $refundedDateTime = implode("|", $refundedDateTime);
 
-        $update = mysqli_query($Links, "UPDATE tblpurchase_invoice SET refundedItem = '".$refundedItem."', refundedBatchNo = '".$refundedBatchNo."', refundedDrugQty = '".$refundedDrugQty."', refundedDrugPrice = '".$refundedDrugPrice."', refundedTax = '6:".$refundedTax."' WHERE purchaseInvoiceID=".$_POST["id"]."");
+
+        $update = mysqli_query($Links, "UPDATE tblpurchase_invoice SET refundedItem = '".$refundedItem."', refundedBatchNo = '".$refundedBatchNo."', refundedDrugQty = '".$refundedDrugQty."', refundedDrugPrice = '".$refundedDrugPrice."', refundedTax = '6:".$refundedTax."', refundedDateTime = '".$refundedDateTime."' WHERE purchaseInvoiceID=".$_POST["id"]."");
 
         #need to update drug table after they refund
         $refundedDrugQty = explode(":", $refundedDrugQty);
@@ -620,12 +641,12 @@ else if($_POST["action"] == "proceedRefund")
                     {
                         $dbDrugQty = $row["quantity"] + $refundedDrugQty[$j];
                         $sql2 = mysqli_query($Links, "UPDATE tblstored_drug SET quantity= ".$dbDrugQty." WHERE batchNo='".$refundedBatchNo[$j]."'");
-                        if($sql2)
-                            echo "Item refund successfully";
-                        else echo "Item fail to refund";
                     }
                 }
             }
+            if($sql2)
+                echo "Item refund successfully";
+            else echo "Item fail to refund";
         }
     }
 }

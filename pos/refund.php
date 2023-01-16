@@ -32,7 +32,8 @@ include "../menu/menu.php";
     $.noConflict(true);
     $('#drug_table').DataTable();
     //perform click action for add to cart
-    $(".btnRefund").click(function(){
+      
+    $(".tblRefundTable").on("click", ".btnRefund", function(){
         var id = $(this).attr('id');
         $.ajax({
           url: "../ajax/ajax.php",
@@ -81,6 +82,7 @@ include "../menu/menu.php";
               $("#refundAmount").text('0');
               alert(result.trim());
               $("#" + id).trigger("click");
+              window.open("invoice.php?invoiceID=" + id);
             }
           });
         }
@@ -97,7 +99,7 @@ include "../menu/menu.php";
     Past Orders
   </p>
   <div class="panel-block">
-    <table class="table is-full" id="drug_table" style="width:100%;">
+    <table class="tblRefundTable table is-full" id="drug_table" style="width:100%;">
       <thead>
         <tr>
           <th width='100px'>InvoiceID</th>

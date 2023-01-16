@@ -110,7 +110,7 @@ include "../menu/menu.php";
               data: {action: "reduceStock", id: drugID, quantity: quantity, balance: Number(balance).toFixed(2), paid: Number(paid).toFixed(2), total: Number(total).toFixed(2), tax: tax},
               success: function(result){
                 var split = result.split("-");
-                alert(split[0]);
+                alert(split[0].trim());
                 window.open("invoice.php?invoiceID=" + split[1]);
                 // location.reload();
               }

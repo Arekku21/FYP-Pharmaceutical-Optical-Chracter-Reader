@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 28, 2022 at 02:58 PM
+-- Generation Time: Jan 16, 2023 at 07:48 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.33
 
@@ -41,7 +41,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `Name`, `Email`, `Date_joined`, `Salary`, `Shifts`) VALUES
-(2, 'Kyron', 'abc@gmail.com', '2022-11-15', 1000, 'Morning Shift');
+(2, 'Kyron L', 'abc@gmail.com', '2022-11-15', 1008, 'Morning Shift');
 
 -- --------------------------------------------------------
 
@@ -111,23 +111,35 @@ CREATE TABLE `tblpurchase_invoice` (
   `paymentType` enum('Cash') NOT NULL,
   `discount` int(11) NOT NULL,
   `paidAmount` float NOT NULL,
-  `remainingAmount` float NOT NULL
+  `remainingAmount` float NOT NULL,
+  `refundedItem` longtext DEFAULT NULL,
+  `refundedBatchNo` longtext DEFAULT NULL,
+  `refundedDrugQty` longtext DEFAULT NULL,
+  `refundedDrugPrice` longtext DEFAULT NULL,
+  `refundedTax` longtext DEFAULT NULL,
+  `refundedDateTime` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tblpurchase_invoice`
 --
 
-INSERT INTO `tblpurchase_invoice` (`purchaseInvoiceID`, `purchaseDate`, `drugID`, `drugBatchNo`, `drugQty`, `drugPrice`, `tax`, `totalAmount`, `paymentType`, `discount`, `paidAmount`, `remainingAmount`) VALUES
-(1, '2022-11-26 23:47:04', 'PANADOL', 'PANA1', '6', '30', '6:10.80', 190.8, 'Cash', 0, 200, 9.2),
-(2, '2022-11-26 23:47:15', 'LORATADINE:LORATADINE:LEVOCETIRIZINE', 'LORA1:LORA2:LEVO1', '10:2:3', '10:10:30', '6:12.60', 222.6, 'Cash', 0, 250, 27.4),
-(3, '2022-11-26 23:47:46', 'LEVOCETIRIZINE', 'LEVO1', '6', '30', '6:10.80', 190.8, 'Cash', 0, 200, 9.2),
-(4, '2022-11-26 23:47:53', 'LEVOCETIRIZINE:LORATADINE:LORATADINE:PANADOL', 'LEVO1:LORA1:LORA2:PANA1', '1:0:2:1', '30:10:10:30', '6:4.80', 84.8, 'Cash', 0, 90, 5.2),
-(5, '2022-11-27 00:01:58', 'LORATADINE:LORATADINE', 'LORA1:LORA2', '0:1', '10:10', '6:0.60', 10.6, 'Cash', 0, 11, 0.4),
-(6, '2022-11-27 00:05:25', 'LEVOCETIRIZINE', 'LEVO1', '1', '30', '6:1.80', 31.8, 'Cash', 0, 32, 0.2),
-(7, '2022-11-27 00:06:31', 'PANADOL', 'PANA1', '1', '30', '6:1.80', 31.8, 'Cash', 0, 32, 0.2),
-(8, '2022-11-27 00:06:51', 'PANADOL', 'PANA1', '1', '30', '6:1.80', 31.8, 'Cash', 0, 50, 18.2),
-(9, '2022-11-27 01:05:10', 'LORATADINE:LORATADINE', 'LORA1:LORA2', '0:5', '10:10', '6:3.00', 53, 'Cash', 0, 55, 2);
+INSERT INTO `tblpurchase_invoice` (`purchaseInvoiceID`, `purchaseDate`, `drugID`, `drugBatchNo`, `drugQty`, `drugPrice`, `tax`, `totalAmount`, `paymentType`, `discount`, `paidAmount`, `remainingAmount`, `refundedItem`, `refundedBatchNo`, `refundedDrugQty`, `refundedDrugPrice`, `refundedTax`, `refundedDateTime`) VALUES
+(1, '2022-11-26 23:47:04', 'PANADOL', 'PANA1', '6', '30', '6:10.80', 190.8, 'Cash', 0, 200, 9.2, '', '', '', '', '', NULL),
+(2, '2022-11-26 23:47:15', 'LORATADINE:LORATADINE:LEVOCETIRIZINE', 'LORA1:LORA2:LEVO1', '10:2:3', '10:10:30', '6:12.60', 222.6, 'Cash', 0, 250, 27.4, 'LORATADINE:LEVOCETIRIZINE:LORATADINE', 'LORA1:LEVO1:LORA2', '10:3:2', '10:30:10', '6:12.6', '2023-01-16 11:42:18|2023-01-16 11:42:18|2023-01-16 11:50:29'),
+(3, '2022-11-26 23:47:46', 'LEVOCETIRIZINE', 'LEVO1', '6', '30', '6:10.80', 190.8, 'Cash', 0, 200, 9.2, '', '', '', '', '', NULL),
+(4, '2022-11-26 23:47:53', 'LEVOCETIRIZINE:LORATADINE:LORATADINE:PANADOL', 'LEVO1:LORA1:LORA2:PANA1', '1:0:2:1', '30:10:10:30', '6:4.80', 84.8, 'Cash', 0, 90, 5.2, '', '', '', '', '', NULL),
+(5, '2022-11-27 00:01:58', 'LORATADINE:LORATADINE', 'LORA1:LORA2', '0:1', '10:10', '6:0.60', 10.6, 'Cash', 0, 11, 0.4, '', '', '', '', '', NULL),
+(6, '2022-11-27 00:05:25', 'LEVOCETIRIZINE', 'LEVO1', '1', '30', '6:1.80', 31.8, 'Cash', 0, 32, 0.2, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, '2022-11-27 00:06:31', 'PANADOL', 'PANA1', '1', '30', '6:1.80', 31.8, 'Cash', 0, 32, 0.2, '', '', '', '', '', NULL),
+(8, '2022-11-27 00:06:51', 'PANADOL', 'PANA1', '1', '30', '6:1.80', 31.8, 'Cash', 0, 50, 18.2, '', '', '', '', '', NULL),
+(9, '2022-11-27 01:05:10', 'LORATADINE:LORATADINE', 'LORA1:LORA2', '0:5', '10:10', '6:3.00', 53, 'Cash', 0, 55, 2, 'LORATADINE', 'LORA2', '5', '10', '6:3', '2023-01-16 11:51:46'),
+(10, '2022-11-29 00:24:44', 'LORATADINE:LORATADINE', 'LORA1:LORA2', '0:5', '10:10', '6:3.00', 53, 'Cash', 0, 55, 2, 'LORATADINE', 'LORA2', '5', '10', '6:3', '2023-01-16 11:32:11'),
+(11, '2022-11-29 00:31:35', 'LEVOCETIRIZINE', 'LEVO1', '1', '30', '6:1.80', 31.8, 'Cash', 0, 32, 0.2, '', '', '', '', '', NULL),
+(12, '2022-11-29 00:35:26', 'LORATADINE:LORATADINE:LEVOCETIRIZINE', 'LORA1:LORA2:LEVO1', '0:2:3', '10:10:30', '6:6.60', 116.6, 'Cash', 0, 120, 3.4, '', '', '', '', '', NULL),
+(13, '2022-11-29 00:40:43', 'LEVOCETIRIZINE:LORATADINE:LORATADINE', 'LEVO1:LORA1:LORA2', '3:0:4', '30:10:10', '6:7.80', 137.8, 'Cash', 0, 140, 2.2, '', '', '', '', '', NULL),
+(14, '2023-01-16 11:25:26', 'LORATADINE:LORATADINE', 'LORA1:LORA2', '0:1', '10:10', '6:0.60', 10.6, 'Cash', 0, 11, 0.4, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, '2023-01-16 14:05:28', 'LORATADINE:LEVOCETIRIZINE', 'LORA1:LEVO1', '1:1', '10:30', '6:2.40', 42.4, 'Cash', 0, 50, 7.6, 'LEVOCETIRIZINE', 'LEVO1', '1', '30', '6:1.8', '2023-01-16 14:12:16');
 
 -- --------------------------------------------------------
 
@@ -151,9 +163,9 @@ CREATE TABLE `tblstored_drug` (
 
 INSERT INTO `tblstored_drug` (`batchNo`, `DrugID`, `manufacturerDate`, `expiryDate`, `quantity`, `entryDate`, `status`) VALUES
 ('LEVO1', 2, '2022-11-26', '2022-12-01', 89, '2022-11-26 22:23:52', 'T'),
-('LORA1', 1, '2022-11-26', '2023-01-01', 0, '2022-11-26 22:24:20', 'T'),
+('LORA1', 1, '2022-11-26', '2023-01-01', 29, '2022-11-26 22:24:20', 'T'),
 ('PANA1', 3, '2022-11-26', '2022-12-09', 0, '2022-11-26 22:24:34', 'T'),
-('LORA2', 1, '2022-11-26', '2023-04-01', 90, '2022-11-26 22:25:07', 'T');
+('LORA2', 1, '2022-11-26', '2023-04-01', 104, '2022-11-26 22:25:07', 'T');
 
 -- --------------------------------------------------------
 
@@ -177,9 +189,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `roleID`, `Name`, `Date_joined`, `Salary`, `Shifts`) VALUES
-(1, 'admin@gmail.com', '37d8f7239f12b52bd7615a470aaa9bc7', 1, NULL, NULL, NULL, NULL),
-(2, 'abcd@gmail.com', '37d8f7239f12b52bd7615a470aaa9bc7', 2, NULL, NULL, NULL, NULL),
-(3, 'abcde@gmail.com', '37d8f7239f12b52bd7615a470aaa9bc7', 3, NULL, NULL, NULL, NULL);
+(1, 'admin@gmail.com', '0192023a7bbd73250516f069df18b500', 1, NULL, NULL, NULL, NULL),
+(2, 'abcd@gmail.com', '0192023a7bbd73250516f069df18b500', 2, NULL, NULL, NULL, NULL),
+(3, 'abcde@gmail.com', '0192023a7bbd73250516f069df18b500', 3, NULL, NULL, NULL, NULL),
+(4, 'newUser@yahoo.com', '8a514b7d7b07c1c7a12c0a53bd97ecc6', 3, NULL, NULL, NULL, NULL),
+(5, 'newnew@email.com', '8a514b7d7b07c1c7a12c0a53bd97ecc6', 3, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -229,31 +243,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblmedicine`
 --
 ALTER TABLE `tblmedicine`
-  MODIFY `DrugID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `DrugID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tblmedicine_image`
 --
 ALTER TABLE `tblmedicine_image`
-  MODIFY `drug_image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `drug_image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tblpurchase_invoice`
 --
 ALTER TABLE `tblpurchase_invoice`
-  MODIFY `purchaseInvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `purchaseInvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

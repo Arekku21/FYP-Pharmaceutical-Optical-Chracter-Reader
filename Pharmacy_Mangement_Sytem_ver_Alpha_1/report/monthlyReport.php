@@ -38,13 +38,27 @@
 
     $("#sMonth").change(function(){
       var month = $(this).val();
+      var year = $("#sYear").val();
       $.ajax({
         url: "../ajax/ajax.php",
         method: "POST",
-        data: {action: "reportMonth", month: month},
+        data: {action: "reportMonth", month: month, year: year},
         success: function(result){
           $("#drug_table tbody").html(result);
-          $("#txtMonth").text(month);
+          $("#txtMonth").text(month + " - " + year);
+        }
+      });
+    });
+    $("#sYear").change(function(){
+      var month = $("#sMonth").val();
+      var year = $("#sYear").val();
+      $.ajax({
+        url: "../ajax/ajax.php",
+        method: "POST",
+        data: {action: "reportMonth", month: month, year: year},
+        success: function(result){
+          $("#drug_table tbody").html(result);
+          $("#txtMonth").text(month + " - " + year);
         }
       });
     });
@@ -87,7 +101,26 @@ include "../menu/menu.php";
                 }
                 ?>
               </select>
-            </span>
+          </span>
+          <span>Year:
+              <select id="sYear">
+                <option></option>
+                <?php
+                $sql = mysqli_query($Links, "SELECT DISTINCT YEAR(purchaseDate) AS  yr FROM tblpurchase_invoice");
+                if(mysqli_num_rows($sql) > 0)
+                {
+                  for($i =0;$i<mysqli_num_rows($sql);$i++)
+                  {
+                    $row = mysqli_fetch_array($sql);
+                    echo "<option ";
+                    if(strtotime(date('Y')) == strtotime($row["yr"]))
+                      echo "selected ";
+                    echo ">".$row["yr"]."</option>";
+                  }
+                }
+                ?>
+              </select>
+          </span>
             <?php 
           }
           else echo "No priviledge to access this page";

@@ -5,6 +5,28 @@
 <?php
 include "../menu/menu.php";
 ?>
+<div >
+  <div style="margin-top: 0%; width:85vw;">
+    <div style="margin-top: 0.8%; height:900px;">
+      <section class="section columns">
+        <div class="column is-full-desktop is-full-mobile" style="margin-left: 18.5%; margin-top: 4%;">
+          <div class="tabs is-toggle is-fullwidth">
+            <ul>
+              <li class="is-active ">
+                <a href="pos.php">
+                  <span>Payment</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="refund.php">
+                  <span>Refund</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
 <script>
   $(document).ready( function () {
     $.noConflict(true);
@@ -88,7 +110,7 @@ include "../menu/menu.php";
               data: {action: "reduceStock", id: drugID, quantity: quantity, balance: Number(balance).toFixed(2), paid: Number(paid).toFixed(2), total: Number(total).toFixed(2), tax: tax},
               success: function(result){
                 var split = result.split("-");
-                alert(split[0]);
+                alert(split[0].trim());
                 window.open("invoice.php?invoiceID=" + split[1]);
                 // location.reload();
               }
@@ -176,7 +198,7 @@ include "../menu/menu.php";
 
 </script>
 </head>
-<section style="padding-top:5%; width: 98vw; padding-left: 18%">
+<section style="padding-top:0%; width: 98vw; padding-left: 20%">
   <form action="" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="file" name="image" id="image">
@@ -231,7 +253,7 @@ include "../menu/menu.php";
 </section>
 
 
-<section class="panel" style="padding-top:5%; width: 98vw; padding-left: 18%">
+<section class="panel" style="padding-top:5%; width: 98vw; padding-left: 20%">
   <p class="panel-heading" style="background-color:hsl(0, 0%, 88%) ;color:hsl(0, 0%, 21%)">
     Bill
   </p>
@@ -259,7 +281,7 @@ include "../menu/menu.php";
   </div>
 </section>
 
-<section class="panel" style="padding-top:5%; width: 98vw; padding-left: 18%">
+<section class="panel" style="padding-top:5%; width: 98vw; padding-left: 20%">
         <p class="panel-heading" style="background-color:hsl(0, 0%, 88%) ;color:hsl(0, 0%, 21%)">
           Check Out
         </p>
@@ -324,3 +346,6 @@ include "../menu/menu.php";
         </div>
       </form>
     </section>
+    <br>
+  </div>
+  </div>

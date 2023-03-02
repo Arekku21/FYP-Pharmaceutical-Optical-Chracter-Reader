@@ -62,19 +62,6 @@ if($_GET["invoiceID"] != "")
             }
             ?>
             
-
-            <!-- <div class="page-tools">
-                <div class="action-buttons">
-                    <button class="btn bg-white btn-light mx-1px text-95" onclick="printDiv('printPage','Title')" data-title="Print">
-                        <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
-                        Print
-                    </button>
-                    <button class="btn bg-white btn-light mx-1px text-95" onclick="saveDiv('printPage','Title')" data-title="PDF">
-                        <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
-                        Export
-                    </button>
-                </div>
-            </div> -->
         </div>
 
         <div class="container px-0">
@@ -110,8 +97,8 @@ if($_GET["invoiceID"] != "")
                             <div class="d-none d-sm-block col-1">#</div>
                             <div class="col-9 col-sm-5">Description</div>
                             <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
-                            <div class="d-none d-sm-block col-sm-2">Unit Price</div>
-                            <div class="col-2">Amount</div>
+                            <div class="d-none d-sm-block col-sm-2">Unit Price(RM)</div>
+                            <div class="col-2">Amount(RM)</div>
                         </div>
 
                         <div class="text-95 text-secondary-d3">
@@ -127,8 +114,18 @@ if($_GET["invoiceID"] != "")
                                 $drugBatchNo = explode(":", $row["drugBatchNo"]);
                                 $substotal = 0;
                                 $count = 0;
+
+                                $refundedItem = explode(":", $row["refundedItem"]);
+                                $refundedDrugPrice = explode(":", $row["refundedDrugPrice"]);
+                                $refundedBatchNo = explode(":", $row["refundedBatchNo"]);
+                                $refundedDrugQty = explode(":", $row["refundedDrugQty"]);
+                                $refundedDateTime = explode("|", $row["refundedDateTime"]);
+
+                                $refundAmount = 0;
                                 for($i = 0; $i < count($drugName); $i++)
                                 {
+                                    $flag = false;
+                            
                                     if($drugQty[$i] > 0)
                                     {
                                         $count++;
@@ -136,13 +133,37 @@ if($_GET["invoiceID"] != "")
                                             echo '<div class="row mb-2 mb-sm-0 py-25">';
                                         else echo '<div class="row mb-2 mb-sm-0 py-25 bgc-default-l4">';
                                         echo '<div class="d-none d-sm-block col-1">'.$count.'</div>';
-                                        echo '<div class="col-9 col-sm-5">'.ucwords(strtolower($drugName[$i])).' - '.$drugBatchNo[$i].'</div>';
-                                        echo '<div class="d-none d-sm-block col-2">'.$drugQty[$i].'</div>';
-                                        echo '<div class="d-none d-sm-block col-2 text-95">'.$drugPrice[$i].'</div>';
-                                        $substotal += ($drugQty[$i] * $drugPrice[$i]);
-                                        echo '<div class="col-2 text-secondary-d2">'.($drugQty[$i] * $drugPrice[$i]).'</div>';
-                                        $total += $drugQty[$i] * $drugInfo["unitPrice"];
-                                        echo '</div>';
+                                        
+                                        for($j = 0; $j < count($refundedItem); $j++)
+                                        {
+                                            if($drugName[$i] == $refundedItem[$j] && $drugBatchNo[$i] == $refundedBatchNo[$j])
+                                            {
+                                                $flag = true;
+                                                $refundAmount += (($drugQty[$i] * $drugPrice[$i]) * 0.06) + ($drugQty[$i] * $drugPrice[$i]);
+                                                break;
+                                            }
+                                        }
+                                        if($flag == true)
+                                        {
+                                            echo '<div class="col-9 col-sm-5"><b>(REFUND - '.$refundedDateTime[$j].') </b>'.ucwords(strtolower($drugName[$i])).' - '.$drugBatchNo[$i].'</div>';
+                                            echo '<div class="d-none d-sm-block col-2">'.$drugQty[$i].'</div>';
+                                            echo '<div class="d-none d-sm-block col-2 text-95">'.$drugPrice[$i].'</div>';
+                                            $substotal += ($drugQty[$i] * $drugPrice[$i]);
+                                            echo '<div class="col-2 text-secondary-d2">'.($drugQty[$i] * $drugPrice[$i]).'</div>';
+                                            $total += $drugQty[$i] * $drugInfo["unitPrice"];
+                                            echo '</div>';
+                                        }
+                                        else
+                                        {
+                                            echo '<div class="col-9 col-sm-5">'.ucwords(strtolower($drugName[$i])).' - '.$drugBatchNo[$i].'</div>';
+                                            echo '<div class="d-none d-sm-block col-2">'.$drugQty[$i].'</div>';
+                                            echo '<div class="d-none d-sm-block col-2 text-95">'.$drugPrice[$i].'</div>';
+                                            $substotal += ($drugQty[$i] * $drugPrice[$i]);
+                                            echo '<div class="col-2 text-secondary-d2">'.($drugQty[$i] * $drugPrice[$i]).'</div>';
+                                            $total += $drugQty[$i] * $drugInfo["unitPrice"];
+                                            echo '</div>';
+                                        }
+                                        
                                     }
                                 }
                                 echo '<div class="row border-b-2 brc-default-l2"></div>
@@ -195,8 +216,19 @@ if($_GET["invoiceID"] != "")
                                             <div class="col-5">
                                                 <span class="text-150 text-success-d3 opacity-2"> RM '.$row["remainingAmount"].'</span>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div>';
+                                        if($flag == true)
+                                        {
+                                            echo '<div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                                                <div class="col-7 text-right">
+                                                    Refunded Amount
+                                                </div>
+                                                <div class="col-5">
+                                                    <span class="text-150 text-success-d3 opacity-2"> RM '.$refundAmount.'</span>
+                                                </div>
+                                            </div>';
+                                        }
+                                    echo '</div>
                                 </div>';
                             }
                             ?>

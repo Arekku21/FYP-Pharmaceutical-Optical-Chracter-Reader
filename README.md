@@ -1,5 +1,5 @@
 # FYP-Pharmaceutical-Optical-Chracter-Reader
-FYP Pharmaceutical Optical Chracter Reader
+FYP Pharmaceutical Optical Character Reader
 
 <a href="https://github.com/Arekku21/FYP-Pharmaceutical-Optical-Chracter-Reader/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Arekku21/FYP-Pharmaceutical-Optical-Chracter-Reader" />

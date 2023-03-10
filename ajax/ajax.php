@@ -650,4 +650,92 @@ else if($_POST["action"] == "proceedRefund")
         }
     }
 }
+
+else if($_POST["action"] == "uploadZip")
+{
+    $upload_dir = "../retraining/Upload/";
+    if(!file_exists($upload_dir) || !is_dir($upload_dir)) {
+        die("Upload directory not found or inaccessible");
+    }
+    chdir($upload_dir);
+    $target_file = basename($_FILES["zip"]["name"]);
+    $zipFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    if(move_uploaded_file($_FILES["zip"]["tmp_name"], $target_file))
+    {
+        $new_file = explode(".", $target_file);
+        $filename = $new_file[0].date('d-m-y_h_i_s').".".$zipFileType;
+        //create new folder
+        $dir = $new_file[0].date('d-m-y_h_i_s');
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+            // echo 'Directory created successfully...<br>';
+        } else {
+            // echo 'Directory already exists...\n';
+        }
+        rename($target_file, $filename);
+        $target_file = $filename;
+        //unzip folder
+        $zip = new ZipArchive();
+        $res = $zip->open($target_file);
+        if ($res === TRUE) {
+            // Extract all files to the current directory
+            $zip->extractTo(getcwd()."/".$dir);
+            $zip->close();
+            // echo 'Files extracted successfully...';
+            unlink($new_file[0].date('d-m-y_h_i_s').".".$zipFileType);
+            $script = '../Duplicate-Image-Finder/difPy/dif.py'; // the path to your Python script
+            chmod($script, 0755);
+            try 
+            {
+                $environment = "difPy";
+                // Use escapeshellarg to escape any special characters in the script and directory names
+                $command = "source /Users/kyronling/miniforge3/bin/activate $environment && python " . escapeshellarg($script) . " -D " . escapeshellarg("/Applications/XAMPP/xamppfiles/htdocs/Pharmacy_Management_System/retraining/Upload/".$dir);
+
+                // Use exec to execute the command and capture its output
+                $output = exec($command);
+                
+                $files = glob("difPy_results_*");
+                $mydata = file_get_contents($files[0]);
+                // $mydata = file_get_contents("difPy_results_1678346780_026387.json");
+                $matchArray = array();
+                $json = json_decode($mydata);
+                foreach ($json as $key => $value) {
+                    $original = $value->location;
+                    $count = 0;
+                    $matchLocation = array();
+                    foreach ($value->matches as $matchKey => $matchValue) {
+                        array_push($matchLocation, $matchValue->location);
+                    }
+                    $matchArray[$original] = $matchLocation;
+                }  
+                $json_data = json_encode($matchArray);
+                echo $json_data;
+            } catch (Exception $e) {
+                // echo 'Caught exception: ',  $e->getMessage(), "\n";
+            }
+        } else {
+            // echo 'Failed to extract files';
+        }
+    }
+    else {
+        // die("Error uploading file");
+    }
+}
+
+else if($_POST["action"] == "removeDuplicate")
+{
+    $duplicateImages = json_decode($_POST["duplicateImage"], true);
+    chdir("../retraining");
+    echo getcwd();
+    print_r($duplicateImages);
+    for($i = 0; $i < count($duplicateImages); $i++)
+    {
+        if(file_exists($duplicateImages[$i]))
+        {
+            unlink($duplicateImages[$i]);
+        }
+    }
+    echo "All duplicated images removed";
+}
 ?>

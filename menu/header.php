@@ -3,6 +3,7 @@ function logOut(){
   location.href = "logout.php";
 }
 </script>
+
 <!DOCTYPE html>
 <html>
     <head>

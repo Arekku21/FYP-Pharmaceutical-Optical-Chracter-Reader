@@ -56,8 +56,8 @@
 <?php
 include "../menu/menu.php";
 ?>
-<div >
-  <div style="margin-top: 0%; width:85vw;">
+<div class="container">
+  <div style="margin-top: 0%; width:88%;">
     <div style="margin-top: 0.8%; height:900px;">
       <section class="section columns">
         <div class="column is-full-desktop is-full-mobile" style="margin-left: 18.5%; margin-top: 4%">
@@ -97,7 +97,7 @@ include "../menu/menu.php";
         </div>
       </section>
 
-    <section class="panel" style="margin-left: 19.8% ; margin-top: -30px; width: 82.3vw;">
+    <section class="panel" style="margin-left: 19.8% ; margin-top: -30px; width: 96.5%;">
   <p class="panel-heading" style="background-color:hsl(0, 0%, 88%) ;color:hsl(0, 0%, 21%)">
     Drug List
   </p>

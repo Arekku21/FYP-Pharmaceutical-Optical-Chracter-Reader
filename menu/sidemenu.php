@@ -35,7 +35,21 @@
       color: black;
     }
 
+    .freeze {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.5); Change the color and opacity as needed */
+  z-index: 9999;
+}
   </style>
+  <script>
+  $(document).ready(function(){
+    // $('body').addClass('freeze');
+  });
+  </script>
 </head>
 
 <body>
@@ -61,7 +75,7 @@ if($_SESSION['logged_in'] !== True){
 header("Location: $login_page");
 }
   ?>
-  <div style="min-width: 270px; width: 15%; position: fixed; background-color: #000000;">
+  <div style="min-width: 270px; width: 15%; position: fixed; background-color: #000000; z-index: 1;">
   <!-- style="margin-left: 0%; margin-top: 30%; width: 100%;"  -->
     <aside class="menu" style="margin-left: 0%; margin-top: 10%; width: 123%;" >
         <img src="../image/logo.png" width="142" height="40" class="middle" >
@@ -84,10 +98,14 @@ header("Location: $login_page");
     <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../employee/addEmployee.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-users" style="margin-right: 7px;"></i></span> Employee</a>
     </li>
-    <li class="newclass :hover">
+    <!-- <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="http://localhost:5000/index" style="color:white; text-align: left"><span class="icon"><i class="fa fa-camera" style="margin-right: 7px;"></i></span>Retraining Pipeline</a>
+    </li> -->
+    <li class="newclass :hover">
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../retraining/retraining.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-camera" style="margin-right: 7px;"></i></span>Retraining Pipeline</a>
     </li>
-  </ul><br>
+  </ul>
+  <br>
 
   </aside>
   </div>

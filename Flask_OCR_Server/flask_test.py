@@ -16,6 +16,8 @@ from PIL import Image
 
 import cv2, base64, numpy as np 
 
+import json
+
 #import regular expressions
 import re, string
 
@@ -289,25 +291,36 @@ def api_easyocr_list():
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            im_file = BytesIO(im_bytes)  # convert image to file-like object
-            img = Image.open(im_file)   # img is now PIL Image object
+            # im_file = BytesIO(im_bytes)  # convert image to file-like object
+            # img = Image.open(im_file)   # img is now PIL Image object
 
             reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(img)
+            result = reader.readtext(im_bytes)  #!!!for some weird reason the Easy OCR now is only taking bytes as 
+                                                #input as to PIL object - (replace im_bytes to img if needed and uncomment)
 
+            easy_ocr_my_list = list(result)
+           
             result_dict = {}
 
-            for each in result:
-                for num in len(result):
-                    result_dict[num-1] = each
+            for item in easy_ocr_my_list:
+                for in_item in item[0]:
+                                
+                        a = int(in_item[0])
+                        b = int(in_item[1])
 
+                        in_item[0] = a
+                        in_item[1] = b
 
-            return jsonify(result_dict)
-            #return result
+            for dict_key in range(len(easy_ocr_my_list)):
+                for item in easy_ocr_my_list:
+                    result_dict.update({dict_key:item})
+            
+            return result_dict
+            
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
     elif request.method == "POST":
-        # try:
+        try:
             request_data = request.get_json()
 
             sent_image = request_data['image']
@@ -315,33 +328,33 @@ def api_easyocr_list():
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            im_file = BytesIO(im_bytes)  # convert image to file-like object
-            img = Image.open(im_file)   # img is now PIL Image object
+            #im_file = BytesIO(im_bytes)  # convert image to file-like object
+            #img = Image.open(im_file)   # img is now PIL Image object
 
             reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(img)
+            result = reader.readtext(im_bytes)
 
+            easy_ocr_my_list = list(result)
+           
             result_dict = {}
 
-            # #change list into dict
-            # for each in result:
-            #     for num in range(len(result)):
+            for item in easy_ocr_my_list:
+                for in_item in item[0]:
+                                
+                        a = int(in_item[0])
+                        b = int(in_item[1])
 
-            #         result_dict[num] = each
+                        in_item[0] = a
+                        in_item[1] = b
 
-            #         #make a new dict to change the tuple np int 32 to native python
-            #         new_result_dict = {}
-
-            #         new_result_dict['box_list'] = []
-
-            #         for nup in each[0]:
-
-
-
+            for dict_key in range(len(easy_ocr_my_list)):
+                for item in easy_ocr_my_list:
+                    result_dict.update({dict_key:item})
+            
             return result_dict
 
-        # except:
-        #     return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+        except:
+             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 
 
 #send best confidence easy
@@ -359,11 +372,11 @@ def api_easyocr_best_confidence():
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            im_file = BytesIO(im_bytes)  # convert image to file-like object
-            img = Image.open(im_file)   # img is now PIL Image object
+            #im_file = BytesIO(im_bytes)  # convert image to file-like object
+            #img = Image.open(im_file)   # img is now PIL Image object
 
             reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(img, detail=0)
+            result = reader.readtext(im_bytes, detail=0)
 
             return jsonify(result)
             #return result
@@ -381,11 +394,11 @@ def api_easyocr_best_confidence():
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            im_file = BytesIO(im_bytes)  # convert image to file-like object
-            img = Image.open(im_file)   # img is now PIL Image object
+            #im_file = BytesIO(im_bytes)  # convert image to file-like object
+            #img = Image.open(im_file)   # img is now PIL Image object
 
             reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(img,detail=0)
+            result = reader.readtext(im_bytes,detail=0)
 
             print(result)
 

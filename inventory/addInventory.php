@@ -28,6 +28,28 @@ include "../db.php";
     }
 </style>
 </head>
+<script>
+  $(document).ready(function(){
+    $(".btnUpload").click(function(){
+      var file_data = $('#image').prop('files')[0]; 
+      var form_data = new FormData();
+      form_data.append('image', file_data);
+      form_data.append('action', 'uploadImage');
+      form_data.append('page', 'inventory');
+      $.ajax({
+        url: "../ajax/ajax.php",
+        method: "POST",
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        success: function(result){
+          alert(result);
+        }
+      });
+    });
+  });
+</script>
 <?php
 include "../menu/menu.php";
 ?>
@@ -73,6 +95,11 @@ include "../menu/menu.php";
       </section>
 
     <section class="panel" style="margin-left: 19.8% ; margin-top: -30px; width: 96.5%;">
+    <form action="" method="post" enctype="multipart/form-data">
+      Select image to upload:
+      <input type="file" name="image" id="image">
+      <input type="button" value="Upload Image" name="submit" class="btnUpload button is-small is-primary" style="margin-bottom: 5px;">
+    </form>
     <?php
     if($_POST["btnAdd"])
     {

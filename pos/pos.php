@@ -127,6 +127,7 @@ include "../menu/menu.php";
       var form_data = new FormData();
       form_data.append('image', file_data);
       form_data.append('action', 'uploadImage');
+      form_data.append('page', 'pos');
       $.ajax({
         url: "../ajax/ajax.php",
         method: "POST",

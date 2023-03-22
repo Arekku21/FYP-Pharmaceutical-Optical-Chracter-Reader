@@ -397,51 +397,108 @@ else if($_POST["action"] == "deleteEmployee")
 
 else if($_POST["action"] == "uploadImage")
 {
-    chdir("../pos/Upload");
-    $target_file = basename($_FILES["image"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    $check = getimagesize($_FILES["image"]["tmp_name"]);
-    if($check !== false)
+    if($_POST["page"] == "pos")
     {
-        if(move_uploaded_file($_FILES["image"]["tmp_name"], "".$_FILES["image"]["name"]))
+        chdir("../pos/Upload");
+        $target_file = basename($_FILES["image"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if($check !== false)
         {
-            $new_file = explode(".", $target_file);
-            $filename = $new_file[0].date('d-m-y_h_i_s').".".$imageFileType;
-            rename($target_file, $filename);
-            $image = imagecreatefrompng($filename);
-            $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
-            imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
-            imagealphablending($bg, TRUE);
-            imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
-            imagedestroy($image);
-            $quality = 100; // 0 = worst / smaller file, 100 = better / bigger file 
-            imagejpeg($bg, $new_file[0].date('d-m-y_h_i_s') . ".jpg", $quality);
-            imagedestroy($bg);
-            unlink($filename);
-            $url = "http://127.0.0.1:5000/api/easyocr/output/best_confidence";
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            $headers = array(
-                "Accept: application/json",
-                "Content-Type: application/json",
-            );
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-            $img = file_get_contents($new_file[0].date('d-m-y_h_i_s').".jpg");
-            $img_encoded = base64_encode($img);
-            unlink($new_file[0].date('d-m-y_h_i_s') . ".jpg");
-            $data_json = new stdClass();
-            $data_json->image = $img_encoded;
-            $data = json_encode($data_json);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            $resp = curl_exec($curl);
-            curl_close($curl);
-            echo $resp;
+            if(move_uploaded_file($_FILES["image"]["tmp_name"], "".$_FILES["image"]["name"]))
+            {
+                $new_file = explode(".", $target_file);
+                $filename = $new_file[0].date('d-m-y_h_i_s').".".$imageFileType;
+                rename($target_file, $filename);
+                if($imageFileType != "jpg")
+                {
+                    $image = imagecreatefrompng($filename);
+                    $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
+                    imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
+                    imagealphablending($bg, TRUE);
+                    imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+                    imagedestroy($image);
+                    $quality = 100; // 0 = worst / smaller file, 100 = better / bigger file 
+                    imagejpeg($bg, $new_file[0].date('d-m-y_h_i_s') . ".jpg", $quality);
+                    imagedestroy($bg);
+                }
+                $url = "http://127.0.0.1:5000/api/easyocr/output/best_confidence";
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                $headers = array(
+                    "Accept: application/json",
+                    "Content-Type: application/json",
+                );
+                curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                $img = file_get_contents($new_file[0].date('d-m-y_h_i_s').".jpg");
+                $img_encoded = base64_encode($img);
+                unlink($new_file[0].date('d-m-y_h_i_s') . ".jpg");
+                $data_json = new stdClass();
+                $data_json->image = $img_encoded;
+                $data = json_encode($data_json);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                $resp = curl_exec($curl);
+                curl_close($curl);
+                echo $resp;
+            }
+            else 
+            {
+                echo "Fail to move image to server!";
+            }
         }
-        else 
+    }
+    else if($_POST["page"] == "inventory")
+    {
+        chdir("../pos/Upload");
+        $target_file = basename($_FILES["image"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if($check !== false)
         {
-            echo "Fail to move image to server!";
+            if(move_uploaded_file($_FILES["image"]["tmp_name"], "".$_FILES["image"]["name"]))
+            {
+                $new_file = explode(".", $target_file);
+                $filename = $new_file[0].date('d-m-y_h_i_s').".".$imageFileType;
+                rename($target_file, $filename);
+                if($imageFileType != "jpg")
+                {
+                    $image = imagecreatefrompng($filename);
+                    $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
+                    imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
+                    imagealphablending($bg, TRUE);
+                    imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+                    imagedestroy($image);
+                    $quality = 100; // 0 = worst / smaller file, 100 = better / bigger file 
+                    imagejpeg($bg, $new_file[0].date('d-m-y_h_i_s') . ".jpg", $quality);
+                    imagedestroy($bg);
+                }
+                $url = "http://127.0.0.1:5000/api/easyocr/output/best_confidence";
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                $headers = array(
+                    "Accept: application/json",
+                    "Content-Type: application/json",
+                );
+                curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                $img = file_get_contents($new_file[0].date('d-m-y_h_i_s').".jpg");
+                $img_encoded = base64_encode($img);
+                unlink($new_file[0].date('d-m-y_h_i_s') . ".jpg");
+                $data_json = new stdClass();
+                $data_json->image = $img_encoded;
+                $data = json_encode($data_json);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                $resp = curl_exec($curl);
+                curl_close($curl);
+                echo $resp;
+            }
+            else 
+            {
+                echo "Fail to move image to server!";
+            }
         }
     }
 }
@@ -449,7 +506,10 @@ else if($_POST["action"] == "uploadImage")
 else if($_POST["action"] == "searchDrug")
 {
     //echo "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($_POST["result"]))."'";
-    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($_POST["result"]))."'");
+    // $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($_POST["result"]))."'");
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE SOUNDEX(drugName) = SOUNDEX('".strtoupper(trim($_POST["result"]))."')");
+    // SELECT * FROM tblmedicine where SOUNDEX(`drugName`) = SOUNDEX('loratidine');
+
     if(mysqli_num_rows($sql) > 0)
     {
         while($row = mysqli_fetch_array($sql))
@@ -690,7 +750,7 @@ else if($_POST["action"] == "uploadZip")
             {
                 $environment = "difPy";
                 // Use escapeshellarg to escape any special characters in the script and directory names
-                $command = "source /Users/kyronling/miniforge3/bin/activate $environment && python " . escapeshellarg($script) . " -D " . escapeshellarg("/Applications/XAMPP/xamppfiles/htdocs/Pharmacy_Management_System/retraining/Upload/".$dir);
+                $command = "source /Users/kyronling/miniforge3/bin/activate $environment && python " . escapeshellarg($script) . " -D " . escapeshellarg(getcwd().$dir);
 
                 // Use exec to execute the command and capture its output
                 $output = exec($command);

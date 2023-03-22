@@ -182,8 +182,8 @@ include "../menu/menu.php";
   });
 </script>
 </head>
-<div >
-  <div style="margin-top: 0%; width:85vw;">
+<div class="container">
+  <div style="margin-top: 0%; width:88%;">
     <div style="margin-top: 0.8%; height:900px;">
       <section class="section columns">
         <div class="column is-full-desktop is-full-mobile" style="margin-left: 18.5%; margin-top: 4%">
@@ -223,12 +223,12 @@ include "../menu/menu.php";
         </div>
       </section>
 
-    <section class="panel" style="margin-left: 19.8% ; margin-top: -30px; width: 82.3vw;">
+    <section class="panel" style="margin-left: 19.8% ; margin-top: -30px; width: 96.5%;">
   <p class="panel-heading" style="background-color:hsl(0, 0%, 88%) ;color:hsl(0, 0%, 21%)">
     Inventory List
   </p>
   <div class="panel-block" style="height: auto">
-    <div  style="height: 660px; width: 87.5vw; padding: 0%;">
+    <div  style="height: 660px; width:96.5%; padding: 0%;">
     <div style="overflow-y:auto ;overflow-x: hidden;height: 500px;">
   <table class="table is-full"  >
     <tbody>
@@ -275,10 +275,10 @@ include "../menu/menu.php";
                       { 
                         echo '</td>
                         <td class="level-right">
-                          <nobr><button class="btnShowEdit button is-small is-primary" id="'.$row["DrugID"].'" style="font-weight: bold;margin-right: 1%;" type="button" data-toggle="modal" data-backdrop="false" data-target="#editModal">Edit Drug</button>
+                          <button class="btnShowEdit button is-small is-primary" id="'.$row["DrugID"].'" style="font-weight: bold;margin-right: 1%;" type="button" data-toggle="modal" data-backdrop="false" data-target="#editModal">Edit Drug</button>
                           <button class="btnRemoveDrug button is-small is-danger" id="'.$row["DrugID"].'" style="font-weight: bold;">Delete Drug</button>
                           <button value="'.$row["DrugID"].'" class="btnAdd button is-small is-info" style="font-weight: bold;margin-right: 1%;" type="button" data-toggle="modal" data-backdrop="false" data-target="#exampleModalLong">Add Stock</button>
-                        <button class="btnRemove button is-small is-warning" value="'.$row["DrugID"].'" style="font-weight: bold;" type="button" data-toggle="modal" data-backdrop="false" data-target="#removeModal">Remove Stock</button></nobr>
+                        <button class="btnRemove button is-small is-warning" value="'.$row["DrugID"].'" style="font-weight: bold;" type="button" data-toggle="modal" data-backdrop="false" data-target="#removeModal">Remove Stock</button>
                         </td>
                         </tr>
                         ';

@@ -5,8 +5,8 @@
 <?php
 include "../menu/menu.php";
 ?>
-<div >
-  <div style="margin-top: 0%; width:85vw;">
+<div class="container">
+  <div style="margin-top: 0%; width:88%;">
     <div style="margin-top: 0.8%; height:900px;">
       <section class="section columns">
         <div class="column is-full-desktop is-full-mobile" style="margin-left: 18.5%; margin-top: 4%;">
@@ -94,7 +94,7 @@ include "../menu/menu.php";
   });
 </script>
 </head>
-<section style="padding-top:0%; width: 98vw; padding-left: 20%">
+<section style="padding-top:0%; width: 116%; padding-left: 20%">
   <p class="panel-heading" style="background-color:hsl(0, 0%, 88%) ;color:hsl(0, 0%, 21%);">
     Past Orders
   </p>
@@ -133,7 +133,7 @@ include "../menu/menu.php";
 </section>
 
 
-<section class="panel" id="refundView" style="padding-top:5%; width: 98vw; padding-left: 20%">
+<section class="panel" id="refundView" style="padding-top:5%; width: 116%; padding-left: 20%">
   <p class="panel-heading" style="background-color:hsl(0, 0%, 88%) ;color:hsl(0, 0%, 21%)">
     InvoiceID # <span id="invoiceID"></span>
   </p>

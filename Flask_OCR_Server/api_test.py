@@ -1,36 +1,36 @@
-import requests
+# import requests
 
-import base64
+# import base64
 
-# import cv2, numpy as np, pytesseract
-# from  pytesseract import Output
+# # import cv2, numpy as np, pytesseract
+# # from  pytesseract import Output
 
-with open("test_image.png", "rb") as f:
-    im_b64 = base64.b64encode(f.read())
+# with open("test_image.png", "rb") as f:
+#     im_b64 = base64.b64encode(f.read())
 
-# print(im_b64)
+# # print(im_b64)
 
-# if im_b64 == php:
-#     print(1)
+# # if im_b64 == php:
+# #     print(1)
 
-#url = 'http://127.0.0.1:5000//api/pytesseract/output/best_confidence'
-url = 'http://127.0.0.1:5000/api/pytesseract/output/dictionary'
+# #url = 'http://127.0.0.1:5000//api/pytesseract/output/best_confidence'
+# url = 'http://127.0.0.1:5000/api/pytesseract/output/dictionary'
 
+
+# # #demonstrate how to use the 'params' parameter:
+# # x = requests.get(url, params = {"image": im_b64})
 
 # #demonstrate how to use the 'params' parameter:
 # x = requests.get(url, params = {"image": im_b64})
 
-#demonstrate how to use the 'params' parameter:
-x = requests.get(url, params = {"image": im_b64})
+# print(x.url)
 
-print(x.url)
+# #print the response (the content of the requested file):
 
-#print the response (the content of the requested file):
+# result = x.text
+# print(result)
 
-result = x.text
-print(result)
-
-print(type(result))
+# print(type(result))
 
 
 
@@ -48,8 +48,8 @@ with open("test_image.png", "rb") as f:
 
 sent_image = im_b64.decode('utf-8')  
 
-url = 'http://127.0.0.1:5000/api/pytesseract/output/dictionary'
-#url = 'http://127.0.0.1:5000//api/pytesseract/output/best_confidence'
+#url = 'http://127.0.0.1:5000/api/pytesseract/output/dictionary'
+url = 'http://127.0.0.1:5000//api/easyocr/output/best_confidence'
 myobj = {"image": sent_image}
 
 x = requests.post(url, json = myobj)

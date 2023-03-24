@@ -302,8 +302,8 @@ include "../menu/menu.php";
     function capture(base64Image){
       // $("#captureBtn").click(function(){
         $.ajax({
-          // url: "http://127.0.0.1:5000/api/easyocr/output/best_confidence",
-          url: "http://127.0.0.1:5000/api/paddleocr/output/best_confidence",
+          url: "http://127.0.0.1:5000/api/easyocr/output/best_confidence",
+          //url: "http://127.0.0.1:5000/api/paddleocr/output/best_confidence",
           method: "POST",
           data: {image_data: encoded_image = base64Image.split(",")[1]},
           success: function(result){

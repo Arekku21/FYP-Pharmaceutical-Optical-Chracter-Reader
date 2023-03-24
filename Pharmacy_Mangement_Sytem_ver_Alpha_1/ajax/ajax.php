@@ -505,9 +505,9 @@ else if($_POST["action"] == "uploadImage")
 
 else if($_POST["action"] == "searchDrug")
 {
-    //echo "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($_POST["result"]))."'";
-    // $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($_POST["result"]))."'");
-    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE SOUNDEX(drugName) = SOUNDEX('".strtoupper(trim($_POST["result"]))."')");
+    // index 0: brand
+    // index 1: dosage
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE SOUNDEX(drugName) = SOUNDEX('".strtoupper(trim($_POST["result"][0]))."') AND SOUNDEX(drugDosage) = SOUNDEX('".strtoupper(trim($_POST["result"][1]))."')");
     // SELECT * FROM tblmedicine where SOUNDEX(`drugName`) = SOUNDEX('loratidine');
 
     if(mysqli_num_rows($sql) > 0)

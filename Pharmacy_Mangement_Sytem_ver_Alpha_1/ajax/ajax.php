@@ -422,7 +422,8 @@ else if($_POST["action"] == "uploadImage")
                     imagejpeg($bg, $new_file[0].date('d-m-y_h_i_s') . ".jpg", $quality);
                     imagedestroy($bg);
                 }
-                $url = "http://127.0.0.1:5000/api/easyocr/output/best_confidence";
+                // $url = "http://127.0.0.1:5000/api/easyocr/output/best_confidence";
+                $url = "http://127.0.0.1:5000/api/paddle/output/best_confidence";
                 $curl = curl_init();
                 curl_setopt($curl, CURLOPT_URL, $url);
                 curl_setopt($curl, CURLOPT_POST, true);

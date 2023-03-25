@@ -77,6 +77,8 @@ def dosagepreprocessing(textprocess):
     try:
         #use regex
         text_to_process = re.search("(\d+)(MG)", text_to_process).group()
+
+        text_to_process = re.search("(\d+)", text_to_process).group()
     except:
         text_to_process = ""
             

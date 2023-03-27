@@ -5,6 +5,10 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 #import webserver libraries
 from flask import Flask, render_template, request, jsonify
 
+from flask_cors import CORS
+from PaddleOCR import PaddleOCR, draw_ocr 
+import numpy as np
+
 #import OCR model pytesseract and functions
 import pytesseract
 from  pytesseract import Output
@@ -85,6 +89,7 @@ def dosagepreprocessing(textprocess):
     return text_to_process
 
 app = Flask(__name__)
+CORS(app)
 
 # @app.route('/')
 @app.route('/index')
@@ -565,6 +570,69 @@ def api_easyocr_custom_best_confidence():
             # return jsonify(test_json)
             return dict_to_return
 
+        except:
+            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+        
+#send best confidence easy
+@app.route('/api/paddleocr/output/best_confidence', methods=['GET','POST'])
+def api_paddleocr():
+    if request.method == "GET":
+        try:
+            
+            #process status messages
+            print("\nStatus Message: GET Method API request for /api/paddle/output/best_confidence")
+
+            # sent_image = request.args.get('image')
+
+            # str_decoded_bytes = bytes(sent_image, 'utf-8')
+
+            # im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
+            # im_file = BytesIO(im_bytes)  # convert image to file-like object
+            # img = Image.open(im_file)   # img is now PIL Image object
+
+            # reader = easyocr.Reader(['en'], gpu=True)
+            # result = reader.readtext(img, detail=0)
+
+            # return jsonify(result)
+            #return result
+        except:
+            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+        
+    elif request.method == "POST":
+        try:
+            #process status messages
+            print("\nStatus Message: POST Method API request for /api/paddleocr/output/best_confidence")
+
+            # Get the data sent by the AJAX request
+            sent_image = request.form['image_data']
+            # print(sent_image)
+
+            # # Decode the base64-encoded image
+
+            # request_data = request.get_json()
+            # sent_image = request_data['image']
+            
+
+            str_decoded_bytes = bytes(sent_image, 'utf-8')
+
+            im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
+            im_file = BytesIO(im_bytes)  # convert image to file-like object
+            img = Image.open(im_file)   # img is now PIL Image object
+
+            #paddleocr need the input as file_path, numpy array
+            arr = np.array(img) # Convert the image to a NumPy array
+
+            # reader = easyocr.Reader(['en'], gpu=True)
+            reader = PaddleOCR(lang="en")
+            result = reader.ocr(arr)
+            print(result)
+            print(type(result))
+            newresult = [tup[0][0] for sublist in result for tup in sublist]
+
+            result = [item[0] for item in newresult]
+            print(result)
+
+            return jsonify(result)
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 

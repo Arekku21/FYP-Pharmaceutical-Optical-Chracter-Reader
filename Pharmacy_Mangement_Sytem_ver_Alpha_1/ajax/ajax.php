@@ -1,5 +1,9 @@
 
 <?php
+// header('Access-Control-Allow-Origin: http://127.0.0.1:5000');
+// header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+// header('Access-Control-Allow-Headers: Content-Type, Authorization');
+// header('Content-Type: application/json');
 include "../db.php";
 if($_POST["action"] == "addToCart")
 {
@@ -508,9 +512,9 @@ else if($_POST["action"] == "searchDrug")
 {
     // index 0: brand
     // index 1: dosage
-    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE SOUNDEX(drugName) = SOUNDEX('".strtoupper(trim($_POST["result"][0]))."') AND SOUNDEX(drugDosage) = SOUNDEX('".strtoupper(trim($_POST["result"][1]))."')");
+    $result = json_decode($_POST['result'], true);
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE SOUNDEX(drugName) = SOUNDEX('".strtoupper(trim($result["brand"]))."') AND SOUNDEX(drugDosage) = SOUNDEX('".trim($result["dosage"])."')");
     // SELECT * FROM tblmedicine where SOUNDEX(`drugName`) = SOUNDEX('loratidine');
-
     if(mysqli_num_rows($sql) > 0)
     {
         while($row = mysqli_fetch_array($sql))
@@ -534,6 +538,7 @@ else if($_POST["action"] == "searchDrug")
             </tr>";
         }
     }
+
 }
 
 else if($_POST["action"] == "refund")

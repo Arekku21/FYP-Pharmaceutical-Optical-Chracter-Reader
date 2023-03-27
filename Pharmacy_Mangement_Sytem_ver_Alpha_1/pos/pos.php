@@ -253,7 +253,6 @@ include "../menu/menu.php";
 
       // Convert the canvas image to a base64-encoded string
       const base64Image = canvas.toDataURL('image/jpeg');
-      
       capture(base64Image);
     
 
@@ -300,19 +299,78 @@ include "../menu/menu.php";
     });
     
     function capture(base64Image){
-      // $("#captureBtn").click(function(){
+      let api = $("#modalAPI").val().trim();
+      // console.log(base64Image);
         $.ajax({
-          // url: "http://127.0.0.1:5000/api/easyocr/output/best_confidence",
-          url: "http://127.0.0.1:5000/api/paddleocr/output/best_confidence",
+          url: api,
           method: "POST",
           data: {image_data: encoded_image = base64Image.split(",")[1]},
           success: function(result){
-            alert(result);
+            $.ajax({
+          url: "../ajax/ajax.php",
+          method: "POST",
+          // contentType: "application/json",
+          // dataType: "html",
+          // data: {action: "searchDrug", result: JSON.parse(result)},
+          // data: {action: "searchDrug", result: result},
+          data: {action: "searchDrug", result: JSON.stringify(result)},
+          success: function(result2){
+            //  alert("AI extracted word: " + result);
+            // console.log(result2);
+            $("#drug_table > tbody").html(result2);
+           $(".btnAddToCart").click(function(){
+              $.ajax({
+                url: "../ajax/ajax.php",
+                method: "POST", 
+                data: {action: "addToCart", id: $(this).attr('id')},
+                success: function(result){
+                  var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
+                  result = JSON.parse(result);
+                  $("#shopping_cart > tbody > tr").each(function(i){
+                    var cart_table = $(this);
+                    var pos_name = cart_table.find("td:eq(0)").text();
+                    var pos_manufacturer = cart_table.find("td:eq(1)").text();
+                    if(pos_name == result[0] && pos_manufacturer == result[1])
+                    {
+                      var pos_quantity = cart_table.find("td:eq(2)").text();
+                      result[2] = parseInt(pos_quantity) + 1;
+                      $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
+                    }
+                  });
+                  var row = table.insertRow(-1);
+                    var name = row.insertCell(0);
+                    var manufacturer = row.insertCell(1);
+                    var quantity = row.insertCell(2);
+                    var price = row.insertCell(3);
+                    var total = row.insertCell(4);
+                    name.innerHTML = result[0];
+                    manufacturer.innerHTML = result[1];
+                    quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
+                    price.innerHTML = result[3];
+                    total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
+
+                    var sub_total_amount = 0;
+                    var total = 0;
+                    //calculate total amount
+                    $("#shopping_cart > tbody > tr").each(function(i){
+                    var cart_table = $(this);
+                    sub_total_amount += parseFloat(cart_table.find("td:eq(-1)").text());
+                    var tax = sub_total_amount * 0.06;
+                    $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
+                    $("#taxAmount").html(tax.toFixed(2));
+                    total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
+                    $("#lblTotal").html("RM " + total.toFixed(2));
+                    });
+                }
+              });
+            });
           },
-          error: function(result){
-            alert(result);
+          error: function(error){
+            console.log(error);
           }
         });
+      }
+    });
     }
 </script>
 </head>
@@ -326,6 +384,12 @@ include "../menu/menu.php";
     </div>
   </div>
   <form action="" method="post" enctype="multipart/form-data">
+    Modal API: <select id="modalAPI">
+      <option value="http://127.0.0.1:5000/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
+      <option value="http://127.0.0.1:5000/api/easyocr/output/best_confidence">EasyOCR</option>
+      <option value="http://127.0.0.1:5000/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
+      <option value="http://127.0.0.1:5000/api/pytesseract/output/best_confidence">PyTesseract</option>
+    </select>
     <!-- The button to open the modal -->
     <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" >Open Camera</button>
   </form>

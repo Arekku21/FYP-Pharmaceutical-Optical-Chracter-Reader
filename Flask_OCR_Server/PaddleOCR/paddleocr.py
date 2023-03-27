@@ -537,10 +537,7 @@ class PaddleOCR(predict_system.TextSystem):
             #     ocr_res.append(tmp_res)
             for idx, img in enumerate(imgs):
                 rec_res = self.__call__(img, cls)
-                tmp_res = [[res]
-                           for res in zip(rec_res)]
-                ocr_res.append(tmp_res)
-            return ocr_res
+            return rec_res
         elif det and not rec:
             ocr_res = []
             for idx, img in enumerate(imgs):

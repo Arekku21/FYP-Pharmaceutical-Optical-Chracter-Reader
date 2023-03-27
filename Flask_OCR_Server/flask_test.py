@@ -6,12 +6,12 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 from flask import Flask, render_template, request, jsonify
 
 from flask_cors import CORS
-from PaddleOCR import PaddleOCR, draw_ocr 
+# from PaddleOCR import PaddleOCR, draw_ocr 
 import numpy as np
 
 #import OCR model pytesseract and functions
-import pytesseract
-from  pytesseract import Output
+# import pytesseract
+# from  pytesseract import Output
 
 #import easyocr pillow and bytes
 import easyocr
@@ -100,29 +100,7 @@ def home():
 @app.route('/api/pytesseract/output/dictionary', methods=['GET', 'POST'])
 def api_pytesseract_dict():
 
-    if request.method == "GET":
-        try:
-
-            #process status messages
-            print("\nStatus Message: GET Method API request for /api/pytesseract/output/dictionary")
-
-            sent_image = request.args.get('image')
-
-            str_decoded_bytes = bytes(sent_image, 'utf-8')
-
-            im_bytes = base64.b64decode(str_decoded_bytes)
-
-            im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
-            img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
-
-            #using pytesseract to get prediction for each frame
-            ocr_output = pytesseract.image_to_data(img, output_type=Output.DICT)
-
-            # return jsonify(test_json)
-            return ocr_output
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-    elif request.method == "POST":
+    if request.method == "POST":
         try:
 
             #process status messages
@@ -152,81 +130,7 @@ def api_pytesseract_dict():
 @app.route('/api/pytesseract/output/best_confidence', methods=['POST'])
 def api_pytesseract_best_confidence():
 
-    if request.method == "GET":
-        try:
-
-            #process status messages
-            print("\nStatus Message: GET Method API request for /api/pytesseract/output/best_confidence")
-
-            sent_image = request.args.get('image')
-
-            str_decoded_bytes = bytes(sent_image, 'utf-8')
-
-            im_bytes = base64.b64decode(str_decoded_bytes)
-
-            im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
-            img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
-
-            #using pytesseract to get prediction for each frame
-            ocr_output = pytesseract.image_to_data(img, output_type=Output.DICT)
-
-            #process the block number for bounding box
-            word_list_range = ocr_output["block_num"]
-            word_list_range = remove_duplicates(word_list_range)
-            word_list_range = len(word_list_range)
-
-            #list to store words
-            word_list = []
-
-            #populate list
-            for length in range(0,word_list_range):
-                word_list.append([])
-                for x in range(0,2):
-                    word_list[length].append("")
-                word_list[length].append(0.0)
-            
-            #use the block number as index to connect the block number to the word belonging to it 
-            for length in range(0,len(ocr_output["text"])):
-                if ocr_output["text"][length] != "":
-                    word_list[ocr_output["block_num"][length]][0] += " " + ocr_output["text"][length]
-                    word_list[ocr_output["block_num"][length]][1] += " " + ocr_output["conf"][length]
-
-            #calculate confidence average
-            for x  in range(0,len(word_list)):
-                average = 0.0
-                if word_list[x][1] != "":
-                    confidence = word_list[x][1]
-                    confidence_list = confidence.split(" ")
-                    confidence_list.pop(0)
-
-                    for y in confidence_list:
-                        average+=float(y)
-                    average = average/len(confidence_list)
-                    word_list[x][2] =  average  
-
-            #get the best confidence words
-            output_to_show = ""
-            best_confidence = 0.0
-            for num in  range(0,word_list_range):
-                if best_confidence < word_list[num][2]:
-                    best_confidence = word_list[num][2]
-                    output_to_show = word_list[num][0]
-
-            dict_to_return = {}
-
-            #return index 0 to be brand
-            dict_to_return["brand"] = output_to_show
-
-            #return index 1 to be doasage
-            dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
-
-            # return jsonify(test_json)
-            return dict_to_return
-
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-    
-    elif request.method == "POST":
+    if request.method == "POST":
         try:
             
             #process status messages
@@ -306,42 +210,7 @@ def api_pytesseract_best_confidence():
 @app.route('/api/easyocr/output/dictionary', methods=['GET','POST'])
 def api_easyocr_list():
 
-    if request.method == "GET":
-        try:
-            sent_image = request.args.get('image')
-
-            str_decoded_bytes = bytes(sent_image, 'utf-8')
-
-            im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            # im_file = BytesIO(im_bytes)  # convert image to file-like object
-            # img = Image.open(im_file)   # img is now PIL Image object
-
-            reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(im_bytes)  #!!!for some weird reason the Easy OCR now is only taking bytes as 
-                                                #input as to PIL object - (replace im_bytes to img if needed and uncomment)
-
-            easy_ocr_my_list = list(result)
-           
-            result_dict = {}
-
-            for item in easy_ocr_my_list:
-                for in_item in item[0]:
-                                
-                        a = int(in_item[0])
-                        b = int(in_item[1])
-
-                        in_item[0] = a
-                        in_item[1] = b
-
-            for dict_key in range(len(easy_ocr_my_list)):
-                for item in easy_ocr_my_list:
-                    result_dict.update({dict_key:item})
-            
-            return result_dict
-            
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-    elif request.method == "POST":
+    if request.method == "POST":
         try:
             request_data = request.get_json()
 
@@ -382,59 +251,18 @@ def api_easyocr_list():
 #send best confidence easy
 @app.route('/api/easyocr/output/best_confidence', methods=['GET','POST'])
 def api_easyocr_best_confidence():
-
-    if request.method == "GET":
-        try:
-            #process status messages
-            print("\nStatus Message: GET Method API request for /api/easyocr/output/best_confidence")
-
-            sent_image = request.args.get('image')
-
-            str_decoded_bytes = bytes(sent_image, 'utf-8')
-
-            im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            #im_file = BytesIO(im_bytes)  # convert image to file-like object
-            #img = Image.open(im_file)   # img is now PIL Image object
-
-            reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(im_bytes)
-
-            #calculate average confidence
-            total_confidence = 0.0
-            number_of_lines = len(result)
-
-            for confidence in result:
-                total_confidence += confidence[2]
-
-            total_confidence = total_confidence/number_of_lines
-
-            output_to_show = ""
-
-            #compare word confidence to average
-            for word_confidence in result:
-                if total_confidence <= word_confidence[2]:
-                    output_to_show += " " + word_confidence[1]
-
-            dict_to_return = {}
-
-            #return index 0 to be brand
-            dict_to_return["brand"] = textpreprocessing(output_to_show)
-
-            #return index 1 to be doasage
-            dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
-
-            # return jsonify(test_json)
-            return dict_to_return
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-    elif request.method == "POST":
+    if request.method == "POST":
         try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
+            print("A")
+            # print(request.cclearontent_type)
+            # request_data = request.get_data()
 
-            request_data = request.get_json()
+            # print(request.get_json())
 
-            sent_image = request_data['image']
+            # sent_image = request_data['image']
+            sent_image = request.form['image_data']
 
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
@@ -449,6 +277,8 @@ def api_easyocr_best_confidence():
             total_confidence = 0.0
             number_of_lines = len(result)
 
+            print(result)
+
             for confidence in result:
                 total_confidence += confidence[2]
 
@@ -458,8 +288,8 @@ def api_easyocr_best_confidence():
 
             #compare word confidence to average
             for word_confidence in result:
-                if total_confidence <= word_confidence[2]:
-                    output_to_show += " " + word_confidence[1]
+                # if total_confidence <= word_confidence[2]:
+                output_to_show += " " + word_confidence[1]
 
             dict_to_return = {}
 
@@ -469,62 +299,18 @@ def api_easyocr_best_confidence():
             #return index 1 to be doasage
             dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
+            print(dict_to_return)
+
             # return jsonify(test_json)
             return dict_to_return
 
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-
 
 #send best confidence easy ocr custom model
 @app.route('/api/easyocr_custom/output/best_confidence', methods=['GET','POST'])
 def api_easyocr_custom_best_confidence():
-
-    if request.method == "GET":
-        try:
-            #process status messages
-            print("\nStatus Message: GET Method API request for /api/easyocr/output/best_confidence")
-
-            sent_image = request.args.get('image')
-
-            str_decoded_bytes = bytes(sent_image, 'utf-8')
-
-            im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            #im_file = BytesIO(im_bytes)  # convert image to file-like object
-            #img = Image.open(im_file)   # img is now PIL Image object
-
-            reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(im_bytes)
-
-            #calculate average confidence
-            total_confidence = 0.0
-            number_of_lines = len(result)
-
-            for confidence in result:
-                total_confidence += confidence[2]
-
-            total_confidence = total_confidence/number_of_lines
-
-            output_to_show = ""
-
-            #compare word confidence to average
-            for word_confidence in result:
-                if total_confidence <= word_confidence[2]:
-                    output_to_show += " " +  word_confidence[1]
-
-            dict_to_return = {}
-
-            #return index 0 to be brand
-            dict_to_return["brand"] = textpreprocessing(output_to_show)
-
-            #return index 1 to be doasage
-            dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
-
-            # return jsonify(test_json)
-            return dict_to_return
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-    elif request.method == "POST":
+    if request.method == "POST":
         try:
             
             #process status messages
@@ -576,33 +362,11 @@ def api_easyocr_custom_best_confidence():
 #send best confidence easy
 @app.route('/api/paddleocr/output/best_confidence', methods=['GET','POST'])
 def api_paddleocr():
-    if request.method == "GET":
-        try:
-            
-            #process status messages
-            print("\nStatus Message: GET Method API request for /api/paddle/output/best_confidence")
-
-            # sent_image = request.args.get('image')
-
-            # str_decoded_bytes = bytes(sent_image, 'utf-8')
-
-            # im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            # im_file = BytesIO(im_bytes)  # convert image to file-like object
-            # img = Image.open(im_file)   # img is now PIL Image object
-
-            # reader = easyocr.Reader(['en'], gpu=True)
-            # result = reader.readtext(img, detail=0)
-
-            # return jsonify(result)
-            #return result
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-        
-    elif request.method == "POST":
+    if request.method == "POST":
         try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/paddleocr/output/best_confidence")
-
+            
             # Get the data sent by the AJAX request
             sent_image = request.form['image_data']
             # print(sent_image)
@@ -626,13 +390,41 @@ def api_paddleocr():
             reader = PaddleOCR(lang="en")
             result = reader.ocr(arr)
             print(result)
-            print(type(result))
-            newresult = [tup[0][0] for sublist in result for tup in sublist]
+            # newresult = [tup[0][0] for sublist in result for tup in sublist]
 
-            result = [item[0] for item in newresult]
-            print(result)
+            # result = [item[0] for item in newresult]
+            # print(result)
 
-            return jsonify(result)
+            # return jsonify(result)
+            #calculate average confidence
+            total_confidence = 0.0
+            number_of_lines = len(result)
+
+            for confidence in result:
+                total_confidence += confidence[1]
+
+
+            total_confidence = total_confidence/number_of_lines
+
+            output_to_show = ""
+
+            #compare word confidence to average
+            for word_confidence in result:
+                print(word_confidence)
+                # if total_confidence <= word_confidence[1]:
+                output_to_show += " " + word_confidence[0]
+
+            dict_to_return = {}
+
+            #return index 0 to be brand
+            dict_to_return["brand"] = textpreprocessing(output_to_show)
+
+            #return index 1 to be doasage
+            dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
+
+            # return jsonify(test_json)
+            print(dict_to_return)
+            return dict_to_return
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 

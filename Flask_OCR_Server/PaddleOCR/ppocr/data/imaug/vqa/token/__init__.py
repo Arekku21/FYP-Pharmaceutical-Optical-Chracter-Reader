@@ -15,4 +15,3 @@
 from .vqa_token_chunk import VQASerTokenChunk, VQAReTokenChunk
 from .vqa_token_pad import VQATokenPad
 from .vqa_token_relation import VQAReTokenRelation
-from .vqa_re_convert import TensorizeEntitiesRelations

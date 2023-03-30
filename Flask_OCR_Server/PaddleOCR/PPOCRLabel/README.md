@@ -103,11 +103,11 @@ python PPOCRLabel.py --kie True # [KIE mode] for [detection + recognition + keyw
 ```
 
 #### 1.2.3 Build and Install the Whl Package Locally
-Compile and install a new whl package, where 0.0.0 is the version number, you can specify the new version in 'setup.py'.
+Compile and install a new whl package, where 1.0.2 is the version number, you can specify the new version in 'setup.py'.
 ```bash
-cd ./PPOCRLabel
+cd PaddleOCR/PPOCRLabel
 python3 setup.py bdist_wheel
-pip3 install dist/PPOCRLabel-0.0.0-py2.py3-none-any.whl
+pip3 install dist/PPOCRLabel-1.0.2-py2.py3-none-any.whl
 ```
 
 
@@ -157,7 +157,7 @@ labeling in the Excel file, the recommended steps are:
 
 4. ***Adjust cell order:*** Click on the menu  `View` - `Show Box Number` to show the box ordinal numbers, and drag all the results under the 'Recognition Results' column on the right side of the software interface to make the box numbers are arranged from left to right, top to bottom
 
-5. Export JSON format annotation: close all Excel files corresponding to table images, click `File-Export Table Label` to obtain `gt.txt` annotation results.
+5. Export JSON format annotation: close all Excel files corresponding to table images, click `File`-`Export table JSON annotation` to obtain JSON annotation results.
 
 ### 2.3 Note
 

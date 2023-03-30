@@ -66,17 +66,8 @@ class PGHead(nn.Layer):
     """
     """
 
-    def __init__(self,
-                 in_channels,
-                 character_dict_path='ppocr/utils/ic15_dict.txt',
-                 **kwargs):
+    def __init__(self, in_channels, **kwargs):
         super(PGHead, self).__init__()
-
-        # get character_length
-        with open(character_dict_path, "rb") as fin:
-            lines = fin.readlines()
-            character_length = len(lines) + 1
-
         self.conv_f_score1 = ConvBNLayer(
             in_channels=in_channels,
             out_channels=64,
@@ -187,7 +178,7 @@ class PGHead(nn.Layer):
             name="conv_f_char{}".format(5))
         self.conv3 = nn.Conv2D(
             in_channels=256,
-            out_channels=character_length,
+            out_channels=37,
             kernel_size=3,
             stride=1,
             padding=1,

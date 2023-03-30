@@ -24,7 +24,12 @@ Jetson端基础训练预测功能测试的主程序为`test_inference_inference.
     ```
 - 安装autolog（规范化日志输出工具）
     ```
-    pip install https://paddleocr.bj.bcebos.com/libs/auto_log-1.2.0-py3-none-any.whl
+    git clone https://github.com/LDOUBLEV/AutoLog
+    cd AutoLog
+    pip install -r requirements.txt
+    python setup.py bdist_wheel
+    pip install ./dist/auto_log-1.0.0-py3-none-any.whl
+    cd ../
     ```
 - 安装PaddleSlim (可选)
    ```

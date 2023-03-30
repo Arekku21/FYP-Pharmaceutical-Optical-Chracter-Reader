@@ -417,13 +417,11 @@ class DistillationVQADistanceLoss(DistanceLoss):
                  mode="l2",
                  model_name_pairs=[],
                  key=None,
-                 index=None,
                  name="loss_distance",
                  **kargs):
         super().__init__(mode=mode, **kargs)
         assert isinstance(model_name_pairs, list)
         self.key = key
-        self.index = index
         self.model_name_pairs = model_name_pairs
         self.name = name + "_l2"
 
@@ -436,9 +434,6 @@ class DistillationVQADistanceLoss(DistanceLoss):
             if self.key is not None:
                 out1 = out1[self.key]
                 out2 = out2[self.key]
-                if self.index is not None:
-                    out1 = out1[:, self.index, :, :]
-                    out2 = out2[:, self.index, :, :]
                 if attention_mask is not None:
                     max_len = attention_mask.shape[-1]
                     out1 = out1[:, :max_len]

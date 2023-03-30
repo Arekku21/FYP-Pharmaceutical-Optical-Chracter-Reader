@@ -1,12 +1,10 @@
 # Python Inference
 
-- [1. Layout Structured Analysis](#1-layout-structured-analysis)
-  - [1.1 layout analysis + table recognition](#11-layout-analysis--table-recognition)
-  - [1.2 layout analysis](#12-layout-analysis)
-  - [1.3 table recognition](#13-table-recognition)
-- [2. Key Information Extraction](#2-key-information-extraction)
-  - [2.1 SER](#21-ser)
-  - [2.2 RE+SER](#22-reser)
+- [1. Layout Structured Analysis](#1)
+  - [1.1 layout analysis + table recognition](#1.1)
+  - [1.2 layout analysis](#1.2)
+  - [1.3 table recognition](#1.3)
+- [2. Key Information Extraction](#2)
 
 <a name="1"></a>
 ## 1. Layout Structured Analysis
@@ -20,13 +18,13 @@ download model
 
 ```bash
 mkdir inference && cd inference
-# Download the PP-StructureV2 layout analysis model and unzip it
+# Download the PP-Structurev2 layout analysis model and unzip it
 wget https://paddleocr.bj.bcebos.com/ppstructure/models/layout/picodet_lcnet_x1_0_layout_infer.tar && tar xf picodet_lcnet_x1_0_layout_infer.tar
 # Download the PP-OCRv3 text detection model and unzip it
 wget https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/ch_PP-OCRv3_det_infer.tar && tar xf ch_PP-OCRv3_det_infer.tar
 # Download the PP-OCRv3 text recognition model and unzip it
 wget https://paddleocr.bj.bcebos.com/PP-OCRv3/chinese/ch_PP-OCRv3_rec_infer.tar && tar xf ch_PP-OCRv3_rec_infer.tar
-# Download the PP-StructureV2 form recognition model and unzip it
+# Download the PP-Structurev2 form recognition model and unzip it
 wget https://paddleocr.bj.bcebos.com/ppstructure/models/slanet/ch_ppstructure_mobile_v2.0_SLANet_infer.tar && tar xf ch_ppstructure_mobile_v2.0_SLANet_infer.tar
 cd ..
 ```
@@ -74,7 +72,6 @@ After the operation is completed, each image will have a directory with the same
 <a name="2"></a>
 ## 2. Key Information Extraction
 
-### 2.1 SER
 ```bash
 cd ppstructure
 
@@ -82,39 +79,13 @@ mkdir inference && cd inference
 # download model
 wget https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_infer.tar && tar -xf ser_vi_layoutxlm_xfund_infer.tar
 cd ..
-python3 predict_system.py \
+python3 kie/predict_kie_token_ser.py \
   --kie_algorithm=LayoutXLM \
-  --ser_model_dir=./inference/ser_vi_layoutxlm_xfund_infer \
+  --ser_model_dir=../inference/ser_vi_layoutxlm_xfund_infer \
   --image_dir=./docs/kie/input/zh_val_42.jpg \
   --ser_dict_path=../ppocr/utils/dict/kie_dict/xfund_class_list.txt \
   --vis_font_path=../doc/fonts/simfang.ttf \
-  --ocr_order_method="tb-yx" \
-  --mode=kie
+  --ocr_order_method="tb-yx"
 ```
 
 After the operation is completed, each image will store the visualized image in the `kie` directory under the directory specified by the `output` field, and the image name is the same as the input image name.
-
-
-### 2.2 RE+SER
-
-```bash
-cd ppstructure
-
-mkdir inference && cd inference
-# download model
-wget https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/ser_vi_layoutxlm_xfund_infer.tar && tar -xf ser_vi_layoutxlm_xfund_infer.tar
-wget https://paddleocr.bj.bcebos.com/ppstructure/models/vi_layoutxlm/re_vi_layoutxlm_xfund_infer.tar && tar -xf re_vi_layoutxlm_xfund_infer.tar
-cd ..
-
-python3 predict_system.py \
-  --kie_algorithm=LayoutXLM \
-  --re_model_dir=./inference/re_vi_layoutxlm_xfund_infer \
-  --ser_model_dir=./inference/ser_vi_layoutxlm_xfund_infer \
-  --image_dir=./docs/kie/input/zh_val_42.jpg \
-  --ser_dict_path=../ppocr/utils/dict/kie_dict/xfund_class_list.txt \
-  --vis_font_path=../doc/fonts/simfang.ttf \
-  --ocr_order_method="tb-yx" \
-  --mode=kie
-```
-
-After the operation is completed, each image will have a directory with the same name in the `kie` directory under the directory specified by the `output` field, where the visual images and prediction results are stored.

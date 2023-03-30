@@ -23,7 +23,6 @@ from PIL import Image, ImageDraw, ImageFont
 import math
 from paddle import inference
 import time
-import random
 from ppocr.utils.logging import get_logger
 
 
@@ -36,22 +35,18 @@ def init_args():
     # params for prediction engine
     parser.add_argument("--use_gpu", type=str2bool, default=True)
     parser.add_argument("--use_xpu", type=str2bool, default=False)
-    parser.add_argument("--use_npu", type=str2bool, default=False)
     parser.add_argument("--ir_optim", type=str2bool, default=True)
     parser.add_argument("--use_tensorrt", type=str2bool, default=False)
     parser.add_argument("--min_subgraph_size", type=int, default=15)
     parser.add_argument("--precision", type=str, default="fp32")
     parser.add_argument("--gpu_mem", type=int, default=500)
-    parser.add_argument("--gpu_id", type=int, default=0)
 
     # params for text detector
     parser.add_argument("--image_dir", type=str)
-    parser.add_argument("--page_num", type=int, default=0)
     parser.add_argument("--det_algorithm", type=str, default='DB')
     parser.add_argument("--det_model_dir", type=str)
     parser.add_argument("--det_limit_side_len", type=float, default=960)
     parser.add_argument("--det_limit_type", type=str, default='max')
-    parser.add_argument("--det_box_type", type=str, default='quad')
 
     # DB parmas
     parser.add_argument("--det_db_thresh", type=float, default=0.3)
@@ -60,7 +55,6 @@ def init_args():
     parser.add_argument("--max_batch_size", type=int, default=10)
     parser.add_argument("--use_dilation", type=str2bool, default=False)
     parser.add_argument("--det_db_score_mode", type=str, default="fast")
-
     # EAST parmas
     parser.add_argument("--det_east_score_thresh", type=float, default=0.8)
     parser.add_argument("--det_east_cover_thresh", type=float, default=0.1)
@@ -69,11 +63,13 @@ def init_args():
     # SAST parmas
     parser.add_argument("--det_sast_score_thresh", type=float, default=0.5)
     parser.add_argument("--det_sast_nms_thresh", type=float, default=0.2)
+    parser.add_argument("--det_sast_polygon", type=str2bool, default=False)
 
     # PSE parmas
     parser.add_argument("--det_pse_thresh", type=float, default=0)
     parser.add_argument("--det_pse_box_thresh", type=float, default=0.85)
     parser.add_argument("--det_pse_min_area", type=float, default=16)
+    parser.add_argument("--det_pse_box_type", type=str, default='quad')
     parser.add_argument("--det_pse_scale", type=int, default=1)
 
     # FCE parmas
@@ -81,11 +77,11 @@ def init_args():
     parser.add_argument("--alpha", type=float, default=1.0)
     parser.add_argument("--beta", type=float, default=1.0)
     parser.add_argument("--fourier_degree", type=int, default=5)
+    parser.add_argument("--det_fce_box_type", type=str, default='poly')
 
     # params for text recognizer
     parser.add_argument("--rec_algorithm", type=str, default='SVTR_LCNet')
     parser.add_argument("--rec_model_dir", type=str)
-    parser.add_argument("--rec_image_inverse", type=str2bool, default=True)
     parser.add_argument("--rec_image_shape", type=str, default="3, 48, 320")
     parser.add_argument("--rec_batch_num", type=int, default=6)
     parser.add_argument("--max_text_length", type=int, default=25)
@@ -164,8 +160,6 @@ def create_predictor(args, mode, logger):
         model_dir = args.table_model_dir
     elif mode == 'ser':
         model_dir = args.ser_model_dir
-    elif mode == 're':
-        model_dir = args.re_model_dir
     elif mode == "sr":
         model_dir = args.sr_model_dir
     elif mode == 'layout':
@@ -220,7 +214,7 @@ def create_predictor(args, mode, logger):
                 logger.warning(
                     "GPU is not found in current device by nvidia-smi. Please check your device or ignore it if run on jetson."
                 )
-            config.enable_use_gpu(args.gpu_mem, args.gpu_id)
+            config.enable_use_gpu(args.gpu_mem, 0)
             if args.use_tensorrt:
                 config.enable_tensorrt_engine(
                     workspace_size=1 << 30,
@@ -231,13 +225,16 @@ def create_predictor(args, mode, logger):
                     use_calib_mode=False)
 
                 # collect shape
-                trt_shape_f = os.path.join(model_dir,
-                                           f"{mode}_trt_dynamic_shape.txt")
+                trt_shape_f = os.path.join(model_dir, f"{mode}_trt_dynamic_shape.txt")
 
                 if not os.path.exists(trt_shape_f):
                     config.collect_shape_range_info(trt_shape_f)
                     logger.info(
                         f"collect dynamic shape info into : {trt_shape_f}")
+                else:
+                    logger.info(
+                        f"dynamic shape info file( {trt_shape_f} ) already exists, not need to generate again."
+                    )
                 try:
                     config.enable_tuned_tensorrt_dynamic_shape(trt_shape_f,
                                                                True)
@@ -245,8 +242,6 @@ def create_predictor(args, mode, logger):
                     logger.info(E)
                     logger.info("Please keep your paddlepaddle-gpu >= 2.3.0!")
 
-        elif args.use_npu:
-            config.enable_npu()
         elif args.use_xpu:
             config.enable_xpu(10 * 1024 * 1024)
         else:
@@ -267,8 +262,6 @@ def create_predictor(args, mode, logger):
         config.disable_glog_info()
         config.delete_pass("conv_transpose_eltwiseadd_bn_fuse_pass")
         config.delete_pass("matmul_transpose_reshape_fuse_pass")
-        if mode == 're':
-            config.delete_pass("simplify_with_basic_ops_pass")
         if mode == 'table':
             config.delete_pass("fc_fuse_pass")  # not supported for table
         config.switch_use_feed_fetch_ops(False)
@@ -339,11 +332,12 @@ def draw_e2e_res(dt_boxes, strs, img_path):
     return src_im
 
 
-def draw_text_det_res(dt_boxes, img):
+def draw_text_det_res(dt_boxes, img_path):
+    src_im = cv2.imread(img_path)
     for box in dt_boxes:
         box = np.array(box).astype(np.int32).reshape(-1, 2)
-        cv2.polylines(img, [box], True, color=(255, 255, 0), thickness=2)
-    return img
+        cv2.polylines(src_im, [box], True, color=(255, 255, 0), thickness=2)
+    return src_im
 
 
 def resize_img(img, input_size=600):
@@ -401,79 +395,54 @@ def draw_ocr(image,
 
 def draw_ocr_box_txt(image,
                      boxes,
-                     txts=None,
+                     txts,
                      scores=None,
                      drop_score=0.5,
-                     font_path="./doc/fonts/simfang.ttf"):
+                     font_path="./doc/simfang.ttf"):
     h, w = image.height, image.width
     img_left = image.copy()
-    img_right = np.ones((h, w, 3), dtype=np.uint8) * 255
-    random.seed(0)
+    img_right = Image.new('RGB', (w, h), (255, 255, 255))
 
+    import random
+
+    random.seed(0)
     draw_left = ImageDraw.Draw(img_left)
-    if txts is None or len(txts) != len(boxes):
-        txts = [None] * len(boxes)
+    draw_right = ImageDraw.Draw(img_right)
     for idx, (box, txt) in enumerate(zip(boxes, txts)):
         if scores is not None and scores[idx] < drop_score:
             continue
         color = (random.randint(0, 255), random.randint(0, 255),
                  random.randint(0, 255))
         draw_left.polygon(box, fill=color)
-        img_right_text = draw_box_txt_fine((w, h), box, txt, font_path)
-        pts = np.array(box, np.int32).reshape((-1, 1, 2))
-        cv2.polylines(img_right_text, [pts], True, color, 1)
-        img_right = cv2.bitwise_and(img_right, img_right_text)
+        draw_right.polygon(
+            [
+                box[0][0], box[0][1], box[1][0], box[1][1], box[2][0],
+                box[2][1], box[3][0], box[3][1]
+            ],
+            outline=color)
+        box_height = math.sqrt((box[0][0] - box[3][0])**2 + (box[0][1] - box[3][
+            1])**2)
+        box_width = math.sqrt((box[0][0] - box[1][0])**2 + (box[0][1] - box[1][
+            1])**2)
+        if box_height > 2 * box_width:
+            font_size = max(int(box_width * 0.9), 10)
+            font = ImageFont.truetype(font_path, font_size, encoding="utf-8")
+            cur_y = box[0][1]
+            for c in txt:
+                char_size = font.getsize(c)
+                draw_right.text(
+                    (box[0][0] + 3, cur_y), c, fill=(0, 0, 0), font=font)
+                cur_y += char_size[1]
+        else:
+            font_size = max(int(box_height * 0.8), 10)
+            font = ImageFont.truetype(font_path, font_size, encoding="utf-8")
+            draw_right.text(
+                [box[0][0], box[0][1]], txt, fill=(0, 0, 0), font=font)
     img_left = Image.blend(image, img_left, 0.5)
     img_show = Image.new('RGB', (w * 2, h), (255, 255, 255))
     img_show.paste(img_left, (0, 0, w, h))
-    img_show.paste(Image.fromarray(img_right), (w, 0, w * 2, h))
+    img_show.paste(img_right, (w, 0, w * 2, h))
     return np.array(img_show)
-
-
-def draw_box_txt_fine(img_size, box, txt, font_path="./doc/fonts/simfang.ttf"):
-    box_height = int(
-        math.sqrt((box[0][0] - box[3][0])**2 + (box[0][1] - box[3][1])**2))
-    box_width = int(
-        math.sqrt((box[0][0] - box[1][0])**2 + (box[0][1] - box[1][1])**2))
-
-    if box_height > 2 * box_width and box_height > 30:
-        img_text = Image.new('RGB', (box_height, box_width), (255, 255, 255))
-        draw_text = ImageDraw.Draw(img_text)
-        if txt:
-            font = create_font(txt, (box_height, box_width), font_path)
-            draw_text.text([0, 0], txt, fill=(0, 0, 0), font=font)
-        img_text = img_text.transpose(Image.ROTATE_270)
-    else:
-        img_text = Image.new('RGB', (box_width, box_height), (255, 255, 255))
-        draw_text = ImageDraw.Draw(img_text)
-        if txt:
-            font = create_font(txt, (box_width, box_height), font_path)
-            draw_text.text([0, 0], txt, fill=(0, 0, 0), font=font)
-
-    pts1 = np.float32(
-        [[0, 0], [box_width, 0], [box_width, box_height], [0, box_height]])
-    pts2 = np.array(box, dtype=np.float32)
-    M = cv2.getPerspectiveTransform(pts1, pts2)
-
-    img_text = np.array(img_text, dtype=np.uint8)
-    img_right_text = cv2.warpPerspective(
-        img_text,
-        M,
-        img_size,
-        flags=cv2.INTER_NEAREST,
-        borderMode=cv2.BORDER_CONSTANT,
-        borderValue=(255, 255, 255))
-    return img_right_text
-
-
-def create_font(txt, sz, font_path="./doc/fonts/simfang.ttf"):
-    font_size = int(sz[1] * 0.99)
-    font = ImageFont.truetype(font_path, font_size, encoding="utf-8")
-    length = font.getsize(txt)[0]
-    if length > sz[0]:
-        font_size = int(font_size * sz[0] / length)
-        font = ImageFont.truetype(font_path, font_size, encoding="utf-8")
-    return font
 
 
 def str_count(s):
@@ -628,29 +597,6 @@ def get_rotate_crop_image(img, points):
     if dst_img_height * 1.0 / dst_img_width >= 1.5:
         dst_img = np.rot90(dst_img)
     return dst_img
-
-
-def get_minarea_rect_crop(img, points):
-    bounding_box = cv2.minAreaRect(np.array(points).astype(np.int32))
-    points = sorted(list(cv2.boxPoints(bounding_box)), key=lambda x: x[0])
-
-    index_a, index_b, index_c, index_d = 0, 1, 2, 3
-    if points[1][1] > points[0][1]:
-        index_a = 0
-        index_d = 1
-    else:
-        index_a = 1
-        index_d = 0
-    if points[3][1] > points[2][1]:
-        index_b = 2
-        index_c = 3
-    else:
-        index_b = 3
-        index_c = 2
-
-    box = [points[index_a], points[index_b], points[index_c], points[index_d]]
-    crop_img = get_rotate_crop_image(img, np.array(box))
-    return crop_img
 
 
 def check_gpu(use_gpu):

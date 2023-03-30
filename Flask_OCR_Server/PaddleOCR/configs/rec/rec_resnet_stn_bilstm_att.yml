@@ -1,6 +1,6 @@
 Global:
   use_gpu: True
-  epoch_num: 6
+  epoch_num: 400
   log_smooth_window: 20
   print_batch_step: 10
   save_model_dir: ./output/rec/seed
@@ -27,7 +27,7 @@ Optimizer:
   momentum: 0.9
   lr:
     name: Piecewise
-    decay_epochs: [4, 5]
+    decay_epochs: [4,5,8]
     values: [1.0, 0.1, 0.01]
   regularizer:
     name: 'L2'
@@ -50,7 +50,7 @@ Architecture:
     name: AsterHead  # AttentionHead
     sDim: 512
     attDim: 512
-    max_len_labels: 100
+    max_len_labels: 20
 
 Loss:
   name: AsterLoss

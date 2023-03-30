@@ -28,13 +28,13 @@
 - If you have CUDA 9 or CUDA 10 installed on your machine, please run the following command to install
 
   ```bash
-  python -m pip install paddlepaddle-gpu -i https://pypi.tuna.tsinghua.edu.cn/simple
+  python3 -m pip install paddlepaddle-gpu -i https://mirror.baidu.com/pypi/simple
   ```
 
 - If you have no available GPU on your machine, please run the following command to install the CPU version
 
   ```bash
-  python -m pip install paddlepaddle -i https://pypi.tuna.tsinghua.edu.cn/simple
+  python3 -m pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
   ```
 
 For more software version requirements, please refer to the instructions in [Installation Document](https://www.paddlepaddle.org.cn/install/quick) for operation.
@@ -84,12 +84,6 @@ If you do not use the provided test image, you can replace the following `--imag
   [[[403.0, 346.0], [1204.0, 348.0], [1204.0, 384.0], [402.0, 383.0]], ('We would like to thank all the designers and', 0.9761400818824768)]
   [[[403.0, 396.0], [1204.0, 398.0], [1204.0, 434.0], [402.0, 433.0]], ('contributors who have been involved in the', 0.9791957139968872)]
   ......
-  ```
-
-  pdf file is also supported, you can infer the first few pages by using the `page_num` parameter, the default is 0, which means infer all pages
-
-  ```bash
-  paddleocr --image_dir ./xxx.pdf --use_angle_cls true --use_gpu false --page_num 2
   ```
 
 * Only detection: set `--rec` to `false`
@@ -182,15 +176,12 @@ from paddleocr import PaddleOCR,draw_ocr
 ocr = PaddleOCR(use_angle_cls=True, lang='en') # need to run only once to download and load model into memory
 img_path = './imgs_en/img_12.jpg'
 result = ocr.ocr(img_path, cls=True)
-for idx in range(len(result)):
-    res = result[idx]
-    for line in res:
-        print(line)
+for line in result:
+    print(line)
 
 
 # draw result
 from PIL import Image
-result = result[0]
 image = Image.open(img_path).convert('RGB')
 boxes = [line[0] for line in result]
 txts = [line[1][0] for line in result]
@@ -215,50 +206,6 @@ Visualization of results
     <img src="../imgs_results/whl/12_det_rec.jpg" width="800">
 </div>
 
-If the input is a PDF file, you can refer to the following code for visualization
-
-```python
-from paddleocr import PaddleOCR, draw_ocr
-
-# Paddleocr supports Chinese, English, French, German, Korean and Japanese.
-# You can set the parameter `lang` as `ch`, `en`, `fr`, `german`, `korean`, `japan`
-# to switch the language model in order.
-ocr = PaddleOCR(use_angle_cls=True, lang="ch", page_num=2)  # need to run only once to download and load model into memory
-img_path = './xxx.pdf'
-result = ocr.ocr(img_path, cls=True)
-for idx in range(len(result)):
-    res = result[idx]
-    for line in res:
-        print(line)
-
-# draw result
-import fitz
-from PIL import Image
-import cv2
-import numpy as np
-imgs = []
-with fitz.open(img_path) as pdf:
-    for pg in range(0, pdf.pageCount):
-        page = pdf[pg]
-        mat = fitz.Matrix(2, 2)
-        pm = page.getPixmap(matrix=mat, alpha=False)
-        # if width or height > 2000 pixels, don't enlarge the image
-        if pm.width > 2000 or pm.height > 2000:
-            pm = page.getPixmap(matrix=fitz.Matrix(1, 1), alpha=False)
-
-        img = Image.frombytes("RGB", [pm.width, pm.height], pm.samples)
-        img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        imgs.append(img)
-for idx in range(len(result)):
-    res = result[idx]
-    image = imgs[idx]
-    boxes = [line[0] for line in res]
-    txts = [line[1][0] for line in res]
-    scores = [line[1][1] for line in res]
-    im_show = draw_ocr(image, boxes, txts, scores, font_path='doc/fonts/simfang.ttf')
-    im_show = Image.fromarray(im_show)
-    im_show.save('result_page_{}.jpg'.format(idx))
-```
 
 <a name="3"></a>
 

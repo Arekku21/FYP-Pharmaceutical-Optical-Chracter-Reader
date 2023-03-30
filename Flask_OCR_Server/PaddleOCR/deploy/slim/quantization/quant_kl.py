@@ -97,17 +97,6 @@ def sample_generator(loader):
 
     return __reader__
 
-def sample_generator_layoutxlm_ser(loader):
-    def __reader__():
-        for indx, data in enumerate(loader):
-            input_ids = np.array(data[0])
-            bbox = np.array(data[1])
-            attention_mask = np.array(data[2])
-            token_type_ids = np.array(data[3])
-            images = np.array(data[4])
-            yield [input_ids, bbox, attention_mask, token_type_ids, images]
-
-    return __reader__
 
 def main(config, device, logger, vdl_writer):
     # init dist environment
@@ -118,18 +107,16 @@ def main(config, device, logger, vdl_writer):
 
     # build dataloader
     config['Train']['loader']['num_workers'] = 0
-    is_layoutxlm_ser =  config['Architecture']['model_type'] =='kie' and config['Architecture']['Backbone']['name'] == 'LayoutXLMForSer'
     train_dataloader = build_dataloader(config, 'Train', device, logger)
     if config['Eval']:
         config['Eval']['loader']['num_workers'] = 0
         valid_dataloader = build_dataloader(config, 'Eval', device, logger)
-        if is_layoutxlm_ser:
-            train_dataloader = valid_dataloader
     else:
         valid_dataloader = None
 
     paddle.enable_static()
-    exe = paddle.static.Executor(device)
+    place = paddle.CPUPlace()
+    exe = paddle.static.Executor(place)
 
     if 'inference_model' in global_config.keys():  # , 'inference_model'):
         inference_model_dir = global_config['inference_model']
@@ -140,11 +127,6 @@ def main(config, device, logger, vdl_writer):
             raise ValueError(
                 "Please set inference model dir in Global.inference_model or Global.pretrained_model for post-quantazition"
             )
-    
-    if is_layoutxlm_ser:
-        generator = sample_generator_layoutxlm_ser(train_dataloader)
-    else:
-        generator = sample_generator(train_dataloader)
 
     paddleslim.quant.quant_post_static(
         executor=exe,
@@ -152,7 +134,7 @@ def main(config, device, logger, vdl_writer):
         model_filename='inference.pdmodel',
         params_filename='inference.pdiparams',
         quantize_model_path=global_config['save_inference_dir'],
-        sample_generator=generator,
+        sample_generator=sample_generator(train_dataloader),
         save_model_filename='inference.pdmodel',
         save_params_filename='inference.pdiparams',
         batch_size=1,

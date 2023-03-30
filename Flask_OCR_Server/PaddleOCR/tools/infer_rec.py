@@ -75,7 +75,6 @@ def main():
                 'out_channels_list'] = out_channels_list
         else:  # base rec model
             config['Architecture']["Head"]['out_channels'] = char_num
-
     model = build_model(config['Architecture'])
 
     load_model(config, model)
@@ -141,11 +140,6 @@ def main():
                     paddle.to_tensor(valid_ratio),
                     paddle.to_tensor(word_positons),
                 ]
-            if config['Architecture']['algorithm'] == "CAN":
-                image_mask = paddle.ones(
-                    (np.expand_dims(
-                        batch[0], axis=0).shape), dtype='float32')
-                label = paddle.ones((1, 36), dtype='int64')
             images = np.expand_dims(batch[0], axis=0)
             images = paddle.to_tensor(images)
             if config['Architecture']['algorithm'] == "SRN":
@@ -154,8 +148,6 @@ def main():
                 preds = model(images, img_metas)
             elif config['Architecture']['algorithm'] == "RobustScanner":
                 preds = model(images, img_metas)
-            elif config['Architecture']['algorithm'] == "CAN":
-                preds = model([images, image_mask, label])
             else:
                 preds = model(images)
             post_result = post_process_class(preds)
@@ -169,10 +161,6 @@ def main():
                             "score": float(post_result[key][0][1]),
                         }
                 info = json.dumps(rec_info, ensure_ascii=False)
-            elif isinstance(post_result, list) and isinstance(post_result[0],
-                                                              int):
-                # for RFLearning CNT branch 
-                info = str(post_result[0])
             else:
                 if len(post_result[0]) >= 2:
                     info = post_result[0][0] + "\t" + str(post_result[0][1])

@@ -77,7 +77,7 @@ def export_single_model(model,
     elif arch_config["algorithm"] == "PREN":
         other_shape = [
             paddle.static.InputSpec(
-                shape=[None, 3, 64, 256], dtype="float32"),
+                shape=[None, 3, 64, 512], dtype="float32"),
         ]
         model = to_static(model, input_spec=other_shape)
     elif arch_config["model_type"] == "sr":
@@ -97,9 +97,8 @@ def export_single_model(model,
             paddle.static.InputSpec(
                 shape=[None, 3, 32, 128], dtype="float32"),
         ]
-        # print([None, 3, 32, 128])
         model = to_static(model, input_spec=other_shape)
-    elif arch_config["algorithm"] in ["NRTR", "SPIN", 'RFL']:
+    elif arch_config["algorithm"] in ["NRTR", "SPIN"]:
         other_shape = [
             paddle.static.InputSpec(
                 shape=[None, 1, 32, 100], dtype="float32"),
@@ -123,16 +122,11 @@ def export_single_model(model,
                 ]
         ]
         model = to_static(model, input_spec=other_shape)
-    elif arch_config["algorithm"] == "CAN":
-        other_shape = [[
+    elif arch_config["algorithm"] == "SEED":
+        other_shape = [
             paddle.static.InputSpec(
-                shape=[None, 1, None, None],
-                dtype="float32"), paddle.static.InputSpec(
-                    shape=[None, 1, None, None], dtype="float32"),
-            paddle.static.InputSpec(
-                shape=[None, arch_config['Head']['max_text_length']],
-                dtype="int64")
-        ]]
+                shape=[None, 3, 64, 256], dtype="float32")
+        ]
         model = to_static(model, input_spec=other_shape)
     elif arch_config["algorithm"] in ["LayoutLM", "LayoutLMv2", "LayoutXLM"]:
         input_spec = [
@@ -147,13 +141,6 @@ def export_single_model(model,
             paddle.static.InputSpec(
                 shape=[None, 3, 224, 224], dtype="int64"),  # image
         ]
-        if 'Re' in arch_config['Backbone']['name']:
-            input_spec.extend([
-                paddle.static.InputSpec(
-                    shape=[None, 512, 3], dtype="int64"),  # entities
-                paddle.static.InputSpec(
-                    shape=[None, None, 2], dtype="int64"),  # relations
-            ])
         if model.backbone.use_visual_backbone is False:
             input_spec.pop(4)
         model = to_static(model, input_spec=[input_spec])

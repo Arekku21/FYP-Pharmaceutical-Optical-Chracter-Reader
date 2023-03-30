@@ -19,7 +19,7 @@ import random
 import copy
 from PIL import Image
 from .text_image_aug import tia_perspective, tia_stretch, tia_distort
-from .abinet_aug import CVGeometry, CVDeterioration, CVColorJitter, SVTRGeometry, SVTRDeterioration
+from .abinet_aug import CVGeometry, CVDeterioration, CVColorJitter
 from paddle.vision.transforms import Compose
 
 
@@ -169,38 +169,6 @@ class RecConAug(object):
         return data
 
 
-class SVTRRecAug(object):
-    def __init__(self,
-                 aug_type=0,
-                 geometry_p=0.5,
-                 deterioration_p=0.25,
-                 colorjitter_p=0.25,
-                 **kwargs):
-        self.transforms = Compose([
-            SVTRGeometry(
-                aug_type=aug_type,
-                degrees=45,
-                translate=(0.0, 0.0),
-                scale=(0.5, 2.),
-                shear=(45, 15),
-                distortion=0.5,
-                p=geometry_p), SVTRDeterioration(
-                    var=20, degrees=6, factor=4, p=deterioration_p),
-            CVColorJitter(
-                brightness=0.5,
-                contrast=0.5,
-                saturation=0.5,
-                hue=0.1,
-                p=colorjitter_p)
-        ])
-
-    def __call__(self, data):
-        img = data['image']
-        img = self.transforms(img)
-        data['image'] = img
-        return data
-
-
 class ClsResizeImg(object):
     def __init__(self, image_shape, **kwargs):
         self.image_shape = image_shape
@@ -264,33 +232,6 @@ class VLRecResizeImg(object):
             norm_img = resized_image.transpose((2, 0, 1)) / 255
         valid_ratio = min(1.0, float(resized_w / imgW))
 
-        data['image'] = norm_img
-        data['valid_ratio'] = valid_ratio
-        return data
-
-
-class RFLRecResizeImg(object):
-    def __init__(self, image_shape, padding=True, interpolation=1, **kwargs):
-        self.image_shape = image_shape
-        self.padding = padding
-
-        self.interpolation = interpolation
-        if self.interpolation == 0:
-            self.interpolation = cv2.INTER_NEAREST
-        elif self.interpolation == 1:
-            self.interpolation = cv2.INTER_LINEAR
-        elif self.interpolation == 2:
-            self.interpolation = cv2.INTER_CUBIC
-        elif self.interpolation == 3:
-            self.interpolation = cv2.INTER_AREA
-        else:
-            raise Exception("Unsupported interpolation type !!!")
-
-    def __call__(self, data):
-        img = data['image']
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        norm_img, valid_ratio = resize_norm_img(
-            img, self.image_shape, self.padding, self.interpolation)
         data['image'] = norm_img
         data['valid_ratio'] = valid_ratio
         return data
@@ -473,13 +414,8 @@ class SVTRRecResizeImg(object):
         data['valid_ratio'] = valid_ratio
         return data
 
-
 class RobustScannerRecResizeImg(object):
-    def __init__(self,
-                 image_shape,
-                 max_text_length,
-                 width_downsample_ratio=0.25,
-                 **kwargs):
+    def __init__(self, image_shape, max_text_length, width_downsample_ratio=0.25, **kwargs):
         self.image_shape = image_shape
         self.width_downsample_ratio = width_downsample_ratio
         self.max_text_length = max_text_length
@@ -495,7 +431,6 @@ class RobustScannerRecResizeImg(object):
         data['valid_ratio'] = valid_ratio
         data['word_positons'] = word_positons
         return data
-
 
 def resize_norm_img_sar(img, image_shape, width_downsample_ratio=0.25):
     imgC, imgH, imgW_min, imgW_max = image_shape
@@ -532,16 +467,13 @@ def resize_norm_img_sar(img, image_shape, width_downsample_ratio=0.25):
     return padding_im, resize_shape, pad_shape, valid_ratio
 
 
-def resize_norm_img(img,
-                    image_shape,
-                    padding=True,
-                    interpolation=cv2.INTER_LINEAR):
+def resize_norm_img(img, image_shape, padding=True):
     imgC, imgH, imgW = image_shape
     h = img.shape[0]
     w = img.shape[1]
     if not padding:
         resized_image = cv2.resize(
-            img, (imgW, imgH), interpolation=interpolation)
+            img, (imgW, imgH), interpolation=cv2.INTER_LINEAR)
         resized_w = imgW
     else:
         ratio = w / float(h)

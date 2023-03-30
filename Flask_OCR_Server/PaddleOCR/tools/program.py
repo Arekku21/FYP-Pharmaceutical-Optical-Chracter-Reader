@@ -114,7 +114,7 @@ def merge_config(config, opts):
     return config
 
 
-def check_device(use_gpu, use_xpu=False, use_npu=False, use_mlu=False):
+def check_device(use_gpu, use_xpu=False):
     """
     Log error and exit when set use_gpu=true in paddlepaddle
     cpu version.
@@ -134,11 +134,24 @@ def check_device(use_gpu, use_xpu=False, use_npu=False, use_mlu=False):
         if use_xpu and not paddle.device.is_compiled_with_xpu():
             print(err.format("use_xpu", "xpu", "xpu", "use_xpu"))
             sys.exit(1)
-        if use_npu and not paddle.device.is_compiled_with_npu():
-            print(err.format("use_npu", "npu", "npu", "use_npu"))
-            sys.exit(1)
-        if use_mlu and not paddle.device.is_compiled_with_mlu():
-            print(err.format("use_mlu", "mlu", "mlu", "use_mlu"))
+    except Exception as e:
+        pass
+
+
+def check_xpu(use_xpu):
+    """
+    Log error and exit when set use_xpu=true in paddlepaddle
+    cpu/gpu version.
+    """
+    err = "Config use_xpu cannot be set as true while you are " \
+          "using paddlepaddle cpu/gpu version ! \nPlease try: \n" \
+          "\t1. Install paddlepaddle-xpu to run model on XPU \n" \
+          "\t2. Set use_xpu as false in config file to run " \
+          "model on CPU/GPU"
+
+    try:
+        if use_xpu and not paddle.is_compiled_with_xpu():
+            print(err)
             sys.exit(1)
     except Exception as e:
         pass
@@ -220,7 +233,7 @@ def train(config,
     use_srn = config['Architecture']['algorithm'] == "SRN"
     extra_input_models = [
         "SRN", "NRTR", "SAR", "SEED", "SVTR", "SPIN", "VisionLAN",
-        "RobustScanner", "RFL", 'DRRG'
+        "RobustScanner"
     ]
     extra_input = False
     if config['Architecture']['algorithm'] == 'Distillation':
@@ -266,15 +279,11 @@ def train(config,
                 model_average = True
             # use amp
             if scaler:
-                with paddle.amp.auto_cast(
-                        level=amp_level,
-                        custom_black_list=amp_custom_black_list):
+                with paddle.amp.auto_cast(level=amp_level, custom_black_list=amp_custom_black_list):
                     if model_type == 'table' or extra_input:
                         preds = model(images, data=batch[1:])
                     elif model_type in ["kie"]:
                         preds = model(batch)
-                    elif algorithm in ['CAN']:
-                        preds = model(batch[:3])
                     else:
                         preds = model(images)
                 preds = to_float32(preds)
@@ -288,8 +297,6 @@ def train(config,
                     preds = model(images, data=batch[1:])
                 elif model_type in ["kie", 'sr']:
                     preds = model(batch)
-                elif algorithm in ['CAN']:
-                    preds = model(batch[:3])
                 else:
                     preds = model(images)
                 loss = loss_class(preds, batch)
@@ -306,9 +313,6 @@ def train(config,
                 elif model_type in ['table']:
                     post_result = post_process_class(preds, batch)
                     eval_class(post_result, batch)
-                elif algorithm in ['CAN']:
-                    model_type = 'can'
-                    eval_class(preds[0], batch[2:], epoch_reset=(idx == 0))
                 else:
                     if config['Loss']['name'] in ['MultiLoss', 'MultiLoss_v2'
                                                   ]:  # for multi head loss
@@ -475,7 +479,7 @@ def eval(model,
          extra_input=False,
          scaler=None,
          amp_level='O2',
-         amp_custom_black_list=[]):
+         amp_custom_black_list = []):
     model.eval()
     with paddle.no_grad():
         total_frame = 0.0
@@ -496,15 +500,11 @@ def eval(model,
 
             # use amp
             if scaler:
-                with paddle.amp.auto_cast(
-                        level=amp_level,
-                        custom_black_list=amp_custom_black_list):
+                with paddle.amp.auto_cast(level=amp_level, custom_black_list=amp_custom_black_list):
                     if model_type == 'table' or extra_input:
                         preds = model(images, data=batch[1:])
                     elif model_type in ["kie"]:
                         preds = model(batch)
-                    elif model_type in ['can']:
-                        preds = model(batch[:3])
                     elif model_type in ['sr']:
                         preds = model(batch)
                         sr_img = preds["sr_img"]
@@ -517,8 +517,6 @@ def eval(model,
                     preds = model(images, data=batch[1:])
                 elif model_type in ["kie"]:
                     preds = model(batch)
-                elif model_type in ['can']:
-                    preds = model(batch[:3])
                 elif model_type in ['sr']:
                     preds = model(batch)
                     sr_img = preds["sr_img"]
@@ -543,8 +541,6 @@ def eval(model,
                     eval_class(post_result, batch_numpy)
             elif model_type in ['sr']:
                 eval_class(preds, batch_numpy)
-            elif model_type in ['can']:
-                eval_class(preds[0], batch_numpy[2:], epoch_reset=(idx == 0))
             else:
                 post_result = post_process_class(preds, batch_numpy[1])
                 eval_class(post_result, batch_numpy)
@@ -631,10 +627,14 @@ def preprocess(is_train=False):
     logger = get_logger(log_file=log_file)
 
     # check if set use_gpu=True in paddlepaddle cpu version
-    use_gpu = config['Global'].get('use_gpu', False)
+    use_gpu = config['Global']['use_gpu']
     use_xpu = config['Global'].get('use_xpu', False)
-    use_npu = config['Global'].get('use_npu', False)
-    use_mlu = config['Global'].get('use_mlu', False)
+
+    # check if set use_xpu=True in paddlepaddle cpu/gpu version
+    use_xpu = False
+    if 'use_xpu' in config['Global']:
+        use_xpu = config['Global']['use_xpu']
+    check_xpu(use_xpu)
 
     alg = config['Architecture']['algorithm']
     assert alg in [
@@ -642,20 +642,15 @@ def preprocess(is_train=False):
         'CLS', 'PGNet', 'Distillation', 'NRTR', 'TableAttn', 'SAR', 'PSE',
         'SEED', 'SDMGR', 'LayoutXLM', 'LayoutLM', 'LayoutLMv2', 'PREN', 'FCE',
         'SVTR', 'ViTSTR', 'ABINet', 'DB++', 'TableMaster', 'SPIN', 'VisionLAN',
-        'Gestalt', 'SLANet', 'RobustScanner', 'CT', 'RFL', 'DRRG', 'CAN',
-        'Telescope'
+        'Gestalt', 'SLANet', 'RobustScanner'
     ]
 
     if use_xpu:
         device = 'xpu:{0}'.format(os.getenv('FLAGS_selected_xpus', 0))
-    elif use_npu:
-        device = 'npu:{0}'.format(os.getenv('FLAGS_selected_npus', 0))
-    elif use_mlu:
-        device = 'mlu:{0}'.format(os.getenv('FLAGS_selected_mlus', 0))
     else:
         device = 'gpu:{}'.format(dist.ParallelEnv()
                                  .dev_id) if use_gpu else 'cpu'
-    check_device(use_gpu, use_xpu, use_npu, use_mlu)
+    check_device(use_gpu, use_xpu)
 
     device = paddle.set_device(device)
 

@@ -22,6 +22,7 @@ Architecture:
   Backbone:
     name: ResNet_vd
     layers: 18
+    disable_se: True
   Neck:
     name: DBFPN
     out_channels: 256

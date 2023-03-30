@@ -7,7 +7,6 @@
 | 参数名称 | 类型 | 默认值 | 含义 |
 | :--: | :--: | :--: | :--: |
 |  image_dir | str | 无，必须显式指定 | 图像或者文件夹路径 |
-|  page_num | int | 0 | 当输入类型为pdf文件时有效，指定预测前面page_num页，默认预测所有页 |
 |  vis_font_path | str | "./doc/fonts/simfang.ttf" | 用于可视化的字体路径 |
 |  drop_score | float | 0.5 | 识别得分小于该值的结果会被丢弃，不会作为返回结果 |
 |  use_pdserving | bool | False | 是否使用Paddle Serving进行预测 |
@@ -88,7 +87,7 @@ PSE算法相关参数如下
 | :--: | :--: | :--: | :--: |
 |  rec_algorithm | str | "CRNN" | 文本识别算法名称，目前支持`CRNN`, `SRN`, `RARE`, `NETR`, `SAR`, `ViTSTR`, `ABINet`, `VisionLAN`, `SPIN`, `RobustScanner`, `SVTR`, `SVTR_LCNet` |
 |  rec_model_dir | str | 无，如果使用识别模型，该项是必填项 | 识别inference模型路径 |
-|  rec_image_shape | str | "3,48,320" | 识别时的图像尺寸 |
+|  rec_image_shape | list | [3, 48, 320] | 识别时的图像尺寸 |
 |  rec_batch_num | int | 6 | 识别的batch size |
 |  max_text_length | int | 25 | 识别结果最大长度，在`SRN`中有效 |
 |  rec_char_dict_path | str | "./ppocr/utils/ppocr_keys_v1.txt" | 识别的字符字典文件 |
@@ -115,7 +114,7 @@ PSE算法相关参数如下
 | :--: | :--: | :--: | :--: |
 |  use_angle_cls | bool | False | 是否使用方向分类器 |
 |  cls_model_dir | str | 无，如果需要使用，则必须显式指定路径 | 方向分类器inference模型路径 |
-|  cls_image_shape | str | "3,48,192" | 预测尺度 |
+|  cls_image_shape | list | [3, 48, 192] | 预测尺度 |
 |  label_list | list | ['0', '180'] | class id对应的角度值 |
 |  cls_batch_num | int | 6 | 方向分类器预测的batch size |
 |  cls_thresh | float | 0.9 | 预测阈值，模型预测结果为180度，且得分大于该阈值时，认为最终预测结果为180度，需要翻转 |

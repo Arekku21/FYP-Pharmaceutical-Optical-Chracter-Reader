@@ -33,9 +33,9 @@ void DBDetector::LoadModel(const std::string &model_dir) {
         precision = paddle_infer::Config::Precision::kInt8;
       }
       config.EnableTensorRtEngine(1 << 30, 1, 20, precision, false, false);
-      if (!Utility::PathExists("./trt_det_shape.txt")) {
+      if (!Utility::PathExists("./trt_det_shape.txt")){
         config.CollectShapeRangeInfo("./trt_det_shape.txt");
-      } else {
+      } else { 
         config.EnableTunedTensorRtDynamicShape("./trt_det_shape.txt", true);
       }
     }
@@ -58,7 +58,7 @@ void DBDetector::LoadModel(const std::string &model_dir) {
   config.EnableMemoryOptim();
   // config.DisableGlogInfo();
 
-  this->predictor_ = paddle_infer::CreatePredictor(config);
+  this->predictor_ = CreatePredictor(config);
 }
 
 void DBDetector::Run(cv::Mat &img,

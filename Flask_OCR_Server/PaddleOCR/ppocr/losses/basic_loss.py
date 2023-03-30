@@ -65,8 +65,8 @@ class KLJSLoss(object):
         if self.mode.lower() == 'kl':
             loss = paddle.multiply(p2,
                                    paddle.log((p2 + eps) / (p1 + eps) + eps))
-            loss += paddle.multiply(p1,
-                                    paddle.log((p1 + eps) / (p2 + eps) + eps))
+            loss += paddle.multiply(
+                p1, paddle.log((p1 + eps) / (p2 + eps) + eps))
             loss *= 0.5
         elif self.mode.lower() == "js":
             loss = paddle.multiply(
@@ -125,7 +125,7 @@ class DMLLoss(nn.Layer):
             loss = (
                 self._kldiv(log_out1, out2) + self._kldiv(log_out2, out1)) / 2.0
         else:
-            # for detection distillation log is not needed
+            # distillation log is not needed for detection 
             loss = self.jskl_loss(out1, out2)
         return loss
 

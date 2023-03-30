@@ -41,7 +41,7 @@ Architecture:
         name: DBHead
         k: 50
     Student2:
-      pretrained:
+      pretrained: 
       model_type: det
       algorithm: DB
       Transform: null
@@ -58,6 +58,7 @@ Architecture:
         name: DBHead
         k: 50
     Teacher:
+      pretrained: 
       freeze_params: true
       return_all_feats: false
       model_type: det
@@ -196,7 +197,6 @@ Train:
     drop_last: false
     batch_size_per_card: 8
     num_workers: 4
-
 Eval:
   dataset:
     name: SimpleDataSet

@@ -1,6 +1,0 @@
-python=3.11
-pytesseract=0.3.10
-pillow=9.4.0
-tesseract=v5.1.0.20220510
-
-*easy ocr requires torch needs setup of cuda for GPU support or pytorch cpu only*

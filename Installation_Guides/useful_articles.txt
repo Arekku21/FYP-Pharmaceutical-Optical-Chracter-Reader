@@ -1,2 +1,0 @@
-Pytesseract installation guides
-https://pythonforundergradengineers.com/how-to-install-pytesseract.html

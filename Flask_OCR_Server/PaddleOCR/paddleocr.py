@@ -496,7 +496,7 @@ class PaddleOCR(predict_system.TextSystem):
             params.rec_char_dict_path = str(
                 Path(__file__).parent / rec_model_config['dict_path'])
 
-        logger.debug(params)
+        # logger.debug(params)
         # init det_model and rec_model
         super().__init__(params)
 
@@ -594,7 +594,7 @@ class PPStructure(StructureSystem):
         if params.layout_dict_path is None:
             params.layout_dict_path = str(
                 Path(__file__).parent / layout_model_config['dict_path'])
-        logger.debug(params)
+        # logger.debug(params)
         super().__init__(params)
 
     def __call__(self, img, return_ocr_result_in_table=False, img_idx=0):

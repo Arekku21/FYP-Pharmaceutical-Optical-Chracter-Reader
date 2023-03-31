@@ -3,7 +3,7 @@ import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 #import webserver libraries
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 
 from flask_cors import CORS
 from PaddleOCR import PaddleOCR, draw_ocr 
@@ -370,6 +370,7 @@ def api_paddleocr():
             # Get the data sent by the AJAX request
             sent_image = request.form['image_data']
             
+
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
@@ -379,7 +380,6 @@ def api_paddleocr():
             #paddleocr need the input as file_path, numpy array
             arr = np.array(img) # Convert the image to a NumPy array
 
-
             reader = PaddleOCR(lang="en")
             result = reader.ocr(arr)
 
@@ -388,20 +388,17 @@ def api_paddleocr():
             boxes = [res[0] for res in result] 
             texts = [res[1][0] for res in result]
             scores = [res[1][1] for res in result]
-
-
             
             
             font_path = os.path.join('PaddleOCR', 'doc', 'fonts', 'latin.ttf')
 
             img = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
-
             np.set_printoptions(threshold=np.inf)
             annotated = draw_ocr(img, boxes, texts, scores, font_path=font_path)
-
             retval, buffer = cv2.imencode('.jpg', annotated)
             jpg_as_text = base64.b64encode(buffer)
             base64_str = jpg_as_text.decode('utf-8')
+
 
 
             total_confidence = 0.0

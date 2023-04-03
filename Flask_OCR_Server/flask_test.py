@@ -5,16 +5,19 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 #import webserver libraries
 from flask import Flask, render_template, request, jsonify, Response
 
-from flask_cors import CORS
-from PaddleOCR import PaddleOCR, draw_ocr 
+# ! Kyron's mac specific item
+#from flask_cors import CORS
+
+# ! paddle OCR
+#from PaddleOCR import PaddleOCR, draw_ocr 
 import numpy as np
 
 #import OCR model pytesseract and functions
-# import pytesseract
-# from  pytesseract import Output
+import pytesseract
+from  pytesseract import Output
 
 #import easyocr pillow and bytes
-# import easyocr
+import easyocr
 from io import BytesIO
 from PIL import Image
 
@@ -89,7 +92,9 @@ def dosagepreprocessing(textprocess):
     return text_to_process
 
 app = Flask(__name__)
-CORS(app)
+
+# ! Kyron specific mac problem
+#CORS(app)
 
 # @app.route('/')
 @app.route('/index')
@@ -255,29 +260,33 @@ def api_easyocr_best_confidence():
         try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
-            print("A")
+
             # print(request.cclearontent_type)
             # request_data = request.get_data()
 
             # print(request.get_json())
 
             # sent_image = request_data['image']
-            sent_image = request.form['image_data']
+            #sent_image = request.form['image_data']
+
+            #!alec specific requests
+            request_data = request.get_json()
+            sent_image = request_data['image']
 
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            #im_file = BytesIO(im_bytes)  # convert image to file-like object
-            #img = Image.open(im_file)   # img is now PIL Image object
+            im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+            img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
             reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(im_bytes)
+            result = reader.readtext(im_bytes,detail=1)
+
+            print("Results Message: OCR raw reading result\n",result)
 
             #calculate average confidence
             total_confidence = 0.0
             number_of_lines = len(result)
-
-            print(result)
 
             for confidence in result:
                 total_confidence += confidence[2]
@@ -288,8 +297,24 @@ def api_easyocr_best_confidence():
 
             #compare word confidence to average
             for word_confidence in result:
-                # if total_confidence <= word_confidence[2]:
+                #if total_confidence <= word_confidence[2]:
                 output_to_show += " " + word_confidence[1]
+
+            print("Results Message: OCR reading result after pre-processing\n",output_to_show)
+
+            image2 = img.copy()
+
+            for bounding_boxes in result:
+                points = bounding_boxes[0]
+                rect = cv2.boundingRect(np.array(points))
+                x, y, w, h = rect
+                cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
+                cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
+
+            retval, buffer = cv2.imencode('.jpg', image2)
+            jpg_as_text = base64.b64encode(buffer)
+
+            print("Results Message: OCR  result after bounding box processing\n",jpg_as_text)
 
             dict_to_return = {}
 
@@ -299,10 +324,12 @@ def api_easyocr_best_confidence():
             #return index 1 to be doasage
             dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-            print(dict_to_return)
+            #return index 1 to be doasage
+            dict_to_return["base64"] = jpg_as_text.decode('utf-8')
 
-            # return jsonify(test_json)
-            return dict_to_return
+            print("Results Message: API request final dictionary result:\n",dict_to_return)
+
+            return jsonify(dict_to_return)
 
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
@@ -312,22 +339,26 @@ def api_easyocr_best_confidence():
 def api_easyocr_custom_best_confidence():
     if request.method == "POST":
         try:
-            
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
-
-            request_data = request.get_json()
-
-            sent_image = request_data['image']
+            
+            # Get the data sent by the AJAX request
+            sent_image = request.form['image_data']
+            
+            # !alec specific
+            # request_data = request.get_json()
+            # sent_image = request_data['image']
 
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            #im_file = BytesIO(im_bytes)  # convert image to file-like object
-            #img = Image.open(im_file)   # img is now PIL Image object
+            im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+            img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
             reader = easyocr.Reader(['en'], gpu=True)
-            result = reader.readtext(im_bytes)
+            result = reader.readtext(im_bytes,detail=1)
+
+            print("Results Message: OCR raw reading result\n",result)
 
             #calculate average confidence
             total_confidence = 0.0
@@ -342,8 +373,24 @@ def api_easyocr_custom_best_confidence():
 
             #compare word confidence to average
             for word_confidence in result:
-                if total_confidence <= word_confidence[2]:
-                    output_to_show += " " + word_confidence[1]
+                #if total_confidence <= word_confidence[2]:
+                output_to_show += " " + word_confidence[1]
+
+            print("Results Message: OCR reading result after pre-processing\n",output_to_show)
+
+            image2 = img.copy()
+
+            for bounding_boxes in result:
+                points = bounding_boxes[0]
+                rect = cv2.boundingRect(np.array(points))
+                x, y, w, h = rect
+                cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
+                cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
+
+            retval, buffer = cv2.imencode('.jpg', image2)
+            jpg_as_text = base64.b64encode(buffer)
+
+            print("Results Message: OCR  result after bounding box processing\n",jpg_as_text)
 
             dict_to_return = {}
 
@@ -353,90 +400,96 @@ def api_easyocr_custom_best_confidence():
             #return index 1 to be doasage
             dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-            # return jsonify(test_json)
-            return dict_to_return
+            #return index 1 to be doasage
+            dict_to_return["base64"] = jpg_as_text.decode('utf-8')
+
+            print("Results Message: API request final dictionary result:\n",dict_to_return)
+
+            return jsonify(dict_to_return)
 
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
         
-#send best confidence easy
-@app.route('/api/paddleocr/output/best_confidence', methods=['GET','POST'])
-def api_paddleocr():
-    if request.method == "POST":
-        try:
-            #process status messages
-            print("\nStatus Message: POST Method API request for /api/paddleocr/output/best_confidence")
+# ! Kyron specific paddle ocr
+        
+# #send best confidence easy
+# @app.route('/api/paddleocr/output/best_confidence', methods=['GET','POST'])
+# def api_paddleocr():
+#     if request.method == "POST":
+#         try:
+#             #process status messages
+#             print("\nStatus Message: POST Method API request for /api/paddleocr/output/best_confidence")
             
-            # Get the data sent by the AJAX request
-            sent_image = request.form['image_data']
+#             # Get the data sent by the AJAX request
+#             sent_image = request.form['image_data']
             
 
-            str_decoded_bytes = bytes(sent_image, 'utf-8')
+#             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
-            im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            im_file = BytesIO(im_bytes)  # convert image to file-like object
-            img = Image.open(im_file)   # img is now PIL Image object
+#             im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
+#             im_file = BytesIO(im_bytes)  # convert image to file-like object
+#             img = Image.open(im_file)   # img is now PIL Image object
 
-            #paddleocr need the input as file_path, numpy array
-            arr = np.array(img) # Convert the image to a NumPy array
+#             #paddleocr need the input as file_path, numpy array
+#             arr = np.array(img) # Convert the image to a NumPy array
 
-            reader = PaddleOCR(lang="en")
-            result = reader.ocr(arr)
+#             reader = PaddleOCR(lang="en")
+#             result = reader.ocr(arr)
 
 
-            #Extracting prescription medication labels using PaddleOCR
-            boxes = [res[0] for res in result] 
-            texts = [res[1][0] for res in result]
-            scores = [res[1][1] for res in result]
+#             #Extracting prescription medication labels using PaddleOCR
+#             boxes = [res[0] for res in result] 
+#             texts = [res[1][0] for res in result]
+#             scores = [res[1][1] for res in result]
             
             
-            font_path = os.path.join('PaddleOCR', 'doc', 'fonts', 'latin.ttf')
+#             font_path = os.path.join('PaddleOCR', 'doc', 'fonts', 'latin.ttf')
 
-            img = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
-            np.set_printoptions(threshold=np.inf)
-            annotated = draw_ocr(img, boxes, texts, scores, font_path=font_path)
-            retval, buffer = cv2.imencode('.jpg', annotated)
-            jpg_as_text = base64.b64encode(buffer)
-            base64_str = jpg_as_text.decode('utf-8')
-
-
-
-            total_confidence = 0.0
-            number_of_lines = len(result)
+#             img = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
+#             np.set_printoptions(threshold=np.inf)
+#             annotated = draw_ocr(img, boxes, texts, scores, font_path=font_path)
+#             retval, buffer = cv2.imencode('.jpg', annotated)
+#             jpg_as_text = base64.b64encode(buffer)
+#             base64_str = jpg_as_text.decode('utf-8')
 
 
-            for confidence in result:
-                total_confidence += confidence[1][1]
+
+#             total_confidence = 0.0
+#             number_of_lines = len(result)
+
+
+#             for confidence in result:
+#                 total_confidence += confidence[1][1]
             
-            if total_confidence != 0.0 or number_of_lines != 0:
-                total_confidence = total_confidence/number_of_lines
+#             if total_confidence != 0.0 or number_of_lines != 0:
+#                 total_confidence = total_confidence/number_of_lines
 
-                output_to_show = ""
+#                 output_to_show = ""
 
-                #compare word confidence to average
-                for word_confidence in result:
-                    print(word_confidence)
-                    # if total_confidence <= word_confidence[1]:
-                    output_to_show += " " + word_confidence[1][0]
+#                 #compare word confidence to average
+#                 for word_confidence in result:
+#                     print(word_confidence)
+#                     # if total_confidence <= word_confidence[1]:
+#                     output_to_show += " " + word_confidence[1][0]
 
-                dict_to_return = {}
+#                 dict_to_return = {}
 
-                # #return index 0 to be brand
-                dict_to_return["brand"] = textpreprocessing(output_to_show)
+#                 # #return index 0 to be brand
+#                 dict_to_return["brand"] = textpreprocessing(output_to_show)
 
-                # #return index 1 to be doasage
-                dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
+#                 # #return index 1 to be doasage
+#                 dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-                dict_to_return["base64"] = base64_str
+#                 dict_to_return["base64"] = base64_str
 
 
-                # return jsonify(test_json)
-                # print(dict_to_return)
-                return dict_to_return
-            else:
-                return "No text detected"
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+#                 # return jsonify(test_json)
+#                 # print(dict_to_return)
+#                 return dict_to_return
+#             else:
+#                 return "No text detected"
+#         except:
+#             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 
 if __name__ == '__main__':
     app.run(debug=True)

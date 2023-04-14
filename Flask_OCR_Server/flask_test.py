@@ -98,7 +98,7 @@ def dosagepreprocessing(textprocess):
     """
     Function to clean words to get the dosage
     :param list of numbers:
-    :return: dosage or empty string
+    :return: dosage string or empty string
     """
     #uppercase all the letters
     text_to_process = textprocess.upper()
@@ -109,16 +109,56 @@ def dosagepreprocessing(textprocess):
     #use try or it will error
     try:
         #use regex
-        text_to_process = re.search("(\d+)(MG)", text_to_process).group()
+        text_to_process = re.findall("(\d+)(MG)", text_to_process)
 
-        text_to_process = re.search("(\d+)", text_to_process).group()
+        text_to_return = ""
+
+        for word in text_to_process:
+            text_to_return+= " " + word[0]
+   
     except:
         text_to_process = ""
             
-    return text_to_process
-
+    return text_to_return
 
 def fuzzy_search(list_of_words,drug_records):
+    """ 
+    Function to fuzzy search algorithm of jaro winkler and levenshtein distance
+    :param list of words, list of records:
+    :return: list of best score text for each algorithm
+    """
+
+    jw_best_match = ""
+    ld_best_match = ""
+
+    #scores assignment
+    jw_best_score = 0.0
+    ld_best_score = 0.0
+
+    for word in list_of_words:
+
+        for record in drug_records:
+
+            jw_score = td.jaro_winkler(word,record[0])
+            ld_score = td.levenshtein.normalized_similarity(word, record[0])
+
+            if jw_score > jw_best_score:
+
+                jw_best_score = jw_score
+                #output
+                jw_best_match = record[0]
+
+            if ld_score > ld_best_score:
+
+                ld_best_score = ld_score
+                #output
+                ld_best_match = record[0]
+
+        list_to_return = [jw_best_match,ld_best_match]
+
+    return list_to_return
+    
+def fuzzy_search_dosage(list_of_words,drug_records):
     """ 
     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
     :param list of words, list of records:
@@ -129,48 +169,33 @@ def fuzzy_search(list_of_words,drug_records):
     jw_best_match = ""
     ld_best_match = ""
 
+    #scores assignment
+    jw_best_score = 0.0
+    ld_best_score = 0.0
+
     for word in list_of_words:
-        print(number)
-        number+=1
 
-        #scores assignment
-        jw_best_score = 0.0
-        ld_best_score = 0.0
-
-        #best input for each algorithm
-        jw_best_input = ""
-        ld_best_input = ""
 
         for record in drug_records:
 
-            jw_score = td.jaro_winkler(word,record[0])
-            ld_score = td.levenshtein.normalized_similarity(word, record[0])
-
-            print(word,record[0], jw_score, ld_score)
+            jw_score = td.jaro_winkler(word,record[1])
+            ld_score = td.levenshtein.normalized_similarity(word, record[1])
 
             if jw_score > jw_best_score:
 
                 jw_best_score = jw_score
-                jw_best_input = word
-
                 #output
-                jw_best_match = record[0]
+                jw_best_match = record[1]
 
             if ld_score > ld_best_score:
 
                 ld_best_score = ld_score
-                ld_best_input = word
-
                 #output
-                ld_best_match = record[0]
+                ld_best_match = record[1]
 
-        print("\n",jw_best_score,jw_best_match, jw_best_input)
+        list_to_return = [str(jw_best_match),str(ld_best_match)]
 
-        print("\n",ld_best_score,ld_best_match, ld_best_input)
-
-        list_to_return = [jw_best_match,ld_best_match]
-
-        return list_to_return
+    return list_to_return
 
 app = Flask(__name__)
 
@@ -442,19 +467,24 @@ def api_easyocr_best_confidence():
 
             dict_to_return = {}
 
+            #return dictionary with base64 key
+            dict_to_return["base64"] = jpg_as_text.decode('utf-8')
+
             #return dictionary with brand key
             dict_to_return["brand"] = textpreprocessing(output_to_show)
 
             #return dictionary with dosage key
             dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-            #return dictionary with base64 key
-            dict_to_return["base64"] = jpg_as_text.decode('utf-8')
-
-            #return dictionary with ld_fuzzy and jw_fuzzy keys
+            #return dictionary with ld_fuzzy and jw_fuzzy keys for brand
             fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
-            dict_to_return["ld_fuzzy"] = fuzzy_result_list[1]
-            dict_to_return["jw_fuzzy"] = fuzzy_result_list[0]
+            dict_to_return["ld_fuzzy_brand"] = fuzzy_result_list[1]
+            dict_to_return["jw_fuzzy_brand"] = fuzzy_result_list[0]
+
+            #return dictionary with ld_fuzzy and jw_fuzzy keys for dosage
+            fuzzy_result_list = fuzzy_search_dosage(list(dosagepreprocessing(output_to_show).split()),drug_records)
+            dict_to_return["ld_fuzzy_dosage"] = fuzzy_result_list[1]
+            dict_to_return["jw_fuzzy_dosage"] = fuzzy_result_list[0]
 
             print("Results Message: API request final dictionary result:\n",dict_to_return)
 

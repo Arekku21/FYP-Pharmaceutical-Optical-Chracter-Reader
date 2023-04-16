@@ -421,3 +421,91 @@ print(type(x.text))
 #         return list_to_return
     
 # print(fuzzy_search(['', 'PANADOL', '', 'MEDICINE', '2', '', 'MEDICINERE', ''],drug_records))
+
+
+#######################################################################################################
+# ! testing dosage processing
+# import re, string
+
+# def dosagepreprocessing(textprocess):
+#     """
+#     Function to clean words to get the dosage
+#     :param list of numbers:
+#     :return: dosage string or empty string
+#     """
+#     #uppercase all the letters
+#     text_to_process = textprocess.upper()
+
+#     #remove the punctuations
+#     text_to_process = "".join([char for char in text_to_process if char not in string.punctuation])
+
+#     #use try or it will error
+#     try:
+#         #use regex
+#         text_to_process = re.findall("(\d+)(MG)", text_to_process)
+
+#         text_to_return = ""
+
+#         for word in text_to_process:
+#             text_to_return+= " " + word[0]
+   
+#     except:
+#         text_to_process = ""
+            
+#     return text_to_return
+
+# print(dosagepreprocessing("33mg 650mg 6 6 0 mg"))
+
+
+###########################################################################################################
+
+# import textdistance as td
+
+# def fuzzy_search(list_of_words,drug_records):
+#     """ 
+#     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
+#     :param list of words, list of records:
+#     :return: list of best score text for each algorithm
+#     """
+
+#     jw_best_match = ""
+#     ld_best_match = ""
+
+#     #scores assignment
+#     jw_best_score = 0.0
+#     ld_best_score = 0.0
+
+#     for word in list_of_words:
+
+        
+
+#         for record in drug_records:
+
+#             jw_score = td.jaro_winkler(word,record[0])
+#             ld_score = td.levenshtein.normalized_similarity(word, record[0])
+
+#             # print(word,record[0],jw_score,ld_score,"\n")
+
+#             if jw_score > jw_best_score:
+
+#                 jw_best_score = jw_score
+#                 #output
+#                 jw_best_match = record[0]
+                
+#                 print(word,record[0],jw_best_score,"\n")
+
+#             if ld_score > ld_best_score:
+
+#                 ld_best_score = ld_score
+#                 #output
+#                 ld_best_match = record[0]
+
+#                 # print(word,record[0],ld_best_score,"\n")
+
+#         list_to_return = [jw_best_match,ld_best_match]
+
+#     return list_to_return
+    
+# print(fuzzy_search(['PANADO\L','MEDICINE','MEDICINERE'],(('LORATADINE', 10), ('LEVOCETIRIZINE', 5), ('PANADOL ACTIFAST', 500))))
+    
+# # # print(td.jaro_winkler("500","500"))

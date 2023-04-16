@@ -9,6 +9,7 @@
 <?php
 include "../menu/menu.php";
 ?>
+<br>
 <div class="container" style="margin-top: 0%;">
   <div class="container-fluid">
     <div class="row-fluid" style="...">
@@ -117,7 +118,7 @@ include "../menu/menu.php";
           </h1>
 
           </div>
-          <a href="../employee/employee.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Sales Report" style="margin-bottom:2px;background-color:#150050"></a>
+          <a href="../report/dailyReport.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Sales Report" style="margin-bottom:2px;background-color:#150050"></a>
     </div>
 
           <div class="card" style="left:6%; width:35rem; border-style:solid; border-width:10px; border-radius:10px; float:right; margin-top:15px; margin-right:10px; ">

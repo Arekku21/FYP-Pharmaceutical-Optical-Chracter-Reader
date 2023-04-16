@@ -51,6 +51,10 @@ include "../db.php";
     max-width: 600px;
     text-align: center;
   }
+
+  .is-active{
+      z-index: 0;
+    }
 </style>
 </head>
 <script>
@@ -230,10 +234,10 @@ include "../menu/menu.php";
   </div>
     <form action="" method="post" enctype="multipart/form-data">
       Modal API: <select id="modalAPI">
-        <option value="http://127.0.0.1:5000/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
-        <option value="http://127.0.0.1:5000/api/easyocr/output/best_confidence">EasyOCR</option>
-        <option value="http://127.0.0.1:5000/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
-        <option value="http://127.0.0.1:5000/api/pytesseract/output/best_confidence">PyTesseract</option>
+        <option value="http://127.0.0.1:5002/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
+        <option value="http://127.0.0.1:5001/api/easyocr/output/best_confidence">EasyOCR</option>
+        <option value="http://127.0.0.1:5001/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
+        <option value="http://127.0.0.1:5001/api/pytesseract/output/best_confidence">PyTesseract</option>
       </select>
       <!-- The button to open the modal -->
       <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" >Open Camera</button>

@@ -188,13 +188,13 @@ def fuzzy_search_dosage(list_of_words,drug_records):
 
                 jw_best_score = jw_score
                 #output
-                jw_best_match = record[1]
+                jw_best_match = record[0]
 
             if ld_score > ld_best_score:
 
                 ld_best_score = ld_score
                 #output
-                ld_best_match = record[1]
+                ld_best_match = record[0]
 
         list_to_return = [str(jw_best_match),str(ld_best_match)]
 

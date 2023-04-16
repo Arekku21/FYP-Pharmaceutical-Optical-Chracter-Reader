@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="../css/jquery_dataTables.css">
 <script type="text/javascript" charset="utf8" src="../js/jquery_dataTables.js"></script>
 <style>
-
   .menu-list{
     border-radius: 2px;
     width: 220%;
@@ -25,7 +24,13 @@
     }
 
     #img:hover{
+      z-index: 1;
+      position: relative;
       transform:scale(5.0);
+    }
+
+    .is-active{
+      z-index: 0;
     }
 
 </style>
@@ -71,12 +76,13 @@ include "../menu/menu.php";
       form_data.append('action', 'editDrug');
       form_data.append('id', id);
       $.ajax({
-        url: "../ajax/ajax.php",
+        // url: "../ajax/ajax.php",
+        url: "http://127.0.0.1:5002/api/medicinerecords/update",
         method: "POST",
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,
+        // cache: false,
+        // contentType: false,
+        // processData: false,
+        // data: form_data,
         success: function(result){
           alert(result.trim());
         }
@@ -261,10 +267,10 @@ include "../menu/menu.php";
                       { 
                         echo '</td>
                         <td class="level-right">
-                          <button class="btnShowEdit button is-small is-primary" id="'.$row["DrugID"].'" style="font-weight: bold;margin-right: 1%;" type="button" data-toggle="modal" data-backdrop="false" data-target="#editModal">Edit Drug</button>
-                          <button class="btnRemoveDrug button is-small is-danger" id="'.$row["DrugID"].'" style="font-weight: bold;">Delete Drug</button>
-                          <button value="'.$row["DrugID"].'" class="btnAdd button is-small is-info" style="font-weight: bold;margin-right: 1%;" type="button" data-toggle="modal" data-backdrop="false" data-target="#exampleModalLong">Add Stock</button>
-                        <button class="btnRemove button is-small is-warning" value="'.$row["DrugID"].'" style="font-weight: bold;" type="button" data-toggle="modal" data-backdrop="false" data-target="#removeModal">Remove Stock</button>
+                        <nobr><button class="btnShowEdit button is-small is-primary" id="'.$row["DrugID"].'" style="font-weight: bold;margin-right: 1%;" type="button" data-toggle="modal" data-backdrop="false" data-target="#editModal">Edit Drug</button><nobr>
+                          <button class="btnRemoveDrug button is-small is-danger" id="'.$row["DrugID"].'" style="font-weight: bold;">Delete Drug</button><nobr>
+                          <button value="'.$row["DrugID"].'" class="btnAdd button is-small is-info" style="font-weight: bold;margin-right: 1%;" type="button" data-toggle="modal" data-backdrop="false" data-target="#exampleModalLong">Add Stock</button><nobr>
+                        <button class="btnRemove button is-small is-warning" value="'.$row["DrugID"].'" style="font-weight: bold;" type="button" data-toggle="modal" data-backdrop="false" data-target="#removeModal">Remove Stock</button><nobr>
                         </td>
                         </tr>
                         ';
@@ -331,7 +337,7 @@ include "../menu/menu.php";
           </div>
 
           <div style="width: 100%;margin-top: 40px;">
-            <input type="submit" class="btnEditDrug button is-primary is-fullwidth" name="btnEditDrug" value="Edit">
+            <input type="button" class="btnEditDrug button is-primary is-fullwidth" name="btnEditDrug" value="Edit">
           </div>
         </form>
       </div>

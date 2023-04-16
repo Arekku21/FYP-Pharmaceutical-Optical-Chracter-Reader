@@ -31,6 +31,10 @@
     max-width: 600px;
     text-align: center;
   }
+
+  .is-active{
+      z-index: 0;
+    }
 </style>
 <?php
 include "../menu/menu.php";
@@ -392,10 +396,12 @@ include "../menu/menu.php";
             var encodedImg = result.base64;
             // Create a new `img` element
             const img = document.createElement('img');
+            // console.log(encodedImg);
             // Set the `src` attribute of the `img` element to the Base64 data
             img.src = 'data:image/png;base64, ' + encodedImg;
             // Append the `img` element to the `div`
             const div = document.getElementById('output');
+            div.innerHTML = "";
             div.appendChild(img);
             $.ajax({
               url: "../ajax/ajax.php",
@@ -403,6 +409,57 @@ include "../menu/menu.php";
               data: {action: "searchDrug", result: JSON.stringify(result)},
               success: function(result2){
                 $("#drug_table > tbody").html(result2);
+                $.ajax({
+                  url: "../ajax/ajax.php",
+                  method: "POST",
+                  data: {action: "FuzzySearchDrug", result: JSON.stringify(result)},
+                  success: function(result3){
+                    $("#fuzzyResult").html(result3);
+                    $(".brandSuggestion1").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".brandSuggestionValue1").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+
+                    $(".brandSuggestion2").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".brandSuggestionValue2").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+
+                    $(".dosageSuggestion1").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".dosageSuggestionValue1").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+
+                    $(".dosageSuggestion2").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".dosageSuggestionValue2").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+                  }
+                });
                 $(".btnAddToCart").click(function(){
                   $.ajax({
                     url: "../ajax/ajax.php",
@@ -430,7 +487,7 @@ include "../menu/menu.php";
                       var total = row.insertCell(4);
                       name.innerHTML = result[0];
                       manufacturer.innerHTML = result[1];
-                      quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><inputtype='hidden' name='drugID[]' value='" + result[4] + "'>";
+                      quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
                       price.innerHTML = result[3];
                       total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
 
@@ -471,16 +528,19 @@ include "../menu/menu.php";
   </div>
   <form action="" method="post" enctype="multipart/form-data">
     Modal API: <select id="modalAPI">
-      <option value="http://127.0.0.1:5000/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
-      <option value="http://127.0.0.1:5000/api/easyocr/output/best_confidence">EasyOCR</option>
-      <option value="http://127.0.0.1:5000/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
-      <option value="http://127.0.0.1:5000/api/pytesseract/output/best_confidence">PyTesseract</option>
+      <option value="http://127.0.0.1:5002/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
+      <option value="http://127.0.0.1:5001/api/easyocr/output/best_confidence">EasyOCR</option>
+      <option value="http://127.0.0.1:5001/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
+      <option value="http://127.0.0.1:5001/api/pytesseract/output/best_confidence">PyTesseract</option>
     </select>
     <!-- The button to open the modal -->
     <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" >Open Camera</button>
   </form>
   <div>
     <div id="output">
+
+    </div>
+    <div id="fuzzyResult">
 
     </div>
   </div>
@@ -494,6 +554,7 @@ include "../menu/menu.php";
           <th>DRUG IMAGE</th>
           <th>DRUG MANUFACTURER</th>
           <th>DRUG NAME</th>
+          <th>DRUG DOSAGE</th>
           <th>DRUG CATEGORY</th>
           <th>UNIT IN PACKAGE</th>
           <th>DRUG PRICE(RM)</th>
@@ -517,6 +578,7 @@ include "../menu/menu.php";
         
         echo "<td>".ucwords(strtolower($row["manufacturer"]))."</td>
         <td>".ucwords(strtolower($row["drugName"]))."</td>
+        <td>".$row["drugDosage"]."</td>
         <td>".ucwords(strtolower($row["drugCategory"]))."</td>
         <td>".$row["no_of_unit_in_package"]."</td>
         <td>".$row["unitPrice"]."</td>
@@ -538,23 +600,22 @@ include "../menu/menu.php";
   <div class="panel-block ">
     <div  style="height: 300px; width: 100%;">
     <div style="overflow-y:auto ;overflow-x: hidden;height: 300px;">
-              <table id="shopping_cart" class="table is-full" style="width:100%">
-                <thead >
-                  <tr>
-                    <th>DRUG NAME</th>
-                    <th>DRUG MANUFACTURER</th>
-                    <th>QUANTITY</th>
-                    <th>UNIT PRICE(RM)</th>
-                    <th>TOTAL AMOUNT(RM)</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
+      <table id="shopping_cart" class="table is-full" style="width:100%">
+        <thead >
+          <tr>
+            <th>DRUG NAME</th>
+            <th>DRUG MANUFACTURER</th>
+            <th>QUANTITY</th>
+            <th>UNIT PRICE(RM)</th>
+            <th>TOTAL AMOUNT(RM)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
 
-                </tbody>
-              </table>
-            </div>
-
+        </tbody>
+      </table>
+      <div>
     </div>
   </div>
 </section>

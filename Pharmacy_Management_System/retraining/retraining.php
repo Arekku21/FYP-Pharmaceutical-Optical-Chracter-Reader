@@ -86,6 +86,7 @@ include "../menu/menu.php";
         processData: false,
         data: form_data,
         success: function(result){
+            console.log(result.trim());
 			var result = JSON.parse(result);
             $(".btnProceed").show();
             var countRow = 0;

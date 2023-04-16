@@ -21,41 +21,15 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 
-import cv2, base64
-
-import textdistance as td
+import cv2, base64, numpy as np 
 
 import json
 
 #import regular expressions
 import re, string
 
-#List of database records
-import pymysql
-
-# Connect to MySQL database
-connection = pymysql.connect(host='localhost',user='username',password='password',db='dbpharmacy')
-query = "SELECT drugName,drugDosage FROM tblmedicine"
-
-# Execute query
-cursor = connection.cursor()
-cursor.execute(query)
-
-# Fetch all the rows and store in a list
-rows = cursor.fetchall()
-
-# ! drug records from database
-drug_records = np.array(rows)
-
-#process status messages
-print("\nStatus Message: Records retrieved from database")
-
-# Close the cursor and database connection
-cursor.close()
-connection.close()
-
 #list of symbols for preprocessing
-list_of_symbols = ["™","®","©","&trade;","&reg;","&copy;","&#8482;","&#174;","&#169;","\n","+","[","]","(",")","-",":",";"]
+list_of_symbols = ["™","®","©","&trade;","&reg;","&copy;","&#8482;","&#174;","&#169;","\n"]
 
 def remove_duplicates(list_of_numbers):
     """
@@ -117,61 +91,6 @@ def dosagepreprocessing(textprocess):
             
     return text_to_process
 
-
-def fuzzy_search(list_of_words,drug_records):
-    """ 
-    Function to fuzzy search algorithm of jaro winkler and levenshtein distance
-    :param list of words, list of records:
-    :return: list of best score text for each algorithm
-    """
-    number = 0
-
-    jw_best_match = ""
-    ld_best_match = ""
-
-    for word in list_of_words:
-        print(number)
-        number+=1
-
-        #scores assignment
-        jw_best_score = 0.0
-        ld_best_score = 0.0
-
-        #best input for each algorithm
-        jw_best_input = ""
-        ld_best_input = ""
-
-        for record in drug_records:
-
-            jw_score = td.jaro_winkler(word,record[0])
-            ld_score = td.levenshtein.normalized_similarity(word, record[0])
-
-            print(word,record[0], jw_score, ld_score)
-
-            if jw_score > jw_best_score:
-
-                jw_best_score = jw_score
-                jw_best_input = word
-
-                #output
-                jw_best_match = record[0]
-
-            if ld_score > ld_best_score:
-
-                ld_best_score = ld_score
-                ld_best_input = word
-
-                #output
-                ld_best_match = record[0]
-
-        print("\n",jw_best_score,jw_best_match, jw_best_input)
-
-        print("\n",ld_best_score,ld_best_match, ld_best_input)
-
-        list_to_return = [jw_best_match,ld_best_match]
-
-        return list_to_return
-
 app = Flask(__name__)
 
 # ! Kyron specific mac problem
@@ -181,48 +100,6 @@ CORS(app)
 @app.route('/index')
 def home():
     return render_template('index.html')
-
-#updated np array of database records
-@app.route('/api/medicinerecords/update', methods=['POST'])
-def medicinerecords_update():
-
-    # Connect to MySQL database
-    connection = pymysql.connect(host='localhost',
-    user='username',
-    password='password',
-    db='dbpharmacy')
-
-    # Define SQL query
-    query = "SELECT drugName,drugDosage FROM tblmedicine"
-
-    # Execute query
-    cursor = connection.cursor()
-    cursor.execute(query)
-
-    # Fetch all the rows and store in a list
-    rows = cursor.fetchall()
-
-    # Convert list of tuples to a numpy array
-    drug_records = np.array(rows)
-
-    # Close the cursor and database connection
-    cursor.close()
-    connection.close()
-
-    #process status messages
-    print("\nStatus Message: Records from database updated")
-
-    return "Successfully Updated"
-
-#print current np array of database records
-@app.route('/api/medicinerecords/read', methods=['POST'])
-def medicinerecords_read():
-
-    print("\nStatus Message: Records from numpy array: ")
-
-    print(drug_records)
-
-    return "Successfully Read"   
 
 #send whole dictionary pytesseract
 @app.route('/api/pytesseract/output/dictionary', methods=['GET', 'POST'])
@@ -253,7 +130,7 @@ def api_pytesseract_dict():
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 
-# TODO Add return base64 image for bounding box pytesseract best confidence
+
 #send best confidence pytesseract
 @app.route('/api/pytesseract/output/best_confidence', methods=['POST'])
 def api_pytesseract_best_confidence():
@@ -389,12 +266,11 @@ def api_easyocr_best_confidence():
 
             # print(request.get_json())
 
-            # sent_image = request_data['image']
-            #sent_image = request.form['image_data']
+            sent_image = request.form['image_data']
 
             #!alec specific requests
-            request_data = request.get_json()
-            sent_image = request_data['image']
+            # request_data = request.get_json()
+            # sent_image = request_data['image']
 
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
@@ -402,7 +278,7 @@ def api_easyocr_best_confidence():
             im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
             img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-            reader = easyocr.Reader(['en'], gpu=False)
+            reader = easyocr.Reader(['en'], gpu=True)
             result = reader.readtext(im_bytes,detail=1)
 
             print("Results Message: OCR raw reading result\n",result)
@@ -429,8 +305,7 @@ def api_easyocr_best_confidence():
 
             for bounding_boxes in result:
                 points = bounding_boxes[0]
-                numpy_array_points = np.array(points)
-                rect = cv2.boundingRect(numpy_array_points.astype(np.float32))
+                rect = cv2.boundingRect(np.array(points))
                 x, y, w, h = rect
                 cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
                 cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
@@ -442,19 +317,14 @@ def api_easyocr_best_confidence():
 
             dict_to_return = {}
 
-            #return dictionary with brand key
+            #return index 0 to be brand
             dict_to_return["brand"] = textpreprocessing(output_to_show)
 
-            #return dictionary with dosage key
+            #return index 1 to be doasage
             dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-            #return dictionary with base64 key
+            #return index 1 to be doasage
             dict_to_return["base64"] = jpg_as_text.decode('utf-8')
-
-            #return dictionary with ld_fuzzy and jw_fuzzy keys
-            fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
-            dict_to_return["ld_fuzzy"] = fuzzy_result_list[1]
-            dict_to_return["jw_fuzzy"] = fuzzy_result_list[0]
 
             print("Results Message: API request final dictionary result:\n",dict_to_return)
 
@@ -470,18 +340,13 @@ def api_easyocr_custom_best_confidence():
         try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
-
-            # print(request.cclearontent_type)
-            # request_data = request.get_data()
-
-            # print(request.get_json())
-
+            
+            # Get the data sent by the AJAX request
+            sent_image = request.form['image_data']
+            
+            # !alec specific
+            # request_data = request.get_json()
             # sent_image = request_data['image']
-            #sent_image = request.form['image_data']
-
-            #!alec specific requests
-            request_data = request.get_json()
-            sent_image = request_data['image']
 
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
@@ -489,7 +354,7 @@ def api_easyocr_custom_best_confidence():
             im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
             img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-            reader = easyocr.Reader(['en'], gpu=False)
+            reader = easyocr.Reader(['en'], gpu=True)
             result = reader.readtext(im_bytes,detail=1)
 
             print("Results Message: OCR raw reading result\n",result)
@@ -516,8 +381,7 @@ def api_easyocr_custom_best_confidence():
 
             for bounding_boxes in result:
                 points = bounding_boxes[0]
-                numpy_array_points = np.array(points)
-                rect = cv2.boundingRect(numpy_array_points.astype(np.float32))
+                rect = cv2.boundingRect(np.array(points))
                 x, y, w, h = rect
                 cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
                 cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
@@ -529,19 +393,14 @@ def api_easyocr_custom_best_confidence():
 
             dict_to_return = {}
 
-            #return dictionary with brand key
+            #return index 0 to be brand
             dict_to_return["brand"] = textpreprocessing(output_to_show)
 
-            #return dictionary with dosage key
+            #return index 1 to be doasage
             dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-            #return dictionary with base64 key
+            #return index 1 to be doasage
             dict_to_return["base64"] = jpg_as_text.decode('utf-8')
-
-            #return dictionary with ld_fuzzy and jw_fuzzy keys
-            fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
-            dict_to_return["ld_fuzzy"] = fuzzy_result_list[1]
-            dict_to_return["jw_fuzzy"] = fuzzy_result_list[0]
 
             print("Results Message: API request final dictionary result:\n",dict_to_return)
 
@@ -552,7 +411,7 @@ def api_easyocr_custom_best_confidence():
         
 # ! Kyron specific paddle ocr
         
-# #send best confidence easy
+#send best confidence paddle
 @app.route('/api/paddleocr/output/best_confidence', methods=['GET','POST'])
 def api_paddleocr():
     if request.method == "POST":
@@ -637,5 +496,5 @@ def api_paddleocr():
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    app.run(debug=True)
 

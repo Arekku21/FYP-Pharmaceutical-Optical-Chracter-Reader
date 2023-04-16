@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, jsonify, Response
 from flask_cors import CORS
 
 # ! paddle OCR
-from PaddleOCR import PaddleOCR, draw_ocr 
+# from PaddleOCR import PaddleOCR, draw_ocr 
 import numpy as np
 
 #import OCR model pytesseract and functions
@@ -17,7 +17,7 @@ import numpy as np
 # from  pytesseract import Output
 
 #import easyocr pillow and bytes
-# import easyocr
+import easyocr
 from io import BytesIO
 from PIL import Image
 
@@ -173,6 +173,9 @@ def fuzzy_search_dosage(list_of_words,drug_records):
     jw_best_score = 0.0
     ld_best_score = 0.0
 
+    list_to_return = [str(jw_best_match),str(ld_best_match)]
+    
+    
     for word in list_of_words:
 
 
@@ -415,11 +418,11 @@ def api_easyocr_best_confidence():
             # print(request.get_json())
 
             # sent_image = request_data['image']
-            #sent_image = request.form['image_data']
+            sent_image = request.form['image_data']
 
             #!alec specific requests
-            request_data = request.get_json()
-            sent_image = request_data['image']
+            # request_data = request.get_json()
+            # sent_image = request_data['image']
 
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
@@ -497,7 +500,7 @@ def api_easyocr_best_confidence():
 @app.route('/api/easyocr_custom/output/best_confidence', methods=['GET','POST'])
 def api_easyocr_custom_best_confidence():
     if request.method == "POST":
-        try:
+        # try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
 
@@ -507,11 +510,11 @@ def api_easyocr_custom_best_confidence():
             # print(request.get_json())
 
             # sent_image = request_data['image']
-            #sent_image = request.form['image_data']
+            sent_image = request.form['image_data']
 
-            #!alec specific requests
-            request_data = request.get_json()
-            sent_image = request_data['image']
+            # #!alec specific requests
+            # request_data = request.get_json()
+            # sent_image = request_data['image']
 
             str_decoded_bytes = bytes(sent_image, 'utf-8')
 
@@ -567,6 +570,7 @@ def api_easyocr_custom_best_confidence():
 
             #return dictionary with base64 key
             dict_to_return["base64"] = jpg_as_text.decode('utf-8')
+            # print(dict_to_return["base64"])
 
             #return dictionary with ld_fuzzy and jw_fuzzy keys
             fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
@@ -577,8 +581,8 @@ def api_easyocr_custom_best_confidence():
 
             return jsonify(dict_to_return)
 
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+        # except:
+            # return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
         
 # ! Kyron specific paddle ocr
         
@@ -652,10 +656,15 @@ def api_paddleocr():
 
                 dict_to_return["base64"] = base64_str
 
-                #return dictionary with ld_fuzzy and jw_fuzzy keys
+                #return dictionary with ld_fuzzy and jw_fuzzy keys for brand
                 fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
-                dict_to_return["ld_fuzzy"] = fuzzy_result_list[1]
-                dict_to_return["jw_fuzzy"] = fuzzy_result_list[0]
+                dict_to_return["ld_fuzzy_brand"] = fuzzy_result_list[1]
+                dict_to_return["jw_fuzzy_brand"] = fuzzy_result_list[0]
+
+                #return dictionary with ld_fuzzy and jw_fuzzy keys for dosage
+                fuzzy_result_list = fuzzy_search_dosage(list(dosagepreprocessing(output_to_show).split()),drug_records)
+                dict_to_return["ld_fuzzy_dosage"] = fuzzy_result_list[1]
+                dict_to_return["jw_fuzzy_dosage"] = fuzzy_result_list[0]
 
 
                 # return jsonify(test_json)
@@ -667,5 +676,5 @@ def api_paddleocr():
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    app.run(debug=True, port=5001)
 

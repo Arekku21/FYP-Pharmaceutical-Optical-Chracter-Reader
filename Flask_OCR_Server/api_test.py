@@ -40,7 +40,7 @@
 
 import requests
 
-import base64
+import base64, cv2 as cv, numpy as np
 
 # import cv2, numpy as np, pytesseract
 # from  pytesseract import Output
@@ -60,6 +60,21 @@ x = requests.post(url, json = myobj)
 
 print(x.text)
 print(type(x.text))
+
+
+# send_back_image = base64.b64encode(image2)
+
+# sent_image = jpg_as_text.decode('utf-8')  
+
+# str_decoded_bytes = bytes(sent_image, 'utf-8')
+
+# im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
+# im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+# img = cv.imdecode(im_arr, flags=cv.IMREAD_COLOR)
+
+# cv.imshow('Cropped_image',img)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
 
 ############################################################################
 

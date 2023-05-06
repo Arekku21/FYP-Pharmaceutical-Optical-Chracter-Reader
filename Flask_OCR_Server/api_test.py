@@ -45,13 +45,20 @@ import base64, cv2 as cv, numpy as np
 # import cv2, numpy as np, pytesseract
 # from  pytesseract import Output
 
+import os
+
+print(os.getcwd())
+
+os.chdir("testing_images")
+print(os.getcwd())
+
 with open("api_test5.png", "rb") as f:
     im_b64 = base64.b64encode(f.read())
 
 sent_image = im_b64.decode('utf-8')  
 
 #url = 'http://127.0.0.1:5000/api/pytesseract/output/dictionary'
-url = 'http://127.0.0.1:5000//api/easyocr/output/best_confidence'
+url = 'http://127.0.0.1:5001//api/easyocr/output/best_confidence'
 myobj = {"image": sent_image}
 
 x = requests.post(url, json = myobj)
@@ -74,7 +81,7 @@ print(type(x.text))
 
 # cv.imshow('Cropped_image',img)
 # cv.waitKey(0)
-# cv.destroyAllWindows()
+# # cv.destroyAllWindows()
 
 ############################################################################
 
@@ -224,7 +231,7 @@ print(type(x.text))
  
 
 # #url = 'http://127.0.0.1:5000/api/pytesseract/output/dictionary'
-# url = 'http://127.0.0.1:5000//api/medicinerecords/read'
+# url = 'http://127.0.0.1:5001//api/medicinerecords/read'
 
 
 # x = requests.post(url)
@@ -524,3 +531,147 @@ print(type(x.text))
 # print(fuzzy_search(['PANADO\L','MEDICINE','MEDICINERE'],(('LORATADINE', 10), ('LEVOCETIRIZINE', 5), ('PANADOL ACTIFAST', 500))))
     
 # # # print(td.jaro_winkler("500","500"))
+
+
+##################################################################################################
+
+#!fuzzy search include letter difference and fuzzy search score
+
+import textdistance as td
+
+
+# def fuzzy_search(list_of_words,drug_records):
+#     """ 
+#     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
+#     :param list of words, list of records:
+#     :return: list of best score text for each algorithm
+#     """
+#     #best match assignment
+#     jw_best_match = ""
+#     ld_best_match = ""
+
+#     #word that matched
+#     jw_word_best_match = ""
+#     ld_word_best_match = ""
+
+#     #scores assignment
+#     jw_best_score = 0.0
+#     ld_best_score = 0.0
+
+#     for word in list_of_words:
+
+#         for record in drug_records:
+
+#             jw_score = td.jaro_winkler(word,record[0])
+#             ld_score = td.levenshtein.normalized_similarity(word, record[0])
+
+#             if jw_score > jw_best_score:
+
+#                 jw_best_score = jw_score
+
+#                 jw_word_best_match = word
+#                 #output
+#                 jw_best_match = record[0]
+
+#             if ld_score > ld_best_score:
+
+#                 ld_best_score = ld_score
+
+#                 ld_word_best_match = word
+#                 #output
+#                 ld_best_match = record[0]
+
+#         list_to_return = [[jw_best_match,jw_best_score,jw_word_best_match],[ld_best_match,ld_best_score,ld_word_best_match]]
+
+
+# def fuzzy_search_dosage(list_of_words,drug_records):
+#     """ 
+#     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
+#     :param list of words, list of records:
+#     :return: list of best score text for each algorithm
+#     """
+
+#     jw_best_match = ""
+#     ld_best_match = ""
+
+#     #scores assignment
+#     jw_best_score = 0.0
+#     ld_best_score = 0.0
+
+#     #word that matched
+#     jw_word_best_match = ""
+#     ld_word_best_match = ""
+
+#     # list_to_return = [str(jw_best_match),str(ld_best_match)]
+    
+    
+#     for word in list_of_words:
+
+
+#         for record in drug_records:
+
+#             jw_score = td.jaro_winkler(word,record[1])
+#             ld_score = td.levenshtein.normalized_similarity(word, record[1])
+
+#             if jw_score > jw_best_score:
+
+#                 jw_best_score = jw_score
+
+#                 jw_word_best_match = word
+
+#                 #output
+#                 jw_best_match = record[0]
+
+#             if ld_score > ld_best_score:
+
+#                 ld_best_score = ld_score
+
+#                 ld_word_best_match = word
+#                 #output
+#                 ld_best_match = record[0]
+
+#         # list_to_return = [[str(jw_best_match)],[str(ld_best_match)]]
+#         list_to_return = [[jw_best_match,jw_best_score,jw_word_best_match],[ld_best_match,ld_best_score,ld_word_best_match]]
+
+#     return list_to_return
+
+# #     return list_to_return
+
+# drug_records = [['LORATADINE','100'],['LEVOCETIRIZINE','500'],['PANADOL','650']]
+
+# print(fuzzy_search_dosage(['0','5', '2','65'],drug_records))
+
+
+# def check_missing_letter(reference_string,test_string):
+
+#     list_missing_letters_index = []
+#     list_missing_letters = []
+
+#     loop_breaker = False
+#     while loop_breaker == False:
+
+#         for index_letters in range(len(reference_string)):
+            
+#             print(index_letters,reference_string,test_string)
+
+#             if  reference_string[index_letters] != test_string[index_letters]:
+
+#                 print( test_string[index_letters:])
+#                 test_string = test_string[:index_letters] + reference_string[index_letters] + test_string[index_letters:]
+
+#                 list_missing_letters_index.append(index_letters)
+#                 list_missing_letters.append(reference_string[index_letters])
+
+#                 print(index_letters,reference_string[index_letters],reference_string[index_letters],reference_string)
+            
+            
+#             if index_letters == (len(reference_string) - 1):
+#                 loop_breaker = True
+
+#     print(list_missing_letters_index)
+#     print(list_missing_letters)
+
+#     print(reference_string,test_string)
+            
+            
+# check_missing_letter("PANADOL","PNL")   

@@ -121,15 +121,56 @@ def dosagepreprocessing(textprocess):
             
     return text_to_return
 
+# def fuzzy_search(list_of_words,drug_records):
+#     """ 
+#     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
+#     :param list of words, list of records:
+#     :return: list of best score text for each algorithm
+#     """
+
+#     jw_best_match = ""
+#     ld_best_match = ""
+
+#     #scores assignment
+#     jw_best_score = 0.0
+#     ld_best_score = 0.0
+
+#     for word in list_of_words:
+
+#         for record in drug_records:
+
+#             jw_score = td.jaro_winkler(word,record[0])
+#             ld_score = td.levenshtein.normalized_similarity(word, record[0])
+
+#             if jw_score > jw_best_score:
+
+#                 jw_best_score = jw_score
+#                 #output
+#                 jw_best_match = record[0]
+
+#             if ld_score > ld_best_score:
+
+#                 ld_best_score = ld_score
+#                 #output
+#                 ld_best_match = record[0]
+
+#         list_to_return = [jw_best_match,ld_best_match]
+
+#     return list_to_return
+
 def fuzzy_search(list_of_words,drug_records):
     """ 
     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
     :param list of words, list of records:
-    :return: list of best score text for each algorithm
+    :return: list of best score text and confidence for each algorithm [[words,confidence],[words,confidence]]
     """
-
+    #best match assignment
     jw_best_match = ""
     ld_best_match = ""
+
+    #word that matched
+    jw_word_best_match = ""
+    ld_word_best_match = ""
 
     #scores assignment
     jw_best_score = 0.0
@@ -145,26 +186,81 @@ def fuzzy_search(list_of_words,drug_records):
             if jw_score > jw_best_score:
 
                 jw_best_score = jw_score
+
+                jw_word_best_match = word
                 #output
                 jw_best_match = record[0]
 
             if ld_score > ld_best_score:
 
                 ld_best_score = ld_score
+
+                ld_word_best_match = word
                 #output
                 ld_best_match = record[0]
 
-        list_to_return = [jw_best_match,ld_best_match]
+        list_to_return = [[jw_best_match,jw_best_score,jw_word_best_match],[ld_best_match,ld_best_score,ld_word_best_match]]
 
     return list_to_return
     
+# def fuzzy_search_dosage(list_of_words,drug_records):
+#     """ 
+#     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
+#     :param list of words, list of records:
+#     :return: list of best score text for each algorithm
+#     """
+#     number = 0
+
+#     jw_best_match = ""
+#     ld_best_match = ""
+
+#     #scores assignment
+#     jw_best_score = 0.0
+#     ld_best_score = 0.0
+
+#     #word that matched
+#     jw_word_best_match = ""
+#     ld_word_best_match = ""
+
+#     # list_to_return = [str(jw_best_match),str(ld_best_match)]
+    
+    
+#     for word in list_of_words:
+
+
+#         for record in drug_records:
+
+#             jw_score = td.jaro_winkler(word,record[1])
+#             ld_score = td.levenshtein.normalized_similarity(word, record[1])
+
+#             if jw_score > jw_best_score:
+
+#                 jw_best_score = jw_score
+
+#                 jw_word_best_match = word
+
+#                 #output
+#                 jw_best_match = record[0]
+
+#             if ld_score > ld_best_score:
+
+#                 ld_best_score = ld_score
+
+#                 ld_word_best_match = word
+#                 #output
+#                 ld_best_match = record[0]
+
+#         # list_to_return = [[str(jw_best_match)],[str(ld_best_match)]]
+#         list_to_return = [[jw_best_match,jw_best_score,jw_word_best_match],[ld_best_match,ld_best_score,ld_word_best_match]]
+
+#     return list_to_return
+
 def fuzzy_search_dosage(list_of_words,drug_records):
     """ 
     Function to fuzzy search algorithm of jaro winkler and levenshtein distance
     :param list of words, list of records:
     :return: list of best score text for each algorithm
     """
-    number = 0
 
     jw_best_match = ""
     ld_best_match = ""
@@ -173,7 +269,11 @@ def fuzzy_search_dosage(list_of_words,drug_records):
     jw_best_score = 0.0
     ld_best_score = 0.0
 
-    list_to_return = [str(jw_best_match),str(ld_best_match)]
+    #word that matched
+    jw_word_best_match = ""
+    ld_word_best_match = ""
+
+    # list_to_return = [str(jw_best_match),str(ld_best_match)]
     
     
     for word in list_of_words:
@@ -187,16 +287,22 @@ def fuzzy_search_dosage(list_of_words,drug_records):
             if jw_score > jw_best_score:
 
                 jw_best_score = jw_score
+
+                jw_word_best_match = word
+
                 #output
                 jw_best_match = record[0]
 
             if ld_score > ld_best_score:
 
                 ld_best_score = ld_score
+
+                ld_word_best_match = word
                 #output
                 ld_best_match = record[0]
 
-        list_to_return = [str(jw_best_match),str(ld_best_match)]
+        # list_to_return = [[str(jw_best_match)],[str(ld_best_match)]]
+        list_to_return = [[jw_best_match,jw_best_score,jw_word_best_match],[ld_best_match,ld_best_score,ld_word_best_match]]
 
     return list_to_return
 
@@ -408,7 +514,7 @@ def api_easyocr_list():
 @app.route('/api/easyocr/output/best_confidence', methods=['GET','POST'])
 def api_easyocr_best_confidence():
     if request.method == "POST":
-        try:
+        # try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
 
@@ -493,8 +599,8 @@ def api_easyocr_best_confidence():
 
             return jsonify(dict_to_return)
 
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+        # except:
+        #     return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 
 #send best confidence easy ocr custom model
 @app.route('/api/easyocr_custom/output/best_confidence', methods=['GET','POST'])

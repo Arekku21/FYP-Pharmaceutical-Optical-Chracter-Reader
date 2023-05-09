@@ -176,6 +176,8 @@ def fuzzy_search(list_of_words,drug_records):
     jw_best_score = 0.0
     ld_best_score = 0.0
 
+    list_to_return = [[jw_best_match,jw_best_score,jw_word_best_match],[ld_best_match,ld_best_score,ld_word_best_match]]
+
     for word in list_of_words:
 
         for record in drug_records:
@@ -274,6 +276,8 @@ def fuzzy_search_dosage(list_of_words,drug_records):
     ld_word_best_match = ""
 
     # list_to_return = [str(jw_best_match),str(ld_best_match)]
+
+    list_to_return = [[jw_best_match,jw_best_score,jw_word_best_match],[ld_best_match,ld_best_score,ld_word_best_match]]
     
     
     for word in list_of_words:

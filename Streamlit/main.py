@@ -6,6 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import ModelCheckpoint
 from difPy import dif
 
 def duplicate_detection(data_dir):
@@ -101,12 +102,16 @@ def Model(classes):
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(train_generator, epochs=epochs, validation_data= validation_generator)
+    checkpoint = ModelCheckpoint("modal.h5", monitor='val_loss', save_best_only=True, save_freq='epoch', verbose=1)
+
+    model.fit(train_generator, epochs=epochs, validation_data= validation_generator, callbacks=[checkpoint])
 
     scores = model.evaluate_generator(test_generator, steps=len(test_generator))
     # Print the accuracy and loss
     print('Test accuracy:', scores[1])
     print('Test loss:', scores[0])
+
+    model.save
 
 
 

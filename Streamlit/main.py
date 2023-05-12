@@ -2,6 +2,9 @@ import streamlit as st
 import zipfile
 import shutil
 import os
+from PIL import Image
+import numpy as np
+import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from sklearn.model_selection import train_test_split
@@ -109,6 +112,40 @@ def Model(classes):
     print('Test loss:', scores[0])
 
 
+def prediction():
+    # Load the saved model
+    model = tf.keras.models.load_model('modal.h5')
+
+    # Define the class labels
+    class_labels = ['actimol_paracetamol_500mg', 'apo-napro-na_naproxen_sodium_275mg', 'cetyrol_cetrizine_dihydrochloride_10mg']
+
+    # Load the test image using PIL
+    img = Image.open('image.jpg')
+
+    # Resize the image to match the input shape of the model
+    img = img.resize((224, 224))
+
+    # Convert the image to a numpy array
+    img_array = np.array(img)
+
+    # Normalize the image data
+    img_array = img_array / 255.0
+
+    # Add a batch dimension to the array
+    img_array = np.expand_dims(img_array, axis=0)
+
+    # Make predictions on the image data
+    predictions = model.predict(img_array)
+
+    # Get the predicted class index
+    predicted_class_index = np.argmax(predictions)
+
+    # Get the predicted class label
+    predicted_class_label = class_labels[predicted_class_index]
+
+    # Print the predicted class label
+    print(f"The predicted class is: {predicted_class_label}")
+
 
 st.title("Retraining Pipeline")
 
@@ -135,4 +172,27 @@ if uploaded_file:
     # train_data = pd.read_csv('./data/train.csv')
     # rest of the code for model training...
 
+# Create a button in the Streamlit app that calls the function when clicked
+button = st.button("Training")
 
+# Check if the button has been clicked
+if button:
+    Model()
+
+
+# Create a file uploader in the Streamlit app
+uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+
+# Check if a file has been uploaded
+if uploaded_file is not None:
+    # Display the uploaded image
+    image = Image.open(uploaded_file)
+    st.image(image, caption='Uploaded Image', use_column_width=True)    
+
+# Create a button in the Streamlit app that calls the function when clicked
+button = st.button("Predict")
+
+# Check if the button has been clicked
+if button:
+    prediction()
+    

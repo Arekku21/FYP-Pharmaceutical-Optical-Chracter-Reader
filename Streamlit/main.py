@@ -112,18 +112,48 @@ def Model(classes):
     print('Test loss:', scores[0])
 
 
-def prediction():
-    # Load the saved model
-    model = tf.keras.models.load_model('modal.h5')
+st.title("Retraining Pipeline")
 
-    # Define the class labels
-    class_labels = ['actimol_paracetamol_500mg', 'apo-napro-na_naproxen_sodium_275mg', 'cetyrol_cetrizine_dihydrochloride_10mg']
+uploaded_file = st.file_uploader("Choose a file", type="zip")
 
-    # Load the test image using PIL
-    img = Image.open('image.jpg')
+if uploaded_file:
 
+    # Extract the contents of the zip file
+    with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
+        zip_ref.extractall('./images')
+
+    
+    duplicate_detection("images")
+
+    split_dataset("images")
+
+    #count the total number of folder
+    total_folder = len(os.listdir("train"))
+    
+    #Model(total_folder)
+    
+    # Access the necessary files for model training
+    # train_data = pd.read_csv('./data/train.csv')
+    # rest of the code for model training...
+
+# Create a button in the Streamlit app that calls the function when clicked
+button = st.button("Training")
+
+# Check if the button has been clicked
+if button:
+    Model(total_folder)
+
+
+# Load the saved model
+model = tf.keras.models.load_model('modal.h5')
+
+# Define the class labels
+class_labels = ['actimol_paracetamol_500mg', 'apo-napro-na_naproxen_sodium_275mg', 'cetyrol_cetrizine_dihydrochloride_10mg']
+
+# Define a function to make predictions on the uploaded image
+def prediction(image):
     # Resize the image to match the input shape of the model
-    img = img.resize((224, 224))
+    img = image.resize((224, 224))
 
     # Convert the image to a numpy array
     img_array = np.array(img)
@@ -143,42 +173,8 @@ def prediction():
     # Get the predicted class label
     predicted_class_label = class_labels[predicted_class_index]
 
-    # Print the predicted class label
-    print(f"The predicted class is: {predicted_class_label}")
-
-
-st.title("Retraining Pipeline")
-
-uploaded_file = st.file_uploader("Choose a file", type="zip")
-
-if uploaded_file:
-
-    # Extract the contents of the zip file
-    with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
-        zip_ref.extractall('./images')
-
-    
-    duplicate_detection("images")
-
-    split_dataset("images")
-
-    #count the total number of folder
-    total_folder = len(os.listdir("train"))
-
-    Model(total_folder)
-
-    
-    # Access the necessary files for model training
-    # train_data = pd.read_csv('./data/train.csv')
-    # rest of the code for model training...
-
-# Create a button in the Streamlit app that calls the function when clicked
-button = st.button("Training")
-
-# Check if the button has been clicked
-if button:
-    Model()
-
+    # Return the predicted class label
+    return predicted_class_label
 
 # Create a file uploader in the Streamlit app
 uploaded_file = st.file_uploader("Choose an image...", type="jpg")
@@ -187,12 +183,13 @@ uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 if uploaded_file is not None:
     # Display the uploaded image
     image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Image', use_column_width=True)    
+    st.image(image, caption='Uploaded Image', use_column_width=True)
 
-# Create a button in the Streamlit app that calls the function when clicked
-button = st.button("Predict")
+    # Create a button in the Streamlit app that makes predictions on the uploaded image
+    if st.button("Predict"):
+        # Call the predict function on the uploaded image
+        predicted_class = prediction(image)
 
-# Check if the button has been clicked
-if button:
-    prediction()
+        # Display the predicted class label
+        st.write("Predicted class:", predicted_class)
     

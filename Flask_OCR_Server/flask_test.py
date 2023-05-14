@@ -518,7 +518,7 @@ def api_easyocr_list():
 @app.route('/api/easyocr/output/best_confidence', methods=['GET','POST'])
 def api_easyocr_best_confidence():
     if request.method == "POST":
-        # try:
+        try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
 
@@ -545,72 +545,76 @@ def api_easyocr_best_confidence():
 
             print("Results Message: OCR raw reading result\n",result)
 
-            #calculate average confidence
-            total_confidence = 0.0
-            number_of_lines = len(result)
+            if result != "":
 
-            for confidence in result:
-                total_confidence += confidence[2]
+                #calculate average confidence
+                total_confidence = 0.0
+                number_of_lines = len(result)
 
-            total_confidence = total_confidence/number_of_lines
+                for confidence in result:
+                    total_confidence += confidence[2]
 
-            output_to_show = ""
+                total_confidence = total_confidence/number_of_lines
 
-            #compare word confidence to average
-            for word_confidence in result:
-                #if total_confidence <= word_confidence[2]:
-                output_to_show += " " + word_confidence[1]
+                output_to_show = ""
 
-            print("Results Message: OCR reading result after pre-processing\n",output_to_show)
+                #compare word confidence to average
+                for word_confidence in result:
+                    #if total_confidence <= word_confidence[2]:
+                    output_to_show += " " + word_confidence[1]
 
-            image2 = img.copy()
+                print("Results Message: OCR reading result after pre-processing\n",output_to_show)
 
-            for bounding_boxes in result:
-                points = bounding_boxes[0]
-                numpy_array_points = np.array(points)
-                rect = cv2.boundingRect(numpy_array_points.astype(np.float32))
-                x, y, w, h = rect
-                cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
-                cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
+                image2 = img.copy()
 
-            retval, buffer = cv2.imencode('.jpg', image2)
-            jpg_as_text = base64.b64encode(buffer)
+                for bounding_boxes in result:
+                    points = bounding_boxes[0]
+                    numpy_array_points = np.array(points)
+                    rect = cv2.boundingRect(numpy_array_points.astype(np.float32))
+                    x, y, w, h = rect
+                    cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
+                    cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
 
-            print("Results Message: OCR  result after bounding box processing\n",jpg_as_text)
+                retval, buffer = cv2.imencode('.jpg', image2)
+                jpg_as_text = base64.b64encode(buffer)
 
-            dict_to_return = {}
+                print("Results Message: OCR  result after bounding box processing\n",jpg_as_text)
 
-            #return dictionary with base64 key
-            dict_to_return["base64"] = jpg_as_text.decode('utf-8')
+                dict_to_return = {}
 
-            #return dictionary with brand key
-            dict_to_return["brand"] = textpreprocessing(output_to_show)
+                #return dictionary with base64 key
+                dict_to_return["base64"] = jpg_as_text.decode('utf-8')
 
-            #return dictionary with dosage key
-            dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
+                #return dictionary with brand key
+                dict_to_return["brand"] = textpreprocessing(output_to_show)
 
-            #return dictionary with ld_fuzzy and jw_fuzzy keys for brand
-            fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
-            dict_to_return["ld_fuzzy_brand"] = fuzzy_result_list[1]
-            dict_to_return["jw_fuzzy_brand"] = fuzzy_result_list[0]
+                #return dictionary with dosage key
+                dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-            #return dictionary with ld_fuzzy and jw_fuzzy keys for dosage
-            fuzzy_result_list = fuzzy_search_dosage(list(dosagepreprocessing(output_to_show).split()),drug_records)
-            dict_to_return["ld_fuzzy_dosage"] = fuzzy_result_list[1]
-            dict_to_return["jw_fuzzy_dosage"] = fuzzy_result_list[0]
+                #return dictionary with ld_fuzzy and jw_fuzzy keys for brand
+                fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
+                dict_to_return["ld_fuzzy_brand"] = fuzzy_result_list[1]
+                dict_to_return["jw_fuzzy_brand"] = fuzzy_result_list[0]
 
-            print("Results Message: API request final dictionary result:\n",dict_to_return)
+                #return dictionary with ld_fuzzy and jw_fuzzy keys for dosage
+                fuzzy_result_list = fuzzy_search_dosage(list(dosagepreprocessing(output_to_show).split()),drug_records)
+                dict_to_return["ld_fuzzy_dosage"] = fuzzy_result_list[1]
+                dict_to_return["jw_fuzzy_dosage"] = fuzzy_result_list[0]
 
-            return jsonify(dict_to_return)
+                print("Results Message: API request final dictionary result:\n",dict_to_return)
 
-        # except:
-        #     return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+                return jsonify(dict_to_return)
+            else:
+                return "No text detected"
+
+        except:
+             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 
 #send best confidence easy ocr custom model
 @app.route('/api/easyocr_custom/output/best_confidence', methods=['GET','POST'])
 def api_easyocr_custom_best_confidence():
     if request.method == "POST":
-        # try:
+        try:
             #process status messages
             print("\nStatus Message: POST Method API request for /api/easyocr/output/best_confidence")
 
@@ -622,7 +626,7 @@ def api_easyocr_custom_best_confidence():
             # sent_image = request_data['image']
             sent_image = request.form['image_data']
 
-            # #!alec specific requests
+            #!alec specific requests
             # request_data = request.get_json()
             # sent_image = request_data['image']
 
@@ -632,67 +636,76 @@ def api_easyocr_custom_best_confidence():
             im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
             img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-            reader = easyocr.Reader(['en'], gpu=False)
+            #reader = easyocr.Reader(['en'], gpu=False)
+            reader = easyocr.Reader(['en'],recog_network="custom_model_fyp_1", gpu=False)
             result = reader.readtext(im_bytes,detail=1)
 
             print("Results Message: OCR raw reading result\n",result)
 
-            #calculate average confidence
-            total_confidence = 0.0
-            number_of_lines = len(result)
+            if result != "":
 
-            for confidence in result:
-                total_confidence += confidence[2]
+                #calculate average confidence
+                total_confidence = 0.0
+                number_of_lines = len(result)
 
-            total_confidence = total_confidence/number_of_lines
+                for confidence in result:
+                    total_confidence += confidence[2]
 
-            output_to_show = ""
+                total_confidence = total_confidence/number_of_lines
 
-            #compare word confidence to average
-            for word_confidence in result:
-                #if total_confidence <= word_confidence[2]:
-                output_to_show += " " + word_confidence[1]
+                output_to_show = ""
 
-            print("Results Message: OCR reading result after pre-processing\n",output_to_show)
+                #compare word confidence to average
+                for word_confidence in result:
+                    #if total_confidence <= word_confidence[2]:
+                    output_to_show += " " + word_confidence[1]
 
-            image2 = img.copy()
+                print("Results Message: OCR reading result after pre-processing\n",output_to_show)
 
-            for bounding_boxes in result:
-                points = bounding_boxes[0]
-                numpy_array_points = np.array(points)
-                rect = cv2.boundingRect(numpy_array_points.astype(np.float32))
-                x, y, w, h = rect
-                cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
-                cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
+                image2 = img.copy()
 
-            retval, buffer = cv2.imencode('.jpg', image2)
-            jpg_as_text = base64.b64encode(buffer)
+                for bounding_boxes in result:
+                    points = bounding_boxes[0]
+                    numpy_array_points = np.array(points)
+                    rect = cv2.boundingRect(numpy_array_points.astype(np.float32))
+                    x, y, w, h = rect
+                    cv2.rectangle(image2, (x, y), (x + w, y + h), (0, 0, 255), 1)
+                    cv2.putText(image2, bounding_boxes[1], (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
 
-            print("Results Message: OCR  result after bounding box processing\n",jpg_as_text)
+                retval, buffer = cv2.imencode('.jpg', image2)
+                jpg_as_text = base64.b64encode(buffer)
 
-            dict_to_return = {}
+                print("Results Message: OCR  result after bounding box processing\n",jpg_as_text)
 
-            #return dictionary with brand key
-            dict_to_return["brand"] = textpreprocessing(output_to_show)
+                dict_to_return = {}
 
-            #return dictionary with dosage key
-            dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
+                #return dictionary with base64 key
+                dict_to_return["base64"] = jpg_as_text.decode('utf-8')
 
-            #return dictionary with base64 key
-            dict_to_return["base64"] = jpg_as_text.decode('utf-8')
-            # print(dict_to_return["base64"])
+                #return dictionary with brand key
+                dict_to_return["brand"] = textpreprocessing(output_to_show)
 
-            #return dictionary with ld_fuzzy and jw_fuzzy keys
-            fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
-            dict_to_return["ld_fuzzy"] = fuzzy_result_list[1]
-            dict_to_return["jw_fuzzy"] = fuzzy_result_list[0]
+                #return dictionary with dosage key
+                dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
 
-            print("Results Message: API request final dictionary result:\n",dict_to_return)
+                #return dictionary with ld_fuzzy and jw_fuzzy keys for brand
+                fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
+                dict_to_return["ld_fuzzy_brand"] = fuzzy_result_list[1]
+                dict_to_return["jw_fuzzy_brand"] = fuzzy_result_list[0]
 
-            return jsonify(dict_to_return)
+                #return dictionary with ld_fuzzy and jw_fuzzy keys for dosage
+                fuzzy_result_list = fuzzy_search_dosage(list(dosagepreprocessing(output_to_show).split()),drug_records)
+                dict_to_return["ld_fuzzy_dosage"] = fuzzy_result_list[1]
+                dict_to_return["jw_fuzzy_dosage"] = fuzzy_result_list[0]
 
-        # except:
-            # return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
+                print("Results Message: API request final dictionary result:\n",dict_to_return)
+
+                return jsonify(dict_to_return)
+            else:
+                return "No text detected"
+
+        except:
+            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
         
 # ! Kyron specific paddle ocr
         

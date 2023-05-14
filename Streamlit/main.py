@@ -77,6 +77,8 @@ def Model(classes):
                                                         batch_size=batch_size,
                                                         class_mode='categorical',
                                                         subset='training')
+    
+    class_names = list(train_generator.class_indices.keys())
 
     # Data generator for validation set
     validation_generator = train_datagen.flow_from_directory(train_dir,
@@ -114,26 +116,27 @@ def Model(classes):
     print('Test accuracy:', scores[1])
     print('Test loss:', scores[0])
 
-    model.save
+    return class_names
+
 
 
 st.title("Retraining Pipeline")
 
 uploaded_file = st.file_uploader("Choose a file", type="zip")
 
-if uploaded_file:
+# if uploaded_file:
 
-    # Extract the contents of the zip file
-    with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
-        zip_ref.extractall('./images')
+    # # Extract the contents of the zip file
+    # with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
+    #     zip_ref.extractall('./images')
 
     
-    duplicate_detection("images")
+    # duplicate_detection("images")
 
-    split_dataset("images")
+    # split_dataset("images")
 
-    #count the total number of folder
-    total_folder = len(os.listdir("train"))
+    # #count the total number of folder
+    # total_folder = len(os.listdir("train"))
     
     #Model(total_folder)
     
@@ -146,7 +149,20 @@ button = st.button("Training")
 
 # Check if the button has been clicked
 if button:
-    Model(total_folder)
+    # Extract the contents of the zip file
+    with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
+        zip_ref.extractall('./images')
+
+    
+    duplicate_detection("images")
+
+    split_dataset("images")
+
+    #count the total number of folder
+    total_folder = len(os.listdir("train"))
+
+    class_names = Model(total_folder)
+    print(class_names)
 
 
 # Load the saved model
@@ -182,7 +198,7 @@ def prediction(image):
     return predicted_class_label
 
 # Create a file uploader in the Streamlit app
-uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+uploaded_file = st.file_uploader("Choose an image...", type=("jpg", "png"))
 
 # Check if a file has been uploaded
 if uploaded_file is not None:

@@ -27,7 +27,13 @@
     }
 
     #img:hover{
+      z-index: 1;
+      position: relative;
       transform:scale(2.0);
+    }
+
+    .is-active{
+      z-index: 0;
     }
 
 </style>

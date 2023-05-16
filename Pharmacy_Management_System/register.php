@@ -135,9 +135,10 @@ session_start();
             </div>
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
+        </div>    
         <a class=" level-item logo-margin" >
                               <img src="image/logo.png" width="152" height="140">
                             </a>
-    </div>    
+    
 </body>
 </html>

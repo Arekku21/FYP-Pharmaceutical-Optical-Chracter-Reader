@@ -9,14 +9,15 @@
 <?php
 include "../menu/menu.php";
 ?>
+<br>
 <div class="container" style="margin-top: 0%;">
   <div class="container-fluid">
     <div class="row-fluid" style="...">
       <div class="card" style="left:8%; width:23rem; height:30%; border-style:solid; border-width:10px; border-radius:10px; float:right; margin-top:5%; margin-right:40px;">
         <div class="card-body">
 
-          <h1 style="font-size:20px; text-align:center;">Number of Employees</h1>
-          <h1 style="font-size:24px; text-align:center;">
+          <h1 style="font-size:24px; text-align:center;">Number of Employees</h1>
+          <h1 style="font-size:20px; text-align:center;">
             <?php
               $count=0;
               $res=mysqli_query($Links, "select * from user");
@@ -32,13 +33,13 @@ include "../menu/menu.php";
 
     <div class="card" style="left:8%; width:23rem; height:30%; border-style:solid; border-width:10px; border-radius:10px; float:right; margin-top:5%; margin-right:10px;">
           <div class="card-body">
-          <h1 style="font-size:20px; text-align:center;">Drug Quantity</h1>
-          <h1 style="font-size:24px; text-align:center;">
+          <h1 style="font-size:24px; text-align:center;">Total Drug Quantity</h1>
+          <h1 style="font-size:20px; text-align:center;">
             <?php
               $count=0;
               $res=mysqli_query($Links, "select * from tblmedicine");
               $count=mysqli_num_rows($res);
-              echo $count;
+              echo $count." types";
             ?>
           </h1>
           </h1>
@@ -49,8 +50,8 @@ include "../menu/menu.php";
 
     <div class="card" style="left: 8%; width:23rem; border-style:solid; border-width:10px; border-radius:10px; float:right; margin-top:5%; margin-right:10px;">
           <div class="card-body">
-          <h1 style="font-size:20px; text-align:center;">Expired Notifications</h1>
-          <h1 style="font-size:24px; text-align:center;">
+          <h1 style="font-size:24px; text-align:center;">Expired Notifications</h1>
+          <h1 style="font-size:20px; text-align:center;">
             <?php
               $count=0;
               $res=mysqli_query($Links, "SELECT * FROM tblmedicine, tblstored_drug WHERE tblmedicine.DrugID = tblstored_drug.DrugID AND tblstored_drug.expiryDate < '".date('Y-m-d')."'");
@@ -60,7 +61,7 @@ include "../menu/menu.php";
                   for($i = 0; $i < mysqli_num_rows($res); $i++)
                   {
                     $row = mysqli_fetch_array($res);
-                    echo $row["drugName"].'<br>';
+                    echo ucwords(strtolower($row["drugName"]))." (".$row["batchNo"].")".'<br>';
                   }
                 } 
                 else {
@@ -76,8 +77,8 @@ include "../menu/menu.php";
 
           <div class="card" style="left:7%; width:70rem; height:27rem; border-style:solid; border-width:10px; border-radius:5px; float:right; margin-top:15px; margin-right:30px;">
           <div class="card-body">
-          <h1 style="font-size:20px; text-align:center;">Sales Information</h1>
-          <h1 style="font-size:24px; text-align:center;">
+          <h1 style="font-size:24px; text-align:center;">Sales Information</h1>
+          <h1 style="font-size:20px; text-align:center;">
 
           <div id="my-chart" style="width: 100%;"></div>
 
@@ -117,13 +118,13 @@ include "../menu/menu.php";
           </h1>
 
           </div>
-          <a href="../employee/employee.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Sales Report" style="margin-bottom:2px;background-color:#150050"></a>
+          <a href="../report/dailyReport.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Sales Report" style="margin-bottom:2px;background-color:#150050"></a>
     </div>
 
           <div class="card" style="left:6%; width:35rem; border-style:solid; border-width:10px; border-radius:10px; float:right; margin-top:15px; margin-right:10px; ">
           <div class="card-body">
-          <h1 style="font-size:20px; text-align:center;">Out of Stock Drugs</h1>
-          <h1 style="font-size:24px; margin-left: 20px;">
+          <h1 style="font-size:24px; text-align:center;">Out of Stock Drugs</h1>
+          <h1 style="font-size:20px; margin-left: 20px;">
           <?php
               $count=0;
               $sql = mysqli_query($Links, "SELECT DISTINCT DrugID from tblstored_drug WHERE NOT EXISTS(SELECT * from tblmedicine WHERE tblmedicine.DrugID = tblstored_drug.DrugID) OR (SELECT DISTINCT DrugID FROM tblmedicine WHERE tblmedicine.DrugID = tblstored_drug.DrugID AND tblstored_drug.quantity = 0)");
@@ -158,8 +159,8 @@ include "../menu/menu.php";
 
           <div class="card" style="left:6%; width:35rem; border-style:solid; border-width:10px; border-radius:10px; float:right; margin-top:15px; margin-right:10px;">
           <div class="card-body">
-          <h1 style="font-size:20px; text-align:center;">Drugs About to Expire</h1>
-          <h1 style="font-size:24px; margin-left: 20px;">
+          <h1 style="font-size:24px; text-align:center;">Drugs About to Expire</h1>
+          <h1 style="font-size:20px; margin-left: 20px;">
           <?php
               $count=0;
               $sql = mysqli_query($Links, "SELECT * FROM tblmedicine, tblstored_drug WHERE tblmedicine.DrugID = tblstored_drug.DrugID AND DATE(tblstored_drug.expiryDate) >= CURDATE() AND DATE(tblstored_drug.expiryDate) <= DATE(LAST_DAY(NOW() + INTERVAL 1 MONTH))");

@@ -46,6 +46,7 @@ class dif:
         self.directory = _validate._directory_type(directory)
         _validate._directory_exist(self.directory)
         _validate._directory_unique(self.directory)
+        
         self.recursive = _validate._recursive(recursive)
         self.similarity = _validate._similarity(similarity)
         self.fast_search = _validate._fast_search(fast_search, self.similarity)

@@ -6,6 +6,11 @@
 <link rel="stylesheet" type="text/css" href="../css/jquery_dataTables.css">
 <script type="text/javascript" charset="utf8" src="../js/jquery_dataTables.js"></script>
 <head>
+<style>
+  .is-active{
+      z-index: 0;
+    }
+</style>
 <script>
   $(document).ready(function(){
     $.noConflict(true);

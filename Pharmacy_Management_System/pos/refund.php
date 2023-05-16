@@ -2,6 +2,11 @@
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <link rel="stylesheet" type="text/css" href="../css/jquery_dataTables.css">
 <script type="text/javascript" charset="utf8" src="../js/jquery_dataTables.js"></script>
+<style>
+  .is-active{
+      z-index: 0;
+    }
+</style>
 <?php
 include "../menu/menu.php";
 ?>

@@ -1,4 +1,3 @@
-
 <?php
 // header('Access-Control-Allow-Origin: http://127.0.0.1:5000');
 // header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -505,36 +504,108 @@ else if($_POST["action"] == "uploadImage")
 
 else if($_POST["action"] == "searchDrug")
 {
-    // index 0: brand
-    // index 1: dosage
     $result = json_decode($_POST['result'], true);
-    echo "SELECT * FROM tblmedicine WHERE SOUNDEX(drugName) = SOUNDEX('".strtoupper(trim($result["brand"]))."') AND SOUNDEX(drugDosage) = SOUNDEX('".trim($result["dosage"])."')";
-    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE SOUNDEX(drugName) = SOUNDEX('".strtoupper(trim($result["brand"]))."') AND SOUNDEX(drugDosage) = SOUNDEX('".trim($result["dosage"])."')");
-    // SELECT * FROM tblmedicine where SOUNDEX(`drugName`) = SOUNDEX('loratidine');
+    // $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_brand"]))."'");
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName LIKE '%".strtoupper(trim($result["jw_fuzzy_brand"][0]))."%'");
+
     if(mysqli_num_rows($sql) > 0)
     {
         while($row = mysqli_fetch_array($sql))
         {
+            $check_qty = mysqli_query($Links, "SELECT * FROM tblstored_drug WHERE drugID = ".$row["DrugID"]."");
+            $total_qty = 0;
+            while($row2 = mysqli_fetch_array($check_qty))
+                $total_qty += $row2["quantity"];
             $get_image = mysqli_query($Links, "SELECT * FROM tblmedicine_image WHERE drug_image_id = ".$row["drug_image_id"]."");
             echo "<tr>";
             if(mysqli_num_rows($get_image) > 0)
             {
-            $row2 = mysqli_fetch_array($get_image);
-            echo " <td><img src='../Medicine_Image/".$row2["image_path"]."' width='150px'></td>";
-            //echo " <td><img src='".$row2["image_path"]."' width='150px'></td>";
-            //echo " <td><img src='".$row2["image_path"]."' width='150px'></td>";
+                $row2 = mysqli_fetch_array($get_image);
+                echo " <td><img src='../Medicine_Image/".$row2["image_path"]."' width='150px'></td>";
             }
             
             echo "<td>".ucwords(strtolower($row["manufacturer"]))."</td>
             <td>".ucwords(strtolower($row["drugName"]))."</td>
+            <td>".$row["drugDosage"]."</td>
             <td>".ucwords(strtolower($row["drugCategory"]))."</td>
             <td>".$row["no_of_unit_in_package"]."</td>
-            <td>".$row["unitPrice"]."</td>
-            <td><input type='button' value='Add to cart' id='".$row["DrugID"]."' class='btnAddToCart button is-small is-primary' style='font-weight: bold;margin-right: 1%;'></td>
-            </tr>";
+            <td>".$row["unitPrice"]."</td>";
+            if($total_qty > 1)
+                echo "<td><input type='button' value='Add to cart' id='".$row["DrugID"]."' class='btnAddToCart button is-small is-primary' style='font-weight: bold;margin-right: 1%;'></td>";
+            else echo "<td><b>Out of Stock!</b></td>";
+            echo "</tr>";
         }
     }
+}
 
+else if($_POST["action"] == "FuzzySearchDrug")
+{
+    $result = json_decode($_POST['result'], true);
+    $fuzzy_array = array();
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_brand"][0]))."'");
+    if(mysqli_num_rows($sql) > 0)
+    {
+        $row = mysqli_fetch_array($sql);
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='brandSuggestionValue1' value='".$row["DrugID"]."'><a class='brandSuggestion1' href='#'>Fuzzy search brand suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_brand"][1] * 100)."%)"."</a>";
+    }
+
+    $sql2 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_brand"][0]))."'");
+    if(mysqli_num_rows($sql2) > 0)
+    {
+        $row = mysqli_fetch_array($sql2);
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='brandSuggestionValue2' value='".$row["DrugID"]."'><a class='brandSuggestion2' href='#'>Fuzzy search brand suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_brand"][1] * 100)."%)"."</a>";
+    }
+
+    //third jw fuzzy dosage
+    $sql3 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_dosage"][0]))."'");
+    if(mysqli_num_rows($sql3) > 0)
+    {
+        $row = mysqli_fetch_array($sql3);
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='dosageSuggestionValue1' value='".$row["DrugID"]."'><a class='dosageSuggestion1' href='#'>Fuzzy search dosage suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_dosage"][1] * 100)."%)"."</a>";
+    }
+
+    //fourth ld fuzzy dosage
+    $sql4 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_dosage"][0]))."'");
+    if(mysqli_num_rows($sql4) > 0)
+    {
+        $row = mysqli_fetch_array($sql4);
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='dosageSuggestionValue2' value='".$row["DrugID"]."'><a class='dosageSuggestion2' href='#'>Fuzzy search dosage suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_dosage"][1] * 100)."%)"."</a><br>";
+    }
+}
+
+else if($_POST["action"] == "displayFuzzyDrug")
+{
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE DrugID = '".trim($_POST["result"])."'");
+    if(mysqli_num_rows($sql) > 0)
+    {
+        $row = mysqli_fetch_array($sql);
+        $check_qty = mysqli_query($Links, "SELECT * FROM tblstored_drug WHERE drugID = ".$row["DrugID"]."");
+        $total_qty = 0;
+        while($row2 = mysqli_fetch_array($check_qty))
+            $total_qty += $row2["quantity"];
+        $get_image = mysqli_query($Links, "SELECT * FROM tblmedicine_image WHERE drug_image_id = ".$row["drug_image_id"]."");
+        echo "<tr>";
+        if(mysqli_num_rows($get_image) > 0)
+        {
+        $row2 = mysqli_fetch_array($get_image);
+        echo " <td><img src='../Medicine_Image/".$row2["image_path"]."' width='150px'></td>";
+        }
+        
+        echo "<td>".ucwords(strtolower($row["manufacturer"]))."</td>
+        <td>".ucwords(strtolower($row["drugName"]))."</td>
+        <td>".$row["drugDosage"]."</td>
+        <td>".ucwords(strtolower($row["drugCategory"]))."</td>
+        <td>".$row["no_of_unit_in_package"]."</td>
+        <td>".$row["unitPrice"]."</td>";
+        if($total_qty > 1)
+            echo "<td><input type='button' value='Add to cart' id='".$row["DrugID"]."' class='btnAddToCart button is-small is-primary' style='font-weight: bold;margin-right: 1%;'></td>";
+        else echo "<td><b>Out of Stock!</b></td>";
+        echo "</tr>";
+    }
 }
 
 else if($_POST["action"] == "refund")
@@ -752,11 +823,12 @@ else if($_POST["action"] == "uploadZip")
             {
                 $environment = "difPy";
                 // Use escapeshellarg to escape any special characters in the script and directory names
-                $command = "source /Users/kyronling/miniforge3/bin/activate $environment && python " . escapeshellarg($script) . " -D " . escapeshellarg(getcwd().$dir);
-
+                $command = "source /Users/kyronling/miniforge3/bin/activate $environment && python " . escapeshellarg($script) . " -D " . escapeshellarg(getcwd()."/".$dir);
+                // echo $command;
                 // Use exec to execute the command and capture its output
                 $output = exec($command);
-                
+                // $output = shell_exec($command);
+                // echo $output;
                 $files = glob("difPy_results_*");
                 $mydata = file_get_contents($files[0]);
                 // $mydata = file_get_contents("difPy_results_1678346780_026387.json");

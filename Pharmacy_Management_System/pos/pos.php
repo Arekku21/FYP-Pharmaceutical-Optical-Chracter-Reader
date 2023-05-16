@@ -31,6 +31,55 @@
     max-width: 600px;
     text-align: center;
   }
+
+  .is-active{
+      z-index: 0;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+
+    .loading-overlay {
+      position: fixed;
+      width: 5000px;
+      height: 5000px;
+      background-image: url('../image/loading.gif');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      top: 50%;
+      left: 50%;
+      /* transform: translate(-50%, -50%); */
+      z-index: 9999;
+    }
+
+    .freeze {
+      position: relative;
+      z-index: 9998; /* lower than the loading overlay */
+    }
+
+    /* Optional: apply a transparent background to the freeze element */
+    .freeze::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+.btnScan{
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
 </style>
 <?php
 include "../menu/menu.php";
@@ -61,6 +110,19 @@ include "../menu/menu.php";
   $(document).ready( function () {
     $.noConflict(true);
     $('#drug_table').DataTable();
+
+    var loadingOverlay = $('<div class="loading-overlay"></div>');
+    $(document).ajaxStart(function() {
+        // Show the loading overlay and freeze the background
+        $('body').append(loadingOverlay);
+        $('body').addClass('freeze');
+    });
+
+    $(document).ajaxStop(function() {
+        // Hide the loading overlay and unfreeze the background
+        loadingOverlay.remove();
+        $('body').removeClass('freeze');
+    });
 
     //perform click action for add to cart
     $(".btnAddToCart").click(function(){
@@ -308,8 +370,10 @@ include "../menu/menu.php";
   $(document).ready(function(){
     // Select the modal and the video element
     const modal = document.getElementById('myModal');
+
     const videoElement = document.getElementById('videoElement');
     let stream;
+    let isModalOpen = false;
 
     // Select the button that opens the modal
     const openModalBtn = document.getElementById('openModal');
@@ -331,11 +395,11 @@ include "../menu/menu.php";
       // Convert the canvas image to a base64-encoded string
       const base64Image = canvas.toDataURL('image/jpeg');
       capture(base64Image);
-    
-
 
       // Close the modal
       modal.style.display = 'none';
+
+      isModalOpen = false;
 
       // Stop the camera stream
       if (stream) {
@@ -356,16 +420,29 @@ include "../menu/menu.php";
 
           // Open the modal
           modal.style.display = 'block';
+
+          // Set the isModalOpen variable to true
+          isModalOpen = true;
         })
         .catch(error => {
           console.error('Unable to access the camera.', error);
         });
     });
 
+    document.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13 && isModalOpen) {
+        captureBtn.click();
+
+      }
+    });
+
+   
     // Close the modal and stop the camera stream when the user clicks outside of it
     window.addEventListener('click', event => {
       if (event.target == modal) {
         modal.style.display = 'none';
+
+        isModalOpen = false;
 
         // Stop the camera stream
         if (stream) {
@@ -373,8 +450,12 @@ include "../menu/menu.php";
         }
       }
     });
-    });
-    
+    });    
+
+
+
+
+
     function capture(base64Image)
     {
       let api = $("#modalAPI").val().trim();
@@ -384,6 +465,7 @@ include "../menu/menu.php";
         method: "POST",
         data: {image_data: encoded_image = base64Image.split(",")[1]},
         success: function(result){
+          console.log(result);
           if(result === "No text detected")
             alert("No text detected. Please rescan");
           
@@ -392,10 +474,12 @@ include "../menu/menu.php";
             var encodedImg = result.base64;
             // Create a new `img` element
             const img = document.createElement('img');
+            // console.log(encodedImg);
             // Set the `src` attribute of the `img` element to the Base64 data
             img.src = 'data:image/png;base64, ' + encodedImg;
             // Append the `img` element to the `div`
             const div = document.getElementById('output');
+            div.innerHTML = "";
             div.appendChild(img);
             $.ajax({
               url: "../ajax/ajax.php",
@@ -403,6 +487,57 @@ include "../menu/menu.php";
               data: {action: "searchDrug", result: JSON.stringify(result)},
               success: function(result2){
                 $("#drug_table > tbody").html(result2);
+                $.ajax({
+                  url: "../ajax/ajax.php",
+                  method: "POST",
+                  data: {action: "FuzzySearchDrug", result: JSON.stringify(result)},
+                  success: function(result3){
+                    $("#fuzzyResult").html(result3);
+                    $(".brandSuggestion1").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".brandSuggestionValue1").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+
+                    $(".brandSuggestion2").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".brandSuggestionValue2").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+
+                    $(".dosageSuggestion1").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".dosageSuggestionValue1").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+
+                    $(".dosageSuggestion2").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST",
+                        data: {action: "displayFuzzyDrug", result: $(".dosageSuggestionValue2").val()},
+                        success: function(result4){
+                          $("#drug_table > tbody").html(result4);
+                        }
+                      });
+                    });
+                  }
+                });
                 $(".btnAddToCart").click(function(){
                   $.ajax({
                     url: "../ajax/ajax.php",
@@ -430,7 +565,7 @@ include "../menu/menu.php";
                       var total = row.insertCell(4);
                       name.innerHTML = result[0];
                       manufacturer.innerHTML = result[1];
-                      quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><inputtype='hidden' name='drugID[]' value='" + result[4] + "'>";
+                      quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
                       price.innerHTML = result[3];
                       total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
 
@@ -471,16 +606,19 @@ include "../menu/menu.php";
   </div>
   <form action="" method="post" enctype="multipart/form-data">
     Modal API: <select id="modalAPI">
-      <option value="http://127.0.0.1:5000/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
-      <option value="http://127.0.0.1:5000/api/easyocr/output/best_confidence">EasyOCR</option>
-      <option value="http://127.0.0.1:5000/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
-      <option value="http://127.0.0.1:5000/api/pytesseract/output/best_confidence">PyTesseract</option>
+      <option value="http://127.0.0.1:5002/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
+      <option value="http://127.0.0.1:5001/api/easyocr/output/best_confidence">EasyOCR</option>
+      <option value="http://127.0.0.1:5001/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
+      <option value="http://127.0.0.1:5001/api/pytesseract/output/best_confidence">PyTesseract</option>
     </select>
     <!-- The button to open the modal -->
-    <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" >Open Camera</button>
+    <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" ><img src="../image/scan-icon-white.png" class='btnScan' alt="button image">Scan Medicine</button>
   </form>
   <div>
     <div id="output">
+
+    </div>
+    <div id="fuzzyResult">
 
     </div>
   </div>
@@ -494,6 +632,7 @@ include "../menu/menu.php";
           <th>DRUG IMAGE</th>
           <th>DRUG MANUFACTURER</th>
           <th>DRUG NAME</th>
+          <th>DRUG DOSAGE</th>
           <th>DRUG CATEGORY</th>
           <th>UNIT IN PACKAGE</th>
           <th>DRUG PRICE(RM)</th>
@@ -517,6 +656,7 @@ include "../menu/menu.php";
         
         echo "<td>".ucwords(strtolower($row["manufacturer"]))."</td>
         <td>".ucwords(strtolower($row["drugName"]))."</td>
+        <td>".$row["drugDosage"]."</td>
         <td>".ucwords(strtolower($row["drugCategory"]))."</td>
         <td>".$row["no_of_unit_in_package"]."</td>
         <td>".$row["unitPrice"]."</td>
@@ -538,23 +678,22 @@ include "../menu/menu.php";
   <div class="panel-block ">
     <div  style="height: 300px; width: 100%;">
     <div style="overflow-y:auto ;overflow-x: hidden;height: 300px;">
-              <table id="shopping_cart" class="table is-full" style="width:100%">
-                <thead >
-                  <tr>
-                    <th>DRUG NAME</th>
-                    <th>DRUG MANUFACTURER</th>
-                    <th>QUANTITY</th>
-                    <th>UNIT PRICE(RM)</th>
-                    <th>TOTAL AMOUNT(RM)</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
+      <table id="shopping_cart" class="table is-full" style="width:100%">
+        <thead >
+          <tr>
+            <th>DRUG NAME</th>
+            <th>DRUG MANUFACTURER</th>
+            <th>QUANTITY</th>
+            <th>UNIT PRICE(RM)</th>
+            <th>TOTAL AMOUNT(RM)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
 
-                </tbody>
-              </table>
-            </div>
-
+        </tbody>
+      </table>
+      <div>
     </div>
   </div>
 </section>

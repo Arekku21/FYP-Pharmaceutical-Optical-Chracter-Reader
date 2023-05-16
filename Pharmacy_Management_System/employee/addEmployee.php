@@ -1,6 +1,11 @@
 <?php
 include "../menu/menu.php";
 ?>
+<style>
+  .is-active{
+      z-index: 0;
+    }
+</style>
 <div class="container">
 <div style="margin-top: 0%; width:88%;">
     <div style="margin-top: 0.8%; height:900px;">

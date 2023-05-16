@@ -50,11 +50,11 @@ header("Location: $login_page");
 <div class="navbar-end level-right" >
 
   <div class="navbar-start" style="margin-top: 6px;" >
-        <div style="padding: 4px;margin-right: -10px;">
-          <figure class="image is-48x48">
+        <!-- <div style="padding: 4px;margin-right: -10px;"> -->
+          <!-- <figure class="image is-48x48">
             <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-          </figure>
-        </div>
+          </figure> -->
+        <!-- </div> -->
         <span style="padding: 15px; color: white; font-size: 18px;">
         <?php
         if($_SESSION['roleID'] == 1)
@@ -68,7 +68,7 @@ header("Location: $login_page");
 
     <div class="buttons">
     <form action="../menu/logout.php">
-    <input type="submit" class="button is-primary"  name="submit_btn"  value="Log Out"><i class="fas fas-sign-in" aria-hidden="true"></i>
+      <input type="submit" class="button is-primary" style="margin-top: 15px;" name="submit_btn"  value="Log Out"><i class="fas fas-sign-in" aria-hidden="true"></i>
     
     </form>
 
@@ -78,9 +78,9 @@ header("Location: $login_page");
       <!-- <button class="button is-primary" >
         <strong>Log out</strong>
       </button> -->
-      <button *ngIf="PharamacistRole" class="button is-primary is-rounded"  >
+      <!-- <button *ngIf="PharamacistRole" class="button is-primary is-rounded"  >
         <strong><span class="icon"><i class="fa fa-cogs fa-lg "  routerLink="/settings"></i></span></strong>
-      </button>
+      </button> -->
     </div>
 
 

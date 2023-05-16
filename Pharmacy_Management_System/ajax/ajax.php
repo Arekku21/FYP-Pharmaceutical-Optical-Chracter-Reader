@@ -505,7 +505,8 @@ else if($_POST["action"] == "uploadImage")
 else if($_POST["action"] == "searchDrug")
 {
     $result = json_decode($_POST['result'], true);
-    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_brand"]))."'");
+    // $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_brand"]))."'");
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName LIKE '%".strtoupper(trim($result["jw_fuzzy_brand"][0]))."%'");
 
     if(mysqli_num_rows($sql) > 0)
     {
@@ -540,35 +541,39 @@ else if($_POST["action"] == "searchDrug")
 else if($_POST["action"] == "FuzzySearchDrug")
 {
     $result = json_decode($_POST['result'], true);
-    
-    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_brand"]))."'");
+    $fuzzy_array = array();
+    $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_brand"][0]))."'");
     if(mysqli_num_rows($sql) > 0)
     {
         $row = mysqli_fetch_array($sql);
-        echo "<br><input type='hidden' class='brandSuggestionValue1' value='".$row["DrugID"]."'><a class='brandSuggestion1' href='#'>Fuzzy search brand suggestion #1: ".$row["drugName"]." - ".$row["drugDosage"]."</a>";
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='brandSuggestionValue1' value='".$row["DrugID"]."'><a class='brandSuggestion1' href='#'>Fuzzy search brand suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_brand"][1] * 100)."%)"."</a>";
     }
 
-    $sql2 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_brand"]))."'");
+    $sql2 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_brand"][0]))."'");
     if(mysqli_num_rows($sql2) > 0)
     {
         $row = mysqli_fetch_array($sql2);
-        echo "<br><input type='hidden' class='brandSuggestionValue2' value='".$row["DrugID"]."'><a class='brandSuggestion2' href='#'>Fuzzy search brand suggestion #2: ".$row["drugName"]." - ".$row["drugDosage"]."</a>";
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='brandSuggestionValue2' value='".$row["DrugID"]."'><a class='brandSuggestion2' href='#'>Fuzzy search brand suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_brand"][1] * 100)."%)"."</a>";
     }
 
     //third jw fuzzy dosage
-    $sql3 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_dosage"]))."'");
+    $sql3 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_dosage"][0]))."'");
     if(mysqli_num_rows($sql3) > 0)
     {
         $row = mysqli_fetch_array($sql3);
-        echo "<br><input type='hidden' class='dosageSuggestionValue1' value='".$row["DrugID"]."'><a class='dosageSuggestion1' href='#'>Fuzzy search dosage suggestion #1: ".$row["drugName"]." - ".$row["drugDosage"]."</a>";
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='dosageSuggestionValue1' value='".$row["DrugID"]."'><a class='dosageSuggestion1' href='#'>Fuzzy search dosage suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_dosage"][1] * 100)."%)"."</a>";
     }
 
     //fourth ld fuzzy dosage
-    $sql4 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_dosage"]))."'");
+    $sql4 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_dosage"][0]))."'");
     if(mysqli_num_rows($sql4) > 0)
     {
         $row = mysqli_fetch_array($sql4);
-        echo "<br><input type='hidden' class='dosageSuggestionValue2' value='".$row["DrugID"]."'><a class='dosageSuggestion2' href='#'>Fuzzy search dosage suggestion #2: ".$row["drugName"]." - ".$row["drugDosage"]."</a><br>";
+        array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
+        echo "<br><input type='hidden' class='dosageSuggestionValue2' value='".$row["DrugID"]."'><a class='dosageSuggestion2' href='#'>Fuzzy search dosage suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_dosage"][1] * 100)."%)"."</a><br>";
     }
 }
 

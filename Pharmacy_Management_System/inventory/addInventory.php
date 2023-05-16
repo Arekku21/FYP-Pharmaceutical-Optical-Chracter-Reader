@@ -55,10 +55,67 @@ include "../db.php";
   .is-active{
       z-index: 0;
     }
+
+    .loading-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+
+    .loading-overlay {
+      position: fixed;
+      width: 5000px;
+      height: 5000px;
+      background-image: url('../image/loading.gif');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      top: 50%;
+      left: 50%;
+      /* transform: translate(-50%, -50%); */
+      z-index: 9999;
+    }
+
+    .freeze {
+      position: relative;
+      z-index: 9998; /* lower than the loading overlay */
+    }
+
+    /* Optional: apply a transparent background to the freeze element */
+    .freeze::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btnScan{
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
 </style>
 </head>
 <script>
   $(document).ready(function(){
+    var loadingOverlay = $('<div class="loading-overlay"></div>');
+    $(document).ajaxStart(function() {
+        // Show the loading overlay and freeze the background
+        $('body').append(loadingOverlay);
+        $('body').addClass('freeze');
+    });
+
+    $(document).ajaxStop(function() {
+        // Hide the loading overlay and unfreeze the background
+        loadingOverlay.remove();
+        $('body').removeClass('freeze');
+    });
+
     $(".btnUpload").click(function(){
       var file_data = $('#image').prop('files')[0]; 
       var form_data = new FormData();
@@ -240,7 +297,7 @@ include "../menu/menu.php";
         <option value="http://127.0.0.1:5001/api/pytesseract/output/best_confidence">PyTesseract</option>
       </select>
       <!-- The button to open the modal -->
-      <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" >Open Camera</button>
+      <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" ><img src="../image/scan-icon-white.png" class='btnScan' alt="button image">Scan Medicine</button>
     </form>
     <?php
     if($_POST["btnAdd"])

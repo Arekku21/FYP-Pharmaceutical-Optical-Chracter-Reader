@@ -545,15 +545,15 @@ def api_easyocr_best_confidence():
 
             print("Results Message: OCR raw reading result\n",result)
 
-            if result != "":
+            total_confidence = 0.0
+            number_of_lines = len(result)
 
-                #calculate average confidence
-                total_confidence = 0.0
-                number_of_lines = len(result)
 
-                for confidence in result:
-                    total_confidence += confidence[2]
 
+            for confidence in result:
+                total_confidence += confidence[2]
+            
+            if total_confidence != 0.0 or number_of_lines != 0:
                 total_confidence = total_confidence/number_of_lines
 
                 output_to_show = ""
@@ -642,16 +642,16 @@ def api_easyocr_custom_best_confidence():
 
             print("Results Message: OCR raw reading result\n",result)
 
-            if result != "":
+            total_confidence = 0.0
+            number_of_lines = len(result)
 
-                #calculate average confidence
-                total_confidence = 0.0
-                number_of_lines = len(result)
 
-                for confidence in result:
-                    total_confidence += confidence[2]
-
+            for confidence in result:
+                total_confidence += confidence[2]
+            
+            if total_confidence != 0.0 or number_of_lines != 0:
                 total_confidence = total_confidence/number_of_lines
+
 
                 output_to_show = ""
 
@@ -704,97 +704,6 @@ def api_easyocr_custom_best_confidence():
             else:
                 return "No text detected"
 
-        except:
-            return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
-        
-# ! Kyron specific paddle ocr
-        
-# #send best confidence easy
-@app.route('/api/paddleocr/output/best_confidence', methods=['GET','POST'])
-def api_paddleocr():
-    if request.method == "POST":
-        try:
-            #process status messages
-            print("\nStatus Message: POST Method API request for /api/paddleocr/output/best_confidence")
-            
-            # Get the data sent by the AJAX request
-            sent_image = request.form['image_data']
-            
-
-            str_decoded_bytes = bytes(sent_image, 'utf-8')
-
-            im_bytes = base64.b64decode(str_decoded_bytes)   # im_bytes is a binary image
-            im_file = BytesIO(im_bytes)  # convert image to file-like object
-            img = Image.open(im_file)   # img is now PIL Image object
-
-            #paddleocr need the input as file_path, numpy array
-            arr = np.array(img) # Convert the image to a NumPy array
-
-            reader = PaddleOCR(lang="en")
-            result = reader.ocr(arr)
-
-
-            #Extracting prescription medication labels using PaddleOCR
-            boxes = [res[0] for res in result] 
-            texts = [res[1][0] for res in result]
-            scores = [res[1][1] for res in result]
-            
-            
-            font_path = os.path.join('PaddleOCR', 'doc', 'fonts', 'latin.ttf')
-
-            img = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
-            np.set_printoptions(threshold=np.inf)
-            annotated = draw_ocr(img, boxes, texts, scores, font_path=font_path)
-            retval, buffer = cv2.imencode('.jpg', annotated)
-            jpg_as_text = base64.b64encode(buffer)
-            base64_str = jpg_as_text.decode('utf-8')
-
-
-
-            total_confidence = 0.0
-            number_of_lines = len(result)
-
-
-            for confidence in result:
-                total_confidence += confidence[1][1]
-            
-            if total_confidence != 0.0 or number_of_lines != 0:
-                total_confidence = total_confidence/number_of_lines
-
-                output_to_show = ""
-
-                #compare word confidence to average
-                for word_confidence in result:
-                    print(word_confidence)
-                    # if total_confidence <= word_confidence[1]:
-                    output_to_show += " " + word_confidence[1][0]
-
-                dict_to_return = {}
-
-                # #return index 0 to be brand
-                dict_to_return["brand"] = textpreprocessing(output_to_show)
-
-                # #return index 1 to be doasage
-                dict_to_return["dosage"] = dosagepreprocessing(output_to_show)
-
-                dict_to_return["base64"] = base64_str
-
-                #return dictionary with ld_fuzzy and jw_fuzzy keys for brand
-                fuzzy_result_list = fuzzy_search(list(textpreprocessing(output_to_show).split()),drug_records)
-                dict_to_return["ld_fuzzy_brand"] = fuzzy_result_list[1]
-                dict_to_return["jw_fuzzy_brand"] = fuzzy_result_list[0]
-
-                #return dictionary with ld_fuzzy and jw_fuzzy keys for dosage
-                fuzzy_result_list = fuzzy_search_dosage(list(dosagepreprocessing(output_to_show).split()),drug_records)
-                dict_to_return["ld_fuzzy_dosage"] = fuzzy_result_list[1]
-                dict_to_return["jw_fuzzy_dosage"] = fuzzy_result_list[0]
-
-
-                # return jsonify(test_json)
-                # print(dict_to_return)
-                return dict_to_return
-            else:
-                return "No text detected"
         except:
             return "API parameter is incorrect. Check Base 64 encoding or parameter missing"
 

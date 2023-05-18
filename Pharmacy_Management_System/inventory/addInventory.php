@@ -136,6 +136,17 @@ include "../db.php";
     });
   });
   $(document).ready(function(){
+    $(".btnAdd").click(function(){
+      $.ajax({
+        url: "http://127.0.0.1:5002/api/medicinerecords/update",
+        method: "POST",
+        success: function(result2){
+          // console.log(result.trim());
+        }
+      });
+    });
+
+
     // Select the modal and the video element
     const modal = document.getElementById('myModal');
     const videoElement = document.getElementById('videoElement');
@@ -377,7 +388,7 @@ include "../menu/menu.php";
 
 
 <div style="width: 100%;margin-top: 40px;">
-  <input type="submit" class="button is-primary is-fullwidth" name="btnAdd" value="Add">
+  <input type="submit" class="btnAdd button is-primary is-fullwidth" name="btnAdd" value="Add">
 </div>
 </form>
     </div>

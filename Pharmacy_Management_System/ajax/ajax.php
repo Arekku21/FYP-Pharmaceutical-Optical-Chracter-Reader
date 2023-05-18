@@ -37,6 +37,7 @@ else if($_POST["action"] == "addStock")
 else if($_POST["action"] == "addStock2")
 {
     //check if bachNo exist
+    echo "SELECT * FROM tblstored_drug WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."";
     $checkExist = mysqli_query($Links, "SELECT * FROM tblstored_drug WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."");
     //if exist update quantity
     if(mysqli_num_rows($checkExist) > 0)
@@ -44,6 +45,7 @@ else if($_POST["action"] == "addStock2")
         $row = mysqli_fetch_array($checkExist);
         $quantity = $row["quantity"] + trim($_POST["quantity"]);
         $sql = mysqli_query($Links, "UPDATE tblstored_drug SET quantity = ".$quantity." WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."");
+        echo "UPDATE tblstored_drug SET quantity = ".$quantity." WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."";
     }
     else
     {

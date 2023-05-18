@@ -133,6 +133,7 @@ include "../menu/menu.php";
         success: function(result){
           var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
           result = JSON.parse(result);
+          console.log(result);
           $("#shopping_cart > tbody > tr").each(function(i){
             var cart_table = $(this);
             var pos_name = cart_table.find("td:eq(0)").text();
@@ -209,8 +210,10 @@ include "../menu/menu.php";
               success: function(result){
                 var split = result.split("-");
                 alert(split[0].trim());
-                window.open("invoice.php?invoiceID=" + split[1]);
-                location.reload();
+                if(!split[0].trim().includes("Product not enough stock!")){
+                  window.open("invoice.php?invoiceID=" + split[1]);
+                  location.reload();
+                }
               }
             });
             //print bill logic here
@@ -298,7 +301,8 @@ include "../menu/menu.php";
   //   });
   });
 
-  function increaseQty(name, manufacturer, qty, price, total)
+  // function increaseQty(name, manufacturer, qty, price, total)
+  function increaseQty(name, manufacturer, qty, price, drugID)
   {
     $("#shopping_cart > tbody > tr").each(function(i){
       var cart_table = $(this);
@@ -309,10 +313,9 @@ include "../menu/menu.php";
         //update the quantity column
         qty = parseInt(qty) + 1;
         total = parseFloat(price) * parseInt(qty);
-        cart_table.find("td:eq(2)").text(qty);
+        cart_table.find("td:eq(2)").html(qty + "<input type='hidden' name='quantity[]' value='" + qty + "'><input type='hidden' name='drugID[]' value='" + drugID + "'>");
         cart_table.find("td:eq(4)").text(total); 
-        cart_table.find("td:eq(5)").html("<button onclick=\"increaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + total + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + total + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>");
-
+        cart_table.find("td:eq(5)").html("<button onclick=\"increaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + drugID + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + drugID + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>");
         var sub_total_amount = 0;
         var total = 0;
         //calculate total amount
@@ -330,7 +333,7 @@ include "../menu/menu.php";
     });
   }
 
-  function decreaseQty(name, manufacturer, qty, price, total)
+  function decreaseQty(name, manufacturer, qty, price, drugID)
   {
     $("#shopping_cart > tbody > tr").each(function(i){
       var cart_table = $(this);
@@ -341,9 +344,9 @@ include "../menu/menu.php";
         //update the quantity column
         qty = parseInt(qty) - 1;
         total = parseFloat(price) * parseInt(qty);
-        cart_table.find("td:eq(2)").text(qty);
+        cart_table.find("td:eq(2)").html(qty + "<input type='hidden' name='quantity[]' value='" + qty + "'><input type='hidden' name='drugID[]' value='" + drugID + "'>");
         cart_table.find("td:eq(4)").text(total); 
-        cart_table.find("td:eq(5)").html("<button onclick=\"increaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + total + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + total + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>");
+        cart_table.find("td:eq(5)").html("<button onclick=\"increaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + drugID + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + name + "', '" + manufacturer + "', '" + qty + "', '" + price + "', '" + drugID + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>");
         //remove the row if qty is 0
         if(qty < 1)
         {
@@ -680,8 +683,8 @@ include "../menu/menu.php";
                         data: {action: "displayFuzzyDrug", result: $(".dosageSuggestionValue1").val()},
                         success: function(result4){
                           $("#drug_table > tbody").html(result4);
-                                                    //perform click action for add to cart
-                                                    $(".btnAddToCart").click(function(){
+                            //perform click action for add to cart
+                            $(".btnAddToCart").click(function(){
                             $.ajax({
                               url: "../ajax/ajax.php",
                               method: "POST", 

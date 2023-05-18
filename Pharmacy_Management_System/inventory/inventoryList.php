@@ -76,15 +76,23 @@ include "../menu/menu.php";
       form_data.append('action', 'editDrug');
       form_data.append('id', id);
       $.ajax({
-        // url: "../ajax/ajax.php",
-        url: "http://127.0.0.1:5002/api/medicinerecords/update",
+        url: "../ajax/ajax.php",
+        // url: "http://127.0.0.1:5002/api/medicinerecords/update",
         method: "POST",
-        // cache: false,
-        // contentType: false,
-        // processData: false,
-        // data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
         success: function(result){
-          alert(result.trim());
+          // alert(result.trim());
+          $.ajax({
+            url: "http://127.0.0.1:5002/api/medicinerecords/update",
+            method: "POST",
+            success: function(result2){
+              alert(result.trim());
+              // console.log(result.trim());
+            }
+          });
         }
       });
     });
@@ -99,8 +107,14 @@ include "../menu/menu.php";
           method: "POST",
           data: {action: "deleteDrug", id: id},
           success: function(result){
-            alert(result.trim());
-            location.reload();
+            $.ajax({
+              url: "http://127.0.0.1:5002/api/medicinerecords/update",
+              method: "POST",
+              success: function(result2){
+                alert(result.trim());
+                location.reload();
+              }
+            });
           }
         });
       }
@@ -154,7 +168,7 @@ include "../menu/menu.php";
               $.ajax({
                 url: "../ajax/ajax.php",
                 method: "POST", 
-                data: {action: "remove2", id: $(".btnRemove2").attr("id")} ,
+                data: {action: "remove2", id: $(this).attr("id")} ,
                 success: function(result){
                   alert(result.trim());
                   location.reload();
@@ -170,7 +184,7 @@ include "../menu/menu.php";
     $(".btnRemove").click(function(){
       $.ajax({
         url: "../ajax/ajax.php",
-        method: "POST", 
+        method: "POST",
         data: {action: "getDrugInfo", id: $(this).val()},
         success: function(result){
           result = JSON.parse(result);

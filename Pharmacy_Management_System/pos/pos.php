@@ -210,7 +210,7 @@ include "../menu/menu.php";
                 var split = result.split("-");
                 alert(split[0].trim());
                 window.open("invoice.php?invoiceID=" + split[1]);
-                // location.reload();
+                location.reload();
               }
             });
             //print bill logic here
@@ -465,7 +465,7 @@ include "../menu/menu.php";
         method: "POST",
         data: {image_data: encoded_image = base64Image.split(",")[1]},
         success: function(result){
-          console.log(result);
+          // console.log(result);
           if(result === "No text detected")
             alert("No text detected. Please rescan");
           
@@ -493,6 +493,60 @@ include "../menu/menu.php";
                   data: {action: "FuzzySearchDrug", result: JSON.stringify(result)},
                   success: function(result3){
                     $("#fuzzyResult").html(result3);
+                    //perform click action for add to cart
+                    $(".btnAddToCart").click(function(){
+                      $.ajax({
+                        url: "../ajax/ajax.php",
+                        method: "POST", 
+                        data: {action: "addToCart", id: $(this).attr('id')},
+                        success: function(result){
+                          var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
+                          result = JSON.parse(result);
+                          console.log(result);
+                          $("#shopping_cart > tbody > tr").each(function(i){
+                            var cart_table = $(this);
+                            var pos_name = cart_table.find("td:eq(0)").text();
+                            var pos_manufacturer = cart_table.find("td:eq(1)").text();
+                            if(pos_name == result[0] && pos_manufacturer == result[1])
+                            {
+                              result[2] = parseInt(cart_table.find("td:eq(2)").text()) + 1;
+                              $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
+                            }
+                          });
+                            
+                          var row = table.insertRow(-1);
+                            var name = row.insertCell(0);
+                            var manufacturer = row.insertCell(1);
+                            var quantity = row.insertCell(2);
+                            var price = row.insertCell(3);
+                            var total = row.insertCell(4);
+                            var button = row.insertCell(5);
+                            name.innerHTML = result[0];
+                            manufacturer.innerHTML = result[1];
+                            quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
+                            price.innerHTML = result[3];
+                            total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
+
+                            button.innerHTML = "<button onclick=\"increaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>";
+
+
+
+                            var sub_total_amount = 0;
+                            var total = 0;
+                            //calculate total amount
+                            $("#shopping_cart > tbody > tr").each(function(i){
+                              var cart_table = $(this);
+                              sub_total_amount += parseFloat(cart_table.find("td:eq(-2)").text());
+
+                              var tax = sub_total_amount * 0.06;
+                              $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
+                              $("#taxAmount").html(tax.toFixed(2));
+                              total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
+                              $("#lblTotal").html("RM " + total.toFixed(2));
+                            });
+                          }
+                        });
+                      });
                     $(".brandSuggestion1").click(function(){
                       $.ajax({
                         url: "../ajax/ajax.php",
@@ -500,6 +554,58 @@ include "../menu/menu.php";
                         data: {action: "displayFuzzyDrug", result: $(".brandSuggestionValue1").val()},
                         success: function(result4){
                           $("#drug_table > tbody").html(result4);
+                          //perform click action for add to cart
+                          $(".btnAddToCart").click(function(){
+                            $.ajax({
+                              url: "../ajax/ajax.php",
+                              method: "POST", 
+                              data: {action: "addToCart", id: $(this).attr('id')},
+                              success: function(result){
+                                var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
+                                result = JSON.parse(result);
+                                $("#shopping_cart > tbody > tr").each(function(i){
+                                  var cart_table = $(this);
+                                  var pos_name = cart_table.find("td:eq(0)").text();
+                                  var pos_manufacturer = cart_table.find("td:eq(1)").text();
+                                  if(pos_name == result[0] && pos_manufacturer == result[1])
+                                  {
+                                    result[2] = parseInt(cart_table.find("td:eq(2)").text()) + 1;
+                                    $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
+                                  }
+                                });
+                                  var row = table.insertRow(-1);
+                                  var name = row.insertCell(0);
+                                  var manufacturer = row.insertCell(1);
+                                  var quantity = row.insertCell(2);
+                                  var price = row.insertCell(3);
+                                  var total = row.insertCell(4);
+                                  var button = row.insertCell(5);
+                                  name.innerHTML = result[0];
+                                  manufacturer.innerHTML = result[1];
+                                  quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
+                                  price.innerHTML = result[3];
+                                  total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
+
+                                  button.innerHTML = "<button onclick=\"increaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>";
+
+
+
+                                  var sub_total_amount = 0;
+                                  var total = 0;
+                                  //calculate total amount
+                                  $("#shopping_cart > tbody > tr").each(function(i){
+                                    var cart_table = $(this);
+                                    sub_total_amount += parseFloat(cart_table.find("td:eq(-2)").text());
+
+                                    var tax = sub_total_amount * 0.06;
+                                    $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
+                                    $("#taxAmount").html(tax.toFixed(2));
+                                    total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
+                                    $("#lblTotal").html("RM " + total.toFixed(2));
+                                  });
+                              }
+                            });
+                          });
                         }
                       });
                     });
@@ -511,6 +617,58 @@ include "../menu/menu.php";
                         data: {action: "displayFuzzyDrug", result: $(".brandSuggestionValue2").val()},
                         success: function(result4){
                           $("#drug_table > tbody").html(result4);
+                                                    //perform click action for add to cart
+                                                    $(".btnAddToCart").click(function(){
+                            $.ajax({
+                              url: "../ajax/ajax.php",
+                              method: "POST", 
+                              data: {action: "addToCart", id: $(this).attr('id')},
+                              success: function(result){
+                                var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
+                                result = JSON.parse(result);
+                                $("#shopping_cart > tbody > tr").each(function(i){
+                                  var cart_table = $(this);
+                                  var pos_name = cart_table.find("td:eq(0)").text();
+                                  var pos_manufacturer = cart_table.find("td:eq(1)").text();
+                                  if(pos_name == result[0] && pos_manufacturer == result[1])
+                                  {
+                                    result[2] = parseInt(cart_table.find("td:eq(2)").text()) + 1;
+                                    $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
+                                  }
+                                });
+                                  var row = table.insertRow(-1);
+                                  var name = row.insertCell(0);
+                                  var manufacturer = row.insertCell(1);
+                                  var quantity = row.insertCell(2);
+                                  var price = row.insertCell(3);
+                                  var total = row.insertCell(4);
+                                  var button = row.insertCell(5);
+                                  name.innerHTML = result[0];
+                                  manufacturer.innerHTML = result[1];
+                                  quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
+                                  price.innerHTML = result[3];
+                                  total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
+
+                                  button.innerHTML = "<button onclick=\"increaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>";
+
+
+
+                                  var sub_total_amount = 0;
+                                  var total = 0;
+                                  //calculate total amount
+                                  $("#shopping_cart > tbody > tr").each(function(i){
+                                    var cart_table = $(this);
+                                    sub_total_amount += parseFloat(cart_table.find("td:eq(-2)").text());
+
+                                    var tax = sub_total_amount * 0.06;
+                                    $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
+                                    $("#taxAmount").html(tax.toFixed(2));
+                                    total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
+                                    $("#lblTotal").html("RM " + total.toFixed(2));
+                                  });
+                              }
+                            });
+                          });
                         }
                       });
                     });
@@ -522,6 +680,58 @@ include "../menu/menu.php";
                         data: {action: "displayFuzzyDrug", result: $(".dosageSuggestionValue1").val()},
                         success: function(result4){
                           $("#drug_table > tbody").html(result4);
+                                                    //perform click action for add to cart
+                                                    $(".btnAddToCart").click(function(){
+                            $.ajax({
+                              url: "../ajax/ajax.php",
+                              method: "POST", 
+                              data: {action: "addToCart", id: $(this).attr('id')},
+                              success: function(result){
+                                var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
+                                result = JSON.parse(result);
+                                $("#shopping_cart > tbody > tr").each(function(i){
+                                  var cart_table = $(this);
+                                  var pos_name = cart_table.find("td:eq(0)").text();
+                                  var pos_manufacturer = cart_table.find("td:eq(1)").text();
+                                  if(pos_name == result[0] && pos_manufacturer == result[1])
+                                  {
+                                    result[2] = parseInt(cart_table.find("td:eq(2)").text()) + 1;
+                                    $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
+                                  }
+                                });
+                                  var row = table.insertRow(-1);
+                                  var name = row.insertCell(0);
+                                  var manufacturer = row.insertCell(1);
+                                  var quantity = row.insertCell(2);
+                                  var price = row.insertCell(3);
+                                  var total = row.insertCell(4);
+                                  var button = row.insertCell(5);
+                                  name.innerHTML = result[0];
+                                  manufacturer.innerHTML = result[1];
+                                  quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
+                                  price.innerHTML = result[3];
+                                  total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
+
+                                  button.innerHTML = "<button onclick=\"increaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>";
+
+
+
+                                  var sub_total_amount = 0;
+                                  var total = 0;
+                                  //calculate total amount
+                                  $("#shopping_cart > tbody > tr").each(function(i){
+                                    var cart_table = $(this);
+                                    sub_total_amount += parseFloat(cart_table.find("td:eq(-2)").text());
+
+                                    var tax = sub_total_amount * 0.06;
+                                    $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
+                                    $("#taxAmount").html(tax.toFixed(2));
+                                    total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
+                                    $("#lblTotal").html("RM " + total.toFixed(2));
+                                  });
+                              }
+                            });
+                          });
                         }
                       });
                     });
@@ -533,57 +743,113 @@ include "../menu/menu.php";
                         data: {action: "displayFuzzyDrug", result: $(".dosageSuggestionValue2").val()},
                         success: function(result4){
                           $("#drug_table > tbody").html(result4);
+                                                    //perform click action for add to cart
+                                                    $(".btnAddToCart").click(function(){
+                            $.ajax({
+                              url: "../ajax/ajax.php",
+                              method: "POST", 
+                              data: {action: "addToCart", id: $(this).attr('id')},
+                              success: function(result){
+                                var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
+                                result = JSON.parse(result);
+                                $("#shopping_cart > tbody > tr").each(function(i){
+                                  var cart_table = $(this);
+                                  var pos_name = cart_table.find("td:eq(0)").text();
+                                  var pos_manufacturer = cart_table.find("td:eq(1)").text();
+                                  if(pos_name == result[0] && pos_manufacturer == result[1])
+                                  {
+                                    result[2] = parseInt(cart_table.find("td:eq(2)").text()) + 1;
+                                    $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
+                                  }
+                                });
+                                  var row = table.insertRow(-1);
+                                  var name = row.insertCell(0);
+                                  var manufacturer = row.insertCell(1);
+                                  var quantity = row.insertCell(2);
+                                  var price = row.insertCell(3);
+                                  var total = row.insertCell(4);
+                                  var button = row.insertCell(5);
+                                  name.innerHTML = result[0];
+                                  manufacturer.innerHTML = result[1];
+                                  quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
+                                  price.innerHTML = result[3];
+                                  total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
+
+                                  button.innerHTML = "<button onclick=\"increaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>";
+
+
+
+                                  var sub_total_amount = 0;
+                                  var total = 0;
+                                  //calculate total amount
+                                  $("#shopping_cart > tbody > tr").each(function(i){
+                                    var cart_table = $(this);
+                                    sub_total_amount += parseFloat(cart_table.find("td:eq(-2)").text());
+
+                                    var tax = sub_total_amount * 0.06;
+                                    $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
+                                    $("#taxAmount").html(tax.toFixed(2));
+                                    total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
+                                    $("#lblTotal").html("RM " + total.toFixed(2));
+                                  });
+                              }
+                            });
+                          });
                         }
                       });
                     });
                   }
                 });
-                $(".btnAddToCart").click(function(){
-                  $.ajax({
-                    url: "../ajax/ajax.php",
-                    method: "POST", 
-                    data: {action: "addToCart", id: $(this).attr('id')},
-                    success: function(result){
-                      var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
-                      result = JSON.parse(result);
-                      $("#shopping_cart > tbody > tr").each(function(i){
-                        var cart_table = $(this);
-                        var pos_name = cart_table.find("td:eq(0)").text();
-                        var pos_manufacturer = cart_table.find("td:eq(1)").text();
-                        if(pos_name == result[0] && pos_manufacturer == result[1])
-                        {
-                          var pos_quantity = cart_table.find("td:eq(2)").text();
-                          result[2] = parseInt(pos_quantity) + 1;
-                          $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
-                        }
-                      });
-                      var row = table.insertRow(-1);
-                      var name = row.insertCell(0);
-                      var manufacturer = row.insertCell(1);
-                      var quantity = row.insertCell(2);
-                      var price = row.insertCell(3);
-                      var total = row.insertCell(4);
-                      name.innerHTML = result[0];
-                      manufacturer.innerHTML = result[1];
-                      quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
-                      price.innerHTML = result[3];
-                      total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
+                // $(".btnAddToCart").click(function(){
+                //   $.ajax({
+                //     url: "../ajax/ajax.php",
+                //     method: "POST", 
+                //     data: {action: "addToCart", id: $(this).attr('id')},
+                //     success: function(result){
+                //       var table = document.getElementById("shopping_cart").getElementsByTagName('tbody')[0];
+                //       result = JSON.parse(result);
+                //       $("#shopping_cart > tbody > tr").each(function(i){
+                //         var cart_table = $(this);
+                //         var pos_name = cart_table.find("td:eq(0)").text();
+                //         var pos_manufacturer = cart_table.find("td:eq(1)").text();
+                //         if(pos_name == result[0] && pos_manufacturer == result[1])
+                //         {
+                //           var pos_quantity = cart_table.find("td:eq(2)").text();
+                //           result[2] = parseInt(pos_quantity) + 1;
+                //           $("#shopping_cart > tbody > tr:eq("+ i +")").remove();
+                //         }
+                //       });
+                //       var row = table.insertRow(-1);
+                //       var name = row.insertCell(0);
+                //       var manufacturer = row.insertCell(1);
+                //       var quantity = row.insertCell(2);
+                //       var price = row.insertCell(3);
+                //       var total = row.insertCell(4);
+                //       var button = row.insertCell(5);
+                //       name.innerHTML = result[0];
+                //       manufacturer.innerHTML = result[1];
+                //       quantity.innerHTML = result[2]+ "<input type='hidden' name='quantity[]' value='" + result[2] + "'><input type='hidden' name='drugID[]' value='" + result[4] + "'>";
+                //       price.innerHTML = result[3];
+                //       total.innerHTML = parseFloat(result[3]) * parseFloat(result[2]);
 
-                      var sub_total_amount = 0;
-                      var total = 0;
-                      //calculate total amount
-                      $("#shopping_cart > tbody > tr").each(function(i){
-                      var cart_table = $(this);
-                      sub_total_amount += parseFloat(cart_table.find("td:eq(-1)").text());
-                      var tax = sub_total_amount * 0.06;
-                      $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
-                      $("#taxAmount").html(tax.toFixed(2));
-                      total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
-                      $("#lblTotal").html("RM " + total.toFixed(2));
-                      });
-                    }
-                  });
-                });
+                //       button.innerHTML = "<button onclick=\"increaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnIncrease button is-small is-primary'><i class='fa fa-plus'></i></button>&nbsp;<button onclick=\"decreaseQty('" + result[0] + "', '" + result[1] + "', '" + result[2] + "', '" + result[3] + "', '" + result[4] + "')\" type='button' class='btnDecrease button is-small is-danger'><i class='fa fa-minus'></i></button>";
+                      
+
+                //       var sub_total_amount = 0;
+                //       var total = 0;
+                //       //calculate total amount
+                //       $("#shopping_cart > tbody > tr").each(function(i){
+                //       var cart_table = $(this);
+                //       sub_total_amount += parseFloat(cart_table.find("td:eq(-1)").text());
+                //       var tax = sub_total_amount * 0.06;
+                //       $("#lblSubTotal").html("RM " + sub_total_amount.toFixed(2));
+                //       $("#taxAmount").html(tax.toFixed(2));
+                //       total = parseFloat(sub_total_amount.toFixed(2)) + parseFloat(tax.toFixed(2));
+                //       $("#lblTotal").html("RM " + total.toFixed(2));
+                //       });
+                //     }
+                //   });
+                // });
               },
               error: function(error){
                 console.log(error);

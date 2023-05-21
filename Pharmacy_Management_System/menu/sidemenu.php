@@ -96,13 +96,19 @@ header("Location: $login_page");
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../inventory/addInventory.php" style="color:white; text-align: left"><span class="icon"><i class="fab fa-y-combinator fa-lg " style="margin-right:7px;"></i></span> Inventory</a>
     </li>
     <li class="newclass :hover">
-      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../employee/addEmployee.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-users" style="margin-right: 7px;"></i></span> Employee</a>
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../registration/addUsers.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-users" style="margin-right: 7px;"></i></span> Registration</a>
     </li>
     <!-- <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="http://localhost:5000/index" style="color:white; text-align: left"><span class="icon"><i class="fa fa-camera" style="margin-right: 7px;"></i></span>Retraining Pipeline</a>
     </li> -->
     <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../retraining/retraining.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-camera" style="margin-right: 7px;"></i></span>Retraining Pipeline</a>
+    </li>
+    <li class="newclass :hover">
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../audit/audit.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-address-book" style="margin-right: 7px;"></i></span>Audit Log</a>
+    </li>
+    <li class="newclass :hover">
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../users/pharma.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-user-md"></i></span>Users</a>
     </li>
   </ul>
   <br>

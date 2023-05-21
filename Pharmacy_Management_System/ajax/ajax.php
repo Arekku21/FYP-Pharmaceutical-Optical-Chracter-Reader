@@ -1,3 +1,4 @@
+
 <?php
 // header('Access-Control-Allow-Origin: http://127.0.0.1:5000');
 // header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -37,7 +38,7 @@ else if($_POST["action"] == "addStock")
 else if($_POST["action"] == "addStock2")
 {
     //check if bachNo exist
-    echo "SELECT * FROM tblstored_drug WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."";
+    // echo "SELECT * FROM tblstored_drug WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."";
     $checkExist = mysqli_query($Links, "SELECT * FROM tblstored_drug WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."");
     //if exist update quantity
     if(mysqli_num_rows($checkExist) > 0)
@@ -45,7 +46,7 @@ else if($_POST["action"] == "addStock2")
         $row = mysqli_fetch_array($checkExist);
         $quantity = $row["quantity"] + trim($_POST["quantity"]);
         $sql = mysqli_query($Links, "UPDATE tblstored_drug SET quantity = ".$quantity." WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."");
-        echo "UPDATE tblstored_drug SET quantity = ".$quantity." WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."";
+        // echo "UPDATE tblstored_drug SET quantity = ".$quantity." WHERE batchNo = '".$_POST["batchNo"]."' AND DrugID = ".$_POST["drugID"]."";
     }
     else
     {
@@ -366,6 +367,26 @@ else if($_POST["action"] == "deleteDrugStock")
     }
 }
 
+else if($_POST["action"] == "unarchiveUser")
+{
+    $sql = mysqli_query($Links, "SELECT * FROM user WHERE id = '".$_POST["id"]."'");
+    if(mysqli_num_rows($sql) > 0)
+    {
+        $row = mysqli_fetch_array($sql);
+        $remove = mysqli_query($Links, "UPDATE `user` SET `status`='0' WHERE id ='".$_POST["id"]."' ");
+    }
+}
+
+else if($_POST["action"] == "archiveUser")
+{
+    $sql = mysqli_query($Links, "SELECT * FROM user WHERE id = '".$_POST["id"]."'");
+    if(mysqli_num_rows($sql) > 0)
+    {
+        $row = mysqli_fetch_array($sql);
+        $remove = mysqli_query($Links, "UPDATE `user` SET `status`='1' WHERE id ='".$_POST["id"]."' ");
+    }
+}
+
 else if($_POST["action"] == "editEmployee")
 {
     if($_POST["id"] != "")
@@ -390,7 +411,7 @@ else if($_POST["action"] == "editEmployee")
 else if($_POST["action"] == "deleteEmployee")
 {
     $id = $_POST['id'];
-    $sql_query = "DELETE  FROM `employee` WHERE `id` = '$id'";
+    $sql_query = "UPDATE 'user' SET 'status'='inactive' WHERE 'id'='$id'";
     $sql = mysqli_query($Links, $sql_query);
     echo "Employee Removed successfully";
 }
@@ -509,7 +530,6 @@ else if($_POST["action"] == "searchDrug")
     $result = json_decode($_POST['result'], true);
     // $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_brand"]))."'");
     $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName LIKE '%".strtoupper(trim($result["jw_fuzzy_brand"][0]))."%'");
-
     if(mysqli_num_rows($sql) > 0)
     {
         while($row = mysqli_fetch_array($sql))
@@ -539,7 +559,6 @@ else if($_POST["action"] == "searchDrug")
         }
     }
 }
-
 else if($_POST["action"] == "FuzzySearchDrug")
 {
     $result = json_decode($_POST['result'], true);
@@ -549,36 +568,32 @@ else if($_POST["action"] == "FuzzySearchDrug")
     {
         $row = mysqli_fetch_array($sql);
         array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
-        echo "<br><input type='hidden' class='brandSuggestionValue1' value='".$row["DrugID"]."'><a class='brandSuggestion1' href='#'>Fuzzy search brand suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_brand"][1] * 100)."%)"."</a>";
+        echo "<br><input type='hidden' class='brandSuggestionValue1' value='".$row["DrugID"]."'><a class='brandSuggestion1' href='#'>Fuzzy search brand suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_brand"][1] * 100)."% confidence score)"."</a>";
     }
-
     $sql2 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_brand"][0]))."'");
     if(mysqli_num_rows($sql2) > 0)
     {
         $row = mysqli_fetch_array($sql2);
         array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
-        echo "<br><input type='hidden' class='brandSuggestionValue2' value='".$row["DrugID"]."'><a class='brandSuggestion2' href='#'>Fuzzy search brand suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_brand"][1] * 100)."%)"."</a>";
+        echo "<br><input type='hidden' class='brandSuggestionValue2' value='".$row["DrugID"]."'><a class='brandSuggestion2' href='#'>Fuzzy search brand suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_brand"][1] * 100)."% confidence score)"."</a>";
     }
-
     //third jw fuzzy dosage
     $sql3 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["jw_fuzzy_dosage"][0]))."'");
     if(mysqli_num_rows($sql3) > 0)
     {
         $row = mysqli_fetch_array($sql3);
         array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
-        echo "<br><input type='hidden' class='dosageSuggestionValue1' value='".$row["DrugID"]."'><a class='dosageSuggestion1' href='#'>Fuzzy search dosage suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_dosage"][1] * 100)."%)"."</a>";
+        echo "<br><input type='hidden' class='dosageSuggestionValue1' value='".$row["DrugID"]."'><a class='dosageSuggestion1' href='#'>Fuzzy search dosage suggestion (Jira Wrinkler): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["jw_fuzzy_dosage"][1] * 100)."% confidence score)"."</a>";
     }
-
     //fourth ld fuzzy dosage
     $sql4 = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE drugName = '".strtoupper(trim($result["ld_fuzzy_dosage"][0]))."'");
     if(mysqli_num_rows($sql4) > 0)
     {
         $row = mysqli_fetch_array($sql4);
         array_push($fuzzy_array, array($row["drugName"], $row["drugDosage"]));
-        echo "<br><input type='hidden' class='dosageSuggestionValue2' value='".$row["DrugID"]."'><a class='dosageSuggestion2' href='#'>Fuzzy search dosage suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_dosage"][1] * 100)."%)"."</a><br>";
+        echo "<br><input type='hidden' class='dosageSuggestionValue2' value='".$row["DrugID"]."'><a class='dosageSuggestion2' href='#'>Fuzzy search dosage suggestion (Levenshtein Distance): ".$row["drugName"]." - ".$row["drugDosage"]." mg/ml (".intval($result["ld_fuzzy_dosage"][1] * 100)."% confidence score)"."</a><br>";
     }
 }
-
 else if($_POST["action"] == "displayFuzzyDrug")
 {
     $sql = mysqli_query($Links, "SELECT * FROM tblmedicine WHERE DrugID = '".trim($_POST["result"])."'");
@@ -609,6 +624,7 @@ else if($_POST["action"] == "displayFuzzyDrug")
         echo "</tr>";
     }
 }
+
 
 else if($_POST["action"] == "refund")
 {

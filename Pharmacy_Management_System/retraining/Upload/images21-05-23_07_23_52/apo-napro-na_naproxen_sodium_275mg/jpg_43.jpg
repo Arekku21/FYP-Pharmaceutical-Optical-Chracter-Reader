@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name='robots' content='noindex, follow' />
+<script>window._wca = window._wca || [];</script>
+
+<title>Page not found - Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More</title>
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="Page not found - Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More" />
+<meta property="og:site_name" content="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More" />
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://dragillustrated.com/#website","url":"https://dragillustrated.com/","name":"Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More","description":"","publisher":{"@id":"https://dragillustrated.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://dragillustrated.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://dragillustrated.com/#organization","name":"Drag Illustrated","url":"https://dragillustrated.com/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://dragillustrated.com/#/schema/logo/image/","url":"https://dragillustrated.com/wp-content/uploads/2012/03/Drag_Illustrated_Logo_RED.png","contentUrl":"https://dragillustrated.com/wp-content/uploads/2012/03/Drag_Illustrated_Logo_RED.png","width":2150,"height":592,"caption":"Drag Illustrated"},"image":{"@id":"https://dragillustrated.com/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/dragillustrated","https://twitter.com/dragillustrated","https://www.instagram.com/dragillustrated","https://www.youtube.com/channel/UCbREkYFDiSOs8JCRTsqEMeg"]}]}</script>
+
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//ajax.googleapis.com' />
+<link rel='dns-prefetch' href='//use.fontawesome.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More &raquo; Feed" href="https://dragillustrated.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More &raquo; Comments Feed" href="https://dragillustrated.com/comments/feed/" />
+<link rel="alternate" type="text/calendar" title="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More &raquo; iCal Feed" href="https://dragillustrated.com/events/?ical=1" />
+
+<script src="//www.googletagmanager.com/gtag/js?id=UA-21052018-1" data-cfasync="false" data-wpfc-render="false" type="text/javascript" async></script>
+<script data-cfasync="false" data-wpfc-render="false" type="text/javascript">
+				var em_version = '7.12.1';
+				var em_track_user = true;
+				var em_no_track_reason = '';
+				
+								var disableStrs = [
+															'ga-disable-UA-21052018-1',
+									];
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						if (document.cookie.indexOf(disableStrs[index] + '=true') > -1) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if (__gtagTrackerIsOptedOut()) {
+					for (var index = 0; index < disableStrs.length; index++) {
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						document.cookie = disableStrs[index] + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				if ('undefined' === typeof gaOptout) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+
+				window.ExactMetricsDualTracker = {
+					helpers: {},
+					trackers: {},
+				};
+				if (em_track_user) {
+					function __gtagDataLayer() {
+						dataLayer.push(arguments);
+					}
+
+					function __gtagTracker(type, name, parameters) {
+						if (!parameters) {
+							parameters = {};
+						}
+
+						if (parameters.send_to) {
+							__gtagDataLayer.apply(null, arguments);
+							return;
+						}
+
+						if (type === 'event') {
+							
+														parameters.send_to = exactmetrics_frontend.ua;
+							__gtagDataLayer(type, name, parameters);
+													} else {
+							__gtagDataLayer.apply(null, arguments);
+						}
+					}
+
+					__gtagTracker('js', new Date());
+					__gtagTracker('set', {
+						'developer_id.dNDMyYj': true,
+											});
+															__gtagTracker('config', 'UA-21052018-1', {"forceSSL":"true","page_path":'\/404.html?page=' + document.location.pathname + document.location.search + '&from=' + document.referrer} );
+										window.gtag = __gtagTracker;										(function () {
+						/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+						/* ga and __gaTracker compatibility shim. */
+						var noopfn = function () {
+							return null;
+						};
+						var newtracker = function () {
+							return new Tracker();
+						};
+						var Tracker = function () {
+							return null;
+						};
+						var p = Tracker.prototype;
+						p.get = noopfn;
+						p.set = noopfn;
+						p.send = function () {
+							var args = Array.prototype.slice.call(arguments);
+							args.unshift('send');
+							__gaTracker.apply(null, args);
+						};
+						var __gaTracker = function () {
+							var len = arguments.length;
+							if (len === 0) {
+								return;
+							}
+							var f = arguments[len - 1];
+							if (typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function') {
+								if ('send' === arguments[0]) {
+									var hitConverted, hitObject = false, action;
+									if ('event' === arguments[1]) {
+										if ('undefined' !== typeof arguments[3]) {
+											hitObject = {
+												'eventAction': arguments[3],
+												'eventCategory': arguments[2],
+												'eventLabel': arguments[4],
+												'value': arguments[5] ? arguments[5] : 1,
+											}
+										}
+									}
+									if ('pageview' === arguments[1]) {
+										if ('undefined' !== typeof arguments[2]) {
+											hitObject = {
+												'eventAction': 'page_view',
+												'page_path': arguments[2],
+											}
+										}
+									}
+									if (typeof arguments[2] === 'object') {
+										hitObject = arguments[2];
+									}
+									if (typeof arguments[5] === 'object') {
+										Object.assign(hitObject, arguments[5]);
+									}
+									if ('undefined' !== typeof arguments[1].hitType) {
+										hitObject = arguments[1];
+										if ('pageview' === hitObject.hitType) {
+											hitObject.eventAction = 'page_view';
+										}
+									}
+									if (hitObject) {
+										action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+										hitConverted = mapArgs(hitObject);
+										__gtagTracker('event', action, hitConverted);
+									}
+								}
+								return;
+							}
+
+							function mapArgs(args) {
+								var arg, hit = {};
+								var gaMap = {
+									'eventCategory': 'event_category',
+									'eventAction': 'event_action',
+									'eventLabel': 'event_label',
+									'eventValue': 'event_value',
+									'nonInteraction': 'non_interaction',
+									'timingCategory': 'event_category',
+									'timingVar': 'name',
+									'timingValue': 'value',
+									'timingLabel': 'event_label',
+									'page': 'page_path',
+									'location': 'page_location',
+									'title': 'page_title',
+								};
+								for (arg in args) {
+																		if (!(!args.hasOwnProperty(arg) || !gaMap.hasOwnProperty(arg))) {
+										hit[gaMap[arg]] = args[arg];
+									} else {
+										hit[arg] = args[arg];
+									}
+								}
+								return hit;
+							}
+
+							try {
+								f.hitCallback();
+							} catch (ex) {
+							}
+						};
+						__gaTracker.create = newtracker;
+						__gaTracker.getByName = newtracker;
+						__gaTracker.getAll = function () {
+							return [];
+						};
+						__gaTracker.remove = noopfn;
+						__gaTracker.loaded = true;
+						window['__gaTracker'] = __gaTracker;
+					})();
+									} else {
+										console.log("");
+					(function () {
+						function __gtagTracker() {
+							return null;
+						}
+
+						window['__gtagTracker'] = __gtagTracker;
+						window['gtag'] = __gtagTracker;
+					})();
+									}
+			</script>
+
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/dragillustrated.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=81582bdb254a94e4464424087c6479a8"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<script id="dragi-ready">
+			window.advanced_ads_ready=function(e,a){a=a||"complete";var d=function(e){return"interactive"===a?"loading"!==e:"complete"===e};d(document.readyState)?e():document.addEventListener("readystatechange",(function(a){d(a.target.readyState)&&e()}),{once:"interactive"===a})},window.advanced_ads_ready_queue=window.advanced_ads_ready_queue||[];		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://dragillustrated.com/wp-includes/css/dist/block-library/style.min.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<link rel='stylesheet' id='mediaelement-css' href='https://dragillustrated.com/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css?ver=4.2.17' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='https://dragillustrated.com/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='wc-blocks-vendors-style-css' href='https://dragillustrated.com/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/wc-blocks-vendors-style.css?ver=9.4.3' type='text/css' media='all' />
+<link rel='stylesheet' id='wc-blocks-style-css' href='https://dragillustrated.com/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/wc-blocks-style.css?ver=9.4.3' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://dragillustrated.com/wp-includes/css/classic-themes.min.css?ver=1' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='dashicons-css' href='https://dragillustrated.com/wp-includes/css/dashicons.min.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='thickbox-css' href='https://dragillustrated.com/wp-includes/js/thickbox/thickbox.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome_v4_shim_style-css' href='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_gallery_display/static/fontawesome/css/v4-shims.min.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome-css' href='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_gallery_display/static/fontawesome/css/all.min.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='ql-jquery-ui-css' href='//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='reviewer-photoswipe-css' href='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/css/photoswipe.css?ver=3.14.2' type='text/css' media='all' />
+<link rel='stylesheet' id='reviewer-public-css' href='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/css/reviewer-public.css?ver=3.14.2' type='text/css' media='all' />
+<link rel='stylesheet' id='zox-custom-style-css' href='https://dragillustrated.com/wp-content/themes/zoxpress/style.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<style id='zox-custom-style-inline-css' type='text/css'>
+
+
+	a,
+	a:visited,
+	a:hover h2.zox-s-title1,
+	a:hover h2.zox-s-title1-feat,
+	a:hover h2.zox-s-title2,
+	a:hover h2.zox-s-title3,
+	.zox-post-body p a,
+	h3.zox-post-cat a,
+	.sp-template a,
+	.sp-data-table a,
+	span.zox-author-name a,
+	a:hover h2.zox-authors-latest,
+	span.zox-authors-name a:hover,
+	#zox-side-wrap a:hover {
+		color: #ff0000;
+	}
+
+	.zox-s8 a:hover h2.zox-s-title1,
+	.zox-s8 a:hover h2.zox-s-title1-feat,
+	.zox-s8 a:hover h2.zox-s-title2,
+	.zox-s8 a:hover h2.zox-s-title3 {
+		box-shadow: 15px 0 0 #fff, -10px 0 0 #fff;
+		color: #ff0000;
+	}
+
+	.woocommerce-message:before,
+	.woocommerce-info:before,
+	.woocommerce-message:before,
+	.woocommerce .star-rating span:before,
+	span.zox-s-cat,
+	h3.zox-post-cat a,
+	.zox-s6 span.zox-s-cat,
+	.zox-s8 span.zox-s-cat,
+	.zox-widget-side-trend-wrap .zox-art-text:before {
+		color: #000000;
+	}
+
+	.zox-widget-bgp,
+	.zox-widget-bgp.zox-widget-txtw .zox-art-wrap,
+	.zox-widget-bgp.zox-widget-txtw .zox-widget-featl-sub .zox-art-wrap,
+	.zox-s4 .zox-widget-bgp span.zox-s-cat,
+	.woocommerce span.onsale,
+	.zox-s7 .zox-byline-wrap:before,
+	.zox-s3 span.zox-s-cat,
+	.zox-o1 span.zox-s-cat,
+	.zox-s3 .zox-widget-side-trend-wrap .zox-art-text:before,
+	.sp-table-caption,
+	#zox-search-form #zox-search-submit,
+	#zox-search-form2 #zox-search-submit2,
+	.pagination .current,
+	.pagination a:hover,
+	.zox-o6 span.zox-s-cat {
+		background: #000000;
+	}
+
+	.woocommerce .widget_price_filter .ui-slider .ui-slider-handle,
+	.woocommerce #respond input#submit.alt,
+	.woocommerce a.button.alt,
+	.woocommerce button.button.alt,
+	.woocommerce input.button.alt,
+	.woocommerce #respond input#submit.alt:hover,
+	.woocommerce a.button.alt:hover,
+	.woocommerce button.button.alt:hover,
+	.woocommerce input.button.alt:hover {
+		background-color: #000000;
+	}
+
+	.woocommerce-error,
+	.woocommerce-info,
+	.woocommerce-message {
+		border-top-color: #000000;
+	}
+
+	.zox-feat-ent1-left,
+	.zox-ent1 .zox-side-widget {
+		border-top: 2px solid #000000;
+	}
+
+	.zox-feat-ent3-main-wrap h2.zox-s-title2 {
+		background-color: #000000;
+		box-shadow: 15px 0 0 #000000, -10px 0 0 #000000;
+	}
+
+	.zox-widget-side-trend-wrap .zox-art-text:before,
+	.pagination .current,
+	.pagination a:hover {
+		border: 1px solid #000000;
+	}
+
+	.zox-post-type {
+		border: 3px solid #000000;
+	}
+	.zox-net1 .zox-post-type,
+	.zox-net2 .zox-post-type {
+		background: #000000;
+	}
+	.zox-widget-featl-sub .zox-post-type {
+		border: 2px solid #000000;
+	}
+
+	@media screen and (max-width: 479px) {
+	.zox-net1.zox-s4 .zox-widget-bgp .zox-art-main span.zox-s-cat {
+		background: #000000 !important;
+	}
+	}
+
+	.zox-o3 h3.zox-s-cat {
+		background: #ff0000;
+	}
+
+	.zox-widget-bgs,
+	.zox-widget-bgs.zox-widget-txtw .zox-art-wrap,
+	.zox-widget-bgs.zox-widget-txtw .zox-widget-featl-sub .zox-art-wrap,
+	.zox-s4 .zox-widget-bgs span.zox-s-cat {
+		background: #ff0000;
+	}
+
+	#zox-top-head-wrap {
+		background: #000000;
+	}
+
+	span.zox-top-soc-but,
+	.zox-top-nav-menu ul li a,
+	span.zox-woo-cart-icon {
+		color: #ffffff;
+	}
+
+	span.zox-woo-cart-num {
+		background: #ffffff;
+	}
+
+	.zox-top-nav-menu ul li:hover a {
+		color: #000000;
+	}
+
+	#zox-top-head-wrap,
+	#zox-top-head,
+	#zox-top-head-left,
+	#zox-top-head-mid,
+	#zox-top-head-right,
+	.zox-top-nav-menu ul {
+		height: 114px;
+	}
+
+	#zox-top-head-mid img {
+		max-height: calc(114px - 20px);
+	}
+
+	.zox-top-nav-menu ul li a {
+		font-size: 10px;
+	}
+
+	#zox-bot-head-wrap,
+	#zox-bot-head-wrap.zox-trans-bot.zox-fix-up,
+	#zox-fly-wrap,
+	#zox-bot-head-wrap.zox-trans-bot:hover {
+		background-color: #000000;
+		background-image: none;
+	}
+
+	.zox-nav-menu ul li a,
+	span.zox-nav-search-but,
+	span.zox-night,
+	.zox-trans-bot.zox-fix-up .zox-nav-menu ul li a,
+	.zox-trans-bot.zox-fix-up span.zox-nav-search-but,
+	nav.zox-fly-nav-menu ul li a,
+	span.zox-fly-soc-head,
+	ul.zox-fly-soc-list li a,
+	nav.zox-fly-nav-menu ul li.menu-item-has-children:after {
+		color: #ffffff;
+	}
+
+	.zox-nav-menu ul li.menu-item-has-children a:after,
+	.zox-nav-menu ul li.zox-mega-drop a:after {
+		border-right: 1px solid #ffffff;
+		border-bottom: 1px solid #ffffff;
+	}
+
+	.zox-fly-but-wrap span,
+	.zox-trans-bot.zox-fix-up .zox-fly-but-wrap span {
+		background: #ffffff;
+	}
+
+	.zox-nav-menu ul li:hover a,
+	span.zox-nav-search-but:hover,
+	span.zox-night:hover {
+		color: #000000;
+	}
+
+	.zox-fly-but-wrap:hover span {
+		background: #000000;
+	}
+
+	span.zox-widget-main-title {
+		color: #111;
+	}
+
+	#zox-foot-wrap {
+		background: #0a0a0a;
+	}
+
+	#zox-foot-wrap p {
+		color: #aaa;
+	}
+
+	#zox-foot-wrap a {
+		color: #aaa;
+	}
+
+	ul.zox-foot-soc-list li a {
+		border: 1px solid #aaa;
+	}
+
+	span.zox-widget-side-title {
+		color: #111;
+	}
+
+	span.zox-post-main-title {
+		color: #111;
+	}
+
+	.zox-top-nav-menu ul li a {
+		padding-top: calc((114px - 10px) / 2);
+		padding-bottom: calc((114px - 10px) / 2);
+	}
+
+	#zox-bot-head-wrap,
+	.zox-bot-head-menu,
+	#zox-bot-head,
+	#zox-bot-head-left,
+	#zox-bot-head-right,
+	#zox-bot-head-mid,
+	.zox-bot-head-logo,
+	.zox-bot-head-logo-main,
+	.zox-nav-menu,
+	.zox-nav-menu ul {
+		height: 90px;
+	}
+
+	.zox-bot-head-logo img,
+	.zox-bot-head-logo-main img {
+		max-height: calc(90px - 20px);
+	}
+
+	.zox-nav-menu ul li ul.sub-menu,
+	.zox-nav-menu ul li.menu-item-object-category .zox-mega-dropdown {
+		top: 90px;
+	}
+
+	.zox-nav-menu ul li a {
+		font-size: 16px;
+	}
+
+	.zox-nav-menu ul li a {
+		padding-top: calc((90px - 16px) / 2);
+		padding-bottom: calc((90px - 16px) / 2);
+	}
+
+	.zox-fix-up {
+		top: -90px !important;
+		-webkit-transform: translate3d(0,-90px,0) !important;
+	   	   -moz-transform: translate3d(0,-90px,0) !important;
+	    	-ms-transform: translate3d(0,-90px,0) !important;
+	     	 -o-transform: translate3d(0,-90px,0) !important;
+				transform: translate3d(0,-90px,0) !important;
+	}
+
+	.zox-fix {
+		top: -90px;
+		-webkit-transform: translate3d(0,90px,0) !important;
+	   	   -moz-transform: translate3d(0,90px,0) !important;
+	    	-ms-transform: translate3d(0,90px,0) !important;
+	     	 -o-transform: translate3d(0,90px,0) !important;
+				transform: translate3d(0,90px,0) !important;
+	}
+
+	.zox-fix-up .zox-nav-menu ul li a {
+		padding-top: calc((60px - 16px) / 2);
+		padding-bottom: calc((60px - 16px) / 2);
+	}
+
+	.zox-feat-ent1-grid,
+	.zox-feat-ent2-bot,
+	.zox-feat-net1-grid {
+		grid-template-columns: auto 300px;
+	}
+
+	body,
+	span.zox-s-cat,
+	span.zox-ad-label,
+	.woocommerce ul.product_list_widget li a,
+	.woocommerce ul.product_list_widget span.product-title,
+	.woocommerce #reviews #comments ol.commentlist li .comment-text p.meta,
+	.woocommerce div.product p.price,
+	.woocommerce div.product p.price ins,
+	.woocommerce div.product p.price del,
+	.woocommerce ul.products li.product .price del,
+	.woocommerce ul.products li.product .price ins,
+	.woocommerce ul.products li.product .price,
+	.woocommerce #respond input#submit,
+	.woocommerce a.button,
+	.woocommerce button.button,
+	.woocommerce input.button,
+	.woocommerce .widget_price_filter .price_slider_amount .button,
+	.woocommerce span.onsale,
+	.woocommerce-review-link,
+	#woo-content p.woocommerce-result-count,
+	.woocommerce div.product .woocommerce-tabs ul.tabs li a,
+	.woocommerce .woocommerce-breadcrumb,
+	.woocommerce #respond input#submit.alt,
+	.woocommerce a.button.alt,
+	.woocommerce button.button.alt,
+	.woocommerce input.button.alt,
+	.zox-post-tags-header,
+	.zox-post-tags a {
+		font-family: 'Nunito Sans', sans-serif;
+		font-weight: 400;
+		text-transform: None;
+	}
+
+	#zox-woo-side-wrap span.zox-widget-side-title,
+	span.zox-authors-name a,
+	h1.zox-author-top-head {
+		font-family: 'Nunito Sans', sans-serif;
+	}
+
+	p.zox-s-graph,
+	span.zox-post-excerpt p,
+	.zox-post-body p,
+	#woo-content p,
+	#zox-404 p,
+	.zox-post-body ul li,
+	.zox-post-body ol li,
+	.zox-author-box-text p {
+		font-family: 'Nunito Sans', sans-serif;
+		font-weight: 400;
+		text-transform: None;
+	}
+
+	.zox-nav-menu ul li a,
+	.zox-top-nav-menu ul li a,
+	nav.zox-fly-nav-menu ul li a {
+		font-family: 'Nunito Sans', sans-serif;
+		font-weight: 700;
+		text-transform: Capitalize;
+	}
+
+	.zox-nav-menu ul li ul.zox-mega-list li a,
+	.zox-nav-menu ul li ul.zox-mega-list li a p {
+		font-family: 'Nunito Sans', sans-serif;
+	}
+
+	h2.zox-s-title1,
+	h2.zox-s-title1-feat,
+	.woocommerce div.product .product_title,
+	.woocommerce .related h2,
+	#woo-content .summary p.price,
+	.woocommerce div.product .woocommerce-tabs .panel h2,
+	#zox-404 h1,
+	h1.zox-post-title,
+	.zox-widget-side-trend-wrap .zox-art-text:before,
+	.zox-post-body blockquote p,
+	.zox-post-body .wp-block-pullquote blockquote p,
+	.zox-post-body h1,
+	.zox-post-body h2,
+	.zox-post-body h3,
+	.zox-post-body h4,
+	.zox-post-body h5,
+	.zox-post-body h6,
+	.comment-inner h1,
+	.comment-inner h2,
+	.comment-inner h3,
+	.comment-inner h4,
+	.comment-inner h5,
+	.comment-inner h6,
+	span.zox-author-box-name a {
+		font-family: 'Anton', sans-serif;
+		font-weight: 400;
+		text-transform: Capitalize;
+	}
+
+	span.zox-widget-main-title {
+		font-family: 'Nunito Sans', sans-serif;
+		font-weight: 700;
+		text-transform: Uppercase;
+	}
+
+	span.zox-widget-side-title {
+		font-family: 'Anton', sans-serif;
+		font-weight: 400;
+		text-transform: Capitalize;
+	}
+
+	span.zox-post-main-title {
+		font-family: 'Nunito Sans', sans-serif;
+		font-weight: 900;
+		text-transform: Capitalize;
+	}
+
+	h2.zox-s-title2,
+	h2.zox-s-title3,
+	span.zox-woo-cart-num,
+	p.zox-search-p,
+	.alp-related-posts .current .post-title,
+	.alp-related-posts-wrapper .alp-related-post .post-title,
+	.zox-widget-txtw span.zox-widget-main-title {
+		font-family: 'Anton', sans-serif;
+		font-weight: 400;
+		text-transform: Capitalize;
+	}
+
+	.zox-post-width {
+		margin: 0 auto;
+		max-width: calc(1240px + 60px);
+	}
+
+
+	
+
+		.zox-nav-menu ul li ul.zox-mega-list li a,
+		.zox-nav-menu ul li ul.zox-mega-list li a p {
+			font-weight: 600;
+			text-transform: capitalize;
+		}
+		.zox-nav-menu ul:hover li a {
+			opacity: .7;
+		}
+		.zox-nav-menu ul li:hover a {
+			color: #fff;
+			opacity: 1;
+		}
+		#zox-search-form #zox-search-submit,
+		#zox-search-form2 #zox-search-submit2 {
+			background: #000;
+		}
+		.zox-s6 span.zox-s-cat {
+			color: #000;
+		}
+		span.zox-s-cat,
+		.zox-widget-txtw span.zox-widget-main-title {
+			font-weight: 800;
+			letter-spacing: .2em;
+			text-transform: uppercase;
+		}
+		.zox-widget-txtw span.zox-widget-main-title {
+			font-size: 1.25rem;
+		}
+		p.zox-s-graph,
+		h2.zox-s-title3 {
+			font-family: 'Nunito Sans', sans-serif;
+		}
+		span.zox-widget-home-title {
+			color: #111;
+			font-family: 'Nunito Sans', sans-serif;
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+		.zox-widget-txtw .zox-widget-main-head {
+			margin: 30px 0 20px;
+		}
+		.zox-s6 .zox-widget-side-trend-wrap .zox-art-text:before {
+			color: #bbb;
+		}
+		.zox_alt_img_widget {
+			float: none;
+			margin: 0 auto;
+			max-width: 1200px;
+		}
+			
+
+			.zox-head-width {
+				margin: 0 auto;
+				max-width: none;
+			}
+			.zox-nav-menu ul li.zox-mega-drop .zox-mega-dropdown {
+				left: calc(((100vw - 100%) /2) * -1);
+			}
+				
+
+			.zox-body-width,
+			.zox-widget-feat-wrap.zox-o1 .zox-art-text-cont,
+			.zox-widget-feat-wrap.zox-o4 .zox-art-text-cont,
+			.zox-widget-feat-main.zox-o1 .zox-art-text-cont,
+			.zox-widget-feat-main.zox-o4 .zox-art-text-cont {
+				margin: 0 auto;
+				padding: 0 30px;
+				max-width: none;
+			}
+			@media screen and (min-width: 1601px) {
+				.zox-body-width,
+				.zox-title-width {
+					max-width: 1600px;
+				}
+			}
+				
+
+		#zox-top-head {
+			grid-template-columns: auto 250px;
+		}
+		#zox-top-head-left {
+			display: none;
+			width: 100%;
+		}
+		#zox-top-head-mid {
+			text-align: left;
+		}
+			
+
+		#zox-bot-head-mid {
+			display: grid;
+			grid-column-gap: 20px;
+			grid-template-columns: auto auto;
+			justify-content: start;
+			position: static;
+		}
+		.zox-bot-head-logo {
+			position: relative;
+				top: auto;
+				left: auto;
+		}
+		#zox-bot-head-wrap .zox-nav-menu ul li:first-child a {
+			padding-left: 0;
+		}
+		.zox-bot-head-menu {
+			padding: 0;
+		}
+			
+
+			@media screen and (min-width: 1024px) {
+				#zox-bot-head-left {
+					display: none;
+				}
+				#zox-bot-head {
+					grid-template-columns: auto 60px;
+				}
+			}
+			@media screen and (max-width: 1023px) {
+				#zox-bot-head-left {
+					display: grid;
+				}
+			}
+				
+
+	.zox-fix-up {
+		-webkit-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+		   -moz-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+			-ms-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+			 -o-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+				box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+	}
+		
+
+.zox-nav-links {
+	display: none;
+	}
+	
+
+				.zox-feat-ent1-grid,
+				.zox-feat-net1-grid {
+					grid-template-columns: calc(100% - 320px) 300px;
+					}
+				.zox-post-main-wrap {
+					grid-template-columns: calc(100% - 360px) 300px;
+				}
+				#zox-home-body-wrap {
+					grid-template-columns: calc(100% - 360px) 300px;
+					}
+					
+
+	.zox-post-body p a {
+		box-shadow: inset 0 -1px 0 0 #fff, inset 0 -2px 0 0 #ff0000;
+		color: #000;
+	}
+	.zox-post-body p a:hover {
+		color: #ff0000;
+	}
+	
+
+			span.zox-widget-main-title {
+				font-size: 2.5rem;
+				letter-spacing: .2em;
+				text-transform: uppercase;
+			}
+			
+
+			span.zox-widget-side-title {
+				font-size: 2.125rem;
+				letter-spacing: .05em;
+			}
+			
+
+		span.zox-post-main-title {
+			font-size: 3rem;
+			font-style: italic;
+		}
+		
+
+		.zox-post-ad {
+			height: calc(100vh - 100px);
+		}
+		.zox-post-ad-in1 {
+			clip: rect(0,auto,auto,0);
+			overflow: hidden;
+			position: absolute;
+				left: 0;
+				top: 0;
+			z-index: 1;
+			zoom: 1;
+			height: 100%;
+		}
+		.zox-post-ad-in2 {
+			position: fixed;
+				left: auto;
+				top: 0;
+			-webkit-transform: translateZ(0);
+			   -moz-transform: translateZ(0);
+			    -ms-transform: translateZ(0);
+				 -o-transform: translateZ(0);
+					transform: translateZ(0);
+		}
+		
+
+		#zox-lead-top-wrap {
+			position: relative;
+			height: 0;
+		}
+		#zox-lead-top-in {
+			clip: rect(0,auto,auto,0);
+			overflow: hidden;
+			position: absolute;
+				left: 0;
+				top: 0;
+			z-index: 1;
+			zoom: 1;
+			width: 100%;
+			height: 100%;
+		}
+		#zox-lead-top {
+			position: fixed;
+				top: 0;
+				left: 0;
+		}
+		
+
+
+		
+
+#zox-lead-top { background: #000000; }
+.zox-nav-menu ul li:hover a { color: #ff0000; }
+#zox-bot-head-mid { grid-column-gap: 60px; }
+.zox-bot-head-logo img, .zox-bot-head-logo-main img { width: 160px !important; }
+.zox-post-ad-in2 { top: 150px; }
+.dragi-leaderboard-post-inject-center { text-align: center; }
+.dragi-leaderboard-post-inject-center { margin: 40px 0; }
+	
+</style>
+<link rel='stylesheet' id='fontawesome-child-css' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='zox-custom-child-style-css' href='https://dragillustrated.com/wp-content/themes/zoxpress-child/style.css?ver=1.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='zox-fonts-css' href='//fonts.googleapis.com/css?family=Heebo%3A300%2C400%2C500%2C700%2C800%2C900%7CAlegreya%3A400%2C500%2C700%2C800%2C900%7CJosefin+Sans%3A300%2C400%2C600%2C700%7CLibre+Franklin%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CFrank+Ruhl+Libre%3A300%2C400%2C500%2C700%2C900%7CNunito+Sans%3A300%2C400%2C600%2C700%2C800%2C900%7CMontserrat%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CAnton%3A400%7CNoto+Serif%3A400%2C700%7CNunito%3A300%2C400%2C600%2C700%2C800%2C900%7CRajdhani%3A300%2C400%2C500%2C600%2C700%7CTitillium+Web%3A300%2C400%2C600%2C700%2C900%7CPT+Serif%3A400%2C400i%2C700%2C700i%7CAmiri%3A400%2C400i%2C700%2C700i%7COswald%3A300%2C400%2C500%2C600%2C700%7CRoboto+Mono%3A400%2C700%7CBarlow+Semi+Condensed%3A700%2C800%2C900%7CPoppins%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CRoboto+Condensed%3A300%2C400%2C700%7CRoboto%3A300%2C400%2C500%2C700%2C900%7CPT+Serif%3A400%2C700%7COpen+Sans+Condensed%3A300%2C700%7COpen+Sans%3A700%7CSource+Serif+Pro%3A400%2C600%2C700%7CIM+Fell+French+Canon%3A400%2C400i%7CNunito+Sans%3A100%2C100i%2C200%2C+200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CNunito+Sans%3A100%2C100i%2C200%2C+200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CNunito+Sans%3A100%2C100i%2C200%2C+200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CAnton%3A100%2C100i%2C200%2C+200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CAnton%3A100%2C100i%2C200%2C+200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CNunito+Sans%3A100%2C100i%2C200%2C+200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CAnton%3A100%2C100i%2C200%2C+200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%26subset%3Dlatin%2Clatin-ext%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Cvietnamese' type='text/css' media='all' />
+<link rel='stylesheet' id='zox-media-queries-css' href='https://dragillustrated.com/wp-content/themes/zoxpress/css/media-queries.css?ver=81582bdb254a94e4464424087c6479a8' type='text/css' media='all' />
+<link rel='stylesheet' id='tablepress-default-css' href='https://dragillustrated.com/wp-content/tablepress-combined.min.css?ver=44' type='text/css' media='all' />
+<link rel='stylesheet' id='__EPYT__style-css' href='https://dragillustrated.com/wp-content/plugins/youtube-embed-plus/styles/ytprefs.min.css?ver=14.1.4.1' type='text/css' media='all' />
+<style id='__EPYT__style-inline-css' type='text/css'>
+
+                .epyt-gallery-thumb {
+                        width: 33.333%;
+                }
+                
+</style>
+<link rel='stylesheet' id='jetpack_css-css' href='https://dragillustrated.com/wp-content/plugins/jetpack/css/jetpack.css?ver=11.9.1' type='text/css' media='all' />
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/exactmetrics-premium/assets/js/frontend-gtag.min.js?ver=7.12.1' id='exactmetrics-frontend-script-js'></script>
+<script data-cfasync="false" data-wpfc-render="false" type="text/javascript" id='exactmetrics-frontend-script-js-extra'>/* <![CDATA[ */
+var exactmetrics_frontend = {"js_events_tracking":"true","download_extensions":"zip,mp3,mpeg,pdf,docx,pptx,xlsx,rar","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"https:\/\/dragillustrated.com","hash_tracking":"false","ua":"UA-21052018-1","v4_id":""};/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.1' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' id='photocrati_ajax-js-extra'>
+/* <![CDATA[ */
+var photocrati_ajax = {"url":"https:\/\/dragillustrated.com\/index.php?photocrati_ajax=1","wp_home_url":"https:\/\/dragillustrated.com","wp_site_url":"https:\/\/dragillustrated.com","wp_root_url":"https:\/\/dragillustrated.com","wp_plugins_url":"https:\/\/dragillustrated.com\/wp-content\/plugins","wp_content_url":"https:\/\/dragillustrated.com\/wp-content","wp_includes_url":"https:\/\/dragillustrated.com\/wp-includes\/","ngg_param_slug":"nggallery"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/ajax/static/ajax.min.js?ver=3.35' id='photocrati_ajax-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_gallery_display/static/fontawesome/js/v4-shims.min.js?ver=5.3.1' id='fontawesome_v4_shim-js'></script>
+<script type='text/javascript' defer data-auto-replace-svg="false" data-keep-original-source="false" data-search-pseudo-elements src='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_gallery_display/static/fontawesome/js/all.min.js?ver=5.3.1' id='fontawesome-js'></script>
+<script type='text/javascript' id='advanced-ads-advanced-js-js-extra'>
+/* <![CDATA[ */
+var advads_options = {"blog_id":"1","privacy":{"enabled":false,"state":"not_needed"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/advanced-ads/public/assets/js/advanced.min.js?ver=1.40.2' id='advanced-ads-advanced-js-js'></script>
+<script defer type='text/javascript' src='https://stats.wp.com/s-202312.js' id='woocommerce-analytics-js'></script>
+<script type='text/javascript' id='__ytprefs__-js-extra'>
+/* <![CDATA[ */
+var _EPYT_ = {"ajaxurl":"https:\/\/dragillustrated.com\/wp-admin\/admin-ajax.php","security":"d1c16bb13a","gallery_scrolloffset":"20","eppathtoscripts":"https:\/\/dragillustrated.com\/wp-content\/plugins\/youtube-embed-plus\/scripts\/","eppath":"https:\/\/dragillustrated.com\/wp-content\/plugins\/youtube-embed-plus\/","epresponsiveselector":"[\"iframe.__youtube_prefs_widget__\"]","epdovol":"1","version":"14.1.4.1","evselector":"iframe.__youtube_prefs__[src], iframe[src*=\"youtube.com\/embed\/\"], iframe[src*=\"youtube-nocookie.com\/embed\/\"]","ajax_compat":"","ytapi_load":"light","pause_others":"","stopMobileBuffer":"1","facade_mode":"","not_live_on_channel":"","vi_active":"","vi_js_posttypes":[]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/youtube-embed-plus/scripts/ytprefs.min.js?ver=14.1.4.1' id='__ytprefs__-js'></script>
+<link rel="https://api.w.org/" href="https://dragillustrated.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://dragillustrated.com/xmlrpc.php?rsd" />
+<script type="text/javascript" src="https://paywall.subscriptiongenius.com/load.js"></script>
+
+
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '634980329980573');fbq('track', 'PageView');</script><noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=634980329980573&ev=PageView&noscript=1"/></noscript>
+
+
+<style type="text/css">
+			.wpsdc-drop-cap {
+				float : left;				
+				padding : 0.25em 0.05em 0.25em 0;				
+				font-size : 5em;
+				line-height : 0.4em;color : #0a0a0a;}
+		</style> <meta name="theme-color" content="#000" />
+<meta property="og:description" content="" />
+<meta name="tec-api-version" content="v1"><meta name="tec-api-origin" content="https://dragillustrated.com"><link rel="alternate" href="https://dragillustrated.com/wp-json/tribe/events/v1/" /> <style>img#wpstats{display:none}</style>
+<script type="text/javascript">
+		var advadsCfpQueue = [];
+		var advadsCfpAd = function( adID ){
+			if ( 'undefined' == typeof advadsProCfp ) { advadsCfpQueue.push( adID ) } else { advadsProCfp.addElement( adID ) }
+		};
+		</script>
+<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+<meta name="generator" content="Elementor 3.11.2; settings: css_print_method-external, google_font-enabled, font_display-auto">
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ffffff; }
+</style>
+<link rel="icon" href="https://dragillustrated.com/wp-content/uploads/2021/08/cropped-DI_512x512-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://dragillustrated.com/wp-content/uploads/2021/08/cropped-DI_512x512-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://dragillustrated.com/wp-content/uploads/2021/08/cropped-DI_512x512-180x180.png" />
+<meta name="msapplication-TileImage" content="https://dragillustrated.com/wp-content/uploads/2021/08/cropped-DI_512x512-270x270.png" />
+</head>
+<body data-rsssl=1 class="error404 custom-background wp-embed-responsive theme-zoxpress woocommerce-no-js tribe-no-js page-template-zoxpress-child zox-sport2 zox-s6 elementor-default elementor-kit-42099 aa-prefix-dragi- aa-disabled-bots">
+<div id="zox-site" class="left zoxrel ">
+<div id="zox-fly-wrap">
+<div id="zox-fly-menu-top" class="left relative">
+<div id="zox-fly-logo" class="left relative">
+<a href="https://dragillustrated.com/"><img src="https://dragillustrated.com/wp-content/uploads/2022/04/Drag-Illustrated-Logo-White-BG-01.svg" alt="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More" data-rjs="2" /></a>
+</div>
+<div class="zox-fly-but-wrap zox-fly-but-menu zox-fly-but-click">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<div id="zox-fly-menu-wrap">
+<nav class="zox-fly-nav-menu left relative">
+<div class="menu-primary-menu-container"><ul id="menu-primary-menu" class="menu"><li id="menu-item-49701" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-49701"><a href="https://dragillustrated.com/category/news/">News</a></li>
+<li id="menu-item-49702" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-49702"><a href="https://dragillustrated.com/category/race-coverage/">Race Coverage</a></li>
+<li id="menu-item-49703" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-49703"><a href="https://dragillustrated.com/category/tech/">Tech</a></li>
+<li id="menu-item-52430" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-52430"><a href="https://dragillustrated.com/category/thewesbuckshow/">The Wes Buck Show</a></li>
+<li id="menu-item-15094" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15094"><a target="_blank" rel="noopener" href="http://digital.dragillustrated.com">Latest Issue</a></li>
+<li id="menu-item-15102" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15102"><a href="https://checkout.subscriptiongenius.com/dragillustrated.com/994/">Subscribe</a></li>
+<li id="menu-item-53657" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-53657"><a href="https://dragillustrated.com/top-8/">Top 8</a></li>
+<li id="menu-item-56438" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-56438"><a target="_blank" rel="noopener" href="http://www.worldseriesofpromod.com">WSOPM</a></li>
+</ul></div> </nav>
+</div>
+<div id="zox-fly-soc-wrap">
+<span class="zox-fly-soc-head">Connect with us</span>
+<ul class="zox-fly-soc-list left relative">
+<li><a href="https://www.facebook.com/DragIllustrated" target="_blank" class="fab fa-facebook-f"></a></li>
+<li><a href="https://twitter.com/DragIllustrated" target="_blank" class="fab fa-twitter"></a></li>
+<li><a href="https://www.instagram.com/dragillustrated" target="_blank" class="fab fa-instagram"></a></li>
+<li><a href="http://bit.ly/3y2ogFR" target="_blank" class="fab fa-youtube"></a></li>
+</ul>
+</div>
+</div> <div id="zox-search-wrap">
+<div class="zox-search-cont">
+ <p class="zox-search-p">Hi, what are you looking for?</p>
+<div class="zox-search-box">
+<form method="get" id="zox-search-form" action="https://dragillustrated.com/">
+<input type="text" name="s" id="zox-search-input" value="Search" onfocus='if (this.value == "Search") { this.value = ""; }' onblur='if (this.value == "Search") { this.value = ""; }' />
+<input type="submit" id="zox-search-submit" value="Search" />
+</form> </div>
+</div>
+<div class="zox-search-but-wrap zox-search-click">
+<span></span>
+<span></span>
+</div>
+</div>
+<div id="zox-site-wall" class="left zoxrel">
+<div id="zox-lead-top-wrap">
+<div id="zox-lead-top-in">
+<div id="zox-lead-top">
+</div>
+</div>
+</div>
+<div id="zox-site-main" class="left zoxrel">
+<header id="zox-main-head-wrap" class="left zoxrel zox-trans-head">
+<div id="zox-bot-head-wrap" class="left zoxrel">
+<div class="zox-head-width">
+<div id="zox-bot-head">
+<div id="zox-bot-head-left">
+<div class="zox-fly-but-wrap zoxrel zox-fly-but-click">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<div id="zox-bot-head-mid" class="relative">
+<div class="zox-bot-head-logo">
+<div class="zox-bot-head-logo-main">
+<a href="https://dragillustrated.com/"><img class="zox-logo-stand" src="https://dragillustrated.com/wp-content/uploads/2022/04/Drag-Illustrated-Logo-White-BG-01.svg" alt="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More" data-rjs="2" /><img class="zox-logo-dark" src="https://dragillustrated.com/wp-content/uploads/2022/04/Drag-Illustrated-Logo-White-BG-01.svg" alt="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More" data-rjs="2" /></a>
+</div>
+<h2 class="zox-logo-title">Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More</h2>
+</div>
+<div class="zox-bot-head-menu">
+<div class="zox-nav-menu">
+<div class="menu-primary-menu-container"><ul id="menu-primary-menu-1" class="menu"><li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-49701 zox-mega-drop"><a href="https://dragillustrated.com/category/news/">News</a><div class="zox-mega-dropdown"><div class="zox-head-width"><ul class="zox-mega-list"><li><a href="https://dragillustrated.com/drag-drive-exhibition-featuring-alex-taylor-tom-bailey-set-for-nhras-return-to-chicagoland/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-DragandDrive.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Drag &#038; Drive Exhibition Featuring Alex Taylor, Tom Bailey Set for NHRA&#8217;s Return to Chicagoland</p></a></li><li><a href="https://dragillustrated.com/record-nhra-gainesville-viewership-accompanies-massive-turnout-for-gatornationals/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-NHRA-Gatornationals-Crowd.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Record NHRA Gainesville Viewership Accompanies Massive Turnout for Gatornationals</p></a></li><li><a href="https://dragillustrated.com/john-hall-donates-pro-stock-motorcycle-signage-to-doug-herberts-b-r-a-k-e-s-program/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1536x865.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>John Hall Donates Pro Stock Motorcycle Signage to Doug Herbert&#8217;s B.R.A.K.E.S. Program</p></a></li><li><a href="https://dragillustrated.com/ernst-sullivan-and-kirane-score-at-snow-outlaws-snowmobile-drags/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/Dominick_Ernst_Snow_Outlaws_Cable_23_1367crop_DI-web.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Ernst, Sullivan and Kirane Score at Snow Outlaws Snowmobile Drags</p></a></li><li><a href="https://dragillustrated.com/2023-nhra-gatornationals-in-the-books-for-john-force-racing/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/DIFeatureImage-JohnForceRacing2023.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>2023 NHRA Gatornationals in the Books for John Force Racing</p></a></li></ul></div></div></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-49702 zox-mega-drop"><a href="https://dragillustrated.com/category/race-coverage/">Race Coverage</a><div class="zox-mega-dropdown"><div class="zox-head-width"><ul class="zox-mega-list"><li><a href="https://dragillustrated.com/john-hall-donates-pro-stock-motorcycle-signage-to-doug-herberts-b-r-a-k-e-s-program/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1536x865.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/John-Hall-1.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>John Hall Donates Pro Stock Motorcycle Signage to Doug Herbert&#8217;s B.R.A.K.E.S. Program</p></a></li><li><a href="https://dragillustrated.com/reigning-funny-car-world-champ-ron-capps-earns-first-no-1-qualifier-of-the-2023-nhra-season/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-2000x1125.jpg 2000w, https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-2048x1152.jpg 2048w, https://dragillustrated.com/wp-content/uploads/2023/03/Capps_JF-1024x576.jpg 1024w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Reigning Funny Car World Champ Ron Capps Earns First No. 1 Qualifier of the 2023 NHRA Season</p></a></li><li><a href="https://dragillustrated.com/josh-hart-wins-pep-boys-nhra-top-fuel-all-star-callout-b-force-capps-coughlin-and-herrera-qualify-no-1-at-nhra-gatornationals/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-2000x1125.jpg 2000w, https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-2048x1152.jpg 2048w, https://dragillustrated.com/wp-content/uploads/2023/03/Hart_JFA-1024x576.jpg 1024w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Josh Hart Wins Pep Boys NHRA Top Fuel All-Star Callout; B. Force, Capps, Coughlin and Herrera Qualify No. 1 at NHRA Gatornationals</p></a></li><li><a href="https://dragillustrated.com/josh-hart-pockets-80000-for-pep-boys-all-star-callout-win/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/Josh-Hart-Callout-win.jpg 1800w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Josh Hart Pockets $80,000 for Pep Boys All-Star Callout Win</p></a></li><li><a href="https://dragillustrated.com/aaron-stanfield-runs-to-no-1-qualifier-at-gatornationals-in-flexjet-factory-stock-showdown/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/Stanfield-No-1-Gainesville.jpg 1800w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Aaron Stanfield Runs to No. 1 Qualifier at Gatornationals in Flexjet Factory Stock Showdown</p></a></li></ul></div></div></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-49703 zox-mega-drop"><a href="https://dragillustrated.com/category/tech/">Tech</a><div class="zox-mega-dropdown"><div class="zox-head-width"><ul class="zox-mega-list"><li><a href="https://dragillustrated.com/american-race-cars-shows-off-innovative-new-features-at-pri-show/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2022/12/American_Colangelo_web.jpg 1800w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>American Race Cars Shows Off Innovative New Features at PRI Show</p></a></li><li><a href="https://dragillustrated.com/rc-now-offers-gdi-gasoline-direct-injection-blueprinting/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2022/11/RC-Direct-Injectors-1-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2022/11/RC-Direct-Injectors-1-600x337.jpg 600w, https://dragillustrated.com/wp-content/uploads/2022/11/RC-Direct-Injectors-1-1024x576.jpg 1024w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>RC Now Offers GDI (Gasoline Direct Injection) Blueprinting</p></a></li><li><a href="https://dragillustrated.com/system-1-expands-oil-filter-offerings/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2022/11/System-1-filters_1600x900.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>System 1 Expands Oil Filter Offerings</p></a></li><li><a href="https://dragillustrated.com/drag-illustrated-partners-with-simpson-race-products-for-new-giveaway/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2022/11/Simpson_Bag-Formula-Bag_web-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2022/11/Simpson_Bag-Formula-Bag_web-600x337.jpg 600w, https://dragillustrated.com/wp-content/uploads/2022/11/Simpson_Bag-Formula-Bag_web-1024x576.jpg 1024w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Drag Illustrated Partners With Simpson Race Products for New Giveaway</p></a></li><li><a href="https://dragillustrated.com/sonnax-introduces-game-changing-new-th400-drum-upgrade/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B-1320x743.jpg 1320w, https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B-1536x864.jpg 1536w, https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2022/10/B1BB06E7-F2FB-4656-9EC8-3FD0DEFFFE4B.jpg 1600w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>Sonnax Introduces Game-Changing New TH400 Drum Upgrade</p></a></li></ul></div></div></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-52430 zox-mega-drop"><a href="https://dragillustrated.com/category/thewesbuckshow/">The Wes Buck Show</a><div class="zox-mega-dropdown"><div class="zox-head-width"><ul class="zox-mega-list"><li><a href="https://dragillustrated.com/the-wes-buck-show-wsopm-champ-spencer-hyde-mmps-invitational-winner-john-montecalvo-mar-15-2023/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-293-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-293-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-293-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-293-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-293-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-293.jpg 1280w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>The Wes Buck Show &#8211; WSOPM Champ Spencer Hyde, MMPS Invitational Winner John Montecalvo &#8211; Mar. 15, 2023</p></a></li><li><a href="https://dragillustrated.com/the-wes-buck-show-world-series-of-pro-mod-reaction-mar-8-2023/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-292-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-292-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-292-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-292-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-292-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/03/WBS-EPISODE-292.jpg 1280w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>The Wes Buck Show &#8211; World Series of Pro Mod Reaction &#8211; Mar. 8, 2023</p></a></li><li><a href="https://dragillustrated.com/the-wes-buck-show-lights-out-14-world-series-of-pro-mod-preview-feb-22-2023/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-291-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-291-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-291-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-291-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-291-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-291.jpg 1280w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>The Wes Buck Show &#8211; Lights Out 14, World Series of Pro Mod Preview &#8211; Feb. 22, 2023</p></a></li><li><a href="https://dragillustrated.com/the-wes-buck-show-feb-15-2023/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-290-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-290-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-290-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-290-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-290-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-290.jpg 1280w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>The Wes Buck Show &#8211; Drag Illustrated Awards &#8211; Feb. 15, 2023</p></a></li><li><a href="https://dragillustrated.com/the-wes-buck-show-ep-289/"><div class="zox-mega-img"><img width="600" height="337" src="https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-289-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" loading="lazy" srcset="https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-289-600x338.jpg 600w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-289-1000x563.jpg 1000w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-289-768x432.jpg 768w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-289-1024x576.jpg 1024w, https://dragillustrated.com/wp-content/uploads/2023/02/WBS-EPISODE-289.jpg 1280w" sizes="(max-width: 600px) 100vw, 600px" /></div><p>The Wes Buck Show &#8211; EP. 289</p></a></li></ul></div></div></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15094"><a target="_blank" rel="noopener" href="http://digital.dragillustrated.com">Latest Issue</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15102"><a href="https://checkout.subscriptiongenius.com/dragillustrated.com/994/">Subscribe</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-53657"><a href="https://dragillustrated.com/top-8/">Top 8</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-56438"><a target="_blank" rel="noopener" href="http://www.worldseriesofpromod.com">WSOPM</a></li>
+</ul></div> </div>
+</div>
+</div>
+<div id="zox-bot-head-right">
+<span class="zox-night zox-night-mode fas fa-moon"></span>
+<span class="zox-nav-search-but fas fa-search zox-search-click"></span>
+</div>
+</div>
+</div>
+</div> </header>
+<div id="zox-site-grid">
+<div id="zox-site-wall-small">
+<div id="zox-main-body-wrap" class="left relative"><div class="zox100 left zoxrel">
+<section id="zox-404">
+<h1>Error 404!</h1>
+<p>The page you requested does not exist or has moved.</p>
+</section>
+</div>
+</div>
+<footer id="zox-foot-wrap" class="left zoxrel zox100">
+<div class="zox-head-width">
+<div class="zox-foot-grid left zoxrel zox100">
+<div class="zox-foot-left-wrap">
+<div class="zox-foot-logo left zox-lh0">
+<a href="https://dragillustrated.com/"><img src="https://dragillustrated.com/wp-content/uploads/2022/03/DragIllustrated_flat_white-200px.png" alt="Drag Illustrated | Drag Racing News, Opinion, Interviews, Photos, Videos and More" data-rjs="2" /></a>
+</div>
+<div class="zox-foot-left left">
+<div class="zox-foot-menu">
+<div class="menu-about-di-container"><ul id="menu-about-di" class="menu"><li id="menu-item-52480" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-52480"><a href="https://dragillustrated.com/about-di/">About DI</a></li>
+<li id="menu-item-50895" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50895"><a href="https://dragillustrated.com/join-newsletter/?swcfpc=1">Newsletter</a></li>
+<li id="menu-item-21282" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21282"><a href="https://checkout.subscriptiongenius.com/dragillustrated.com/">Subscribe</a></li>
+<li id="menu-item-50896" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50896"><a href="https://dragillustrated.com/contact-page">Customer Service</a></li>
+<li id="menu-item-50897" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50897"><a href="https://dragillustrated.com/careers">Careers</a></li>
+<li id="menu-item-50898" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50898"><a href="https://dragillustrated.com/press-center/">Public Relations</a></li>
+<li id="menu-item-52947" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-52947"><a href="https://dragillustrated.com/advertise/">Advertise</a></li>
+<li id="menu-item-50899" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50899"><a href="https://mediakit.dragillustrated.com/">Media Kit</a></li>
+<li id="menu-item-50900" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50900"><a href="https://dragillustrated.com/masthead">Masthead</a></li>
+</ul></div> </div>
+<div class="zox-foot-copy">
+<p>Since 2005, DI has informed, inspired and educated drag racers from every walk of the racing life - weekend warrior and street/strip enthusiasts to pro-level doorslammer and Top Fuel racers. From award-winning writing and photography to binge-worthy videos to electric live events, DI meets hundreds of thousands of racers where they live, creating the moments that create conversations.</p>
+</div>
+</div>
+</div>
+<div class="zox-foot-right-wrap">
+<div class="zox-foot-soc right relative">
+<ul class="zox-foot-soc-list left relative">
+<li><a href="https://www.facebook.com/DragIllustrated" target="_blank" class="fab fa-facebook-f"></a></li>
+<li><a href="https://twitter.com/DragIllustrated" target="_blank" class="fab fa-twitter"></a></li>
+<li><a href="https://www.instagram.com/dragillustrated" target="_blank" class="fab fa-instagram"></a></li>
+<li><a href="http://bit.ly/3y2ogFR" target="_blank" class="fab fa-youtube"></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</div>
+</div>
+<div class="zox-fly-top back-to-top">
+<span class="fas fa-angle-up"></span>
+</div>
+</div>
+<div class="zox-fly-fade zox-fly-but-click">
+</div>
+
+<script type="text/javascript">
+    !function () { var e, t; e = document.createElement("script"), e.type = "text/javascript", e.async = !0, e.defer = !0, e.src = "https://d1vg5xiq7qffdj.cloudfront.net/Asyncload.js?fpkey=" + String((new Date).getMonth() + 1) + String((new Date).getFullYear()) + String(Math.round(parseInt((new Date).getDate() / 7), 0) + 1) + "&encsid=4n-WCanrk8o,&enccid=uqlTM-rnnbs,&wsid=NDEz&trackingUrl=HIfoicOddMFsPj6pIhUag2wljpopK4yI9456300cf5g,", t = document.getElementsByTagName("head")[0], t.appendChild(e, t) }();
+</script><noscript><p><img src="https://app1.mirabelanalytics.com/lnktrk.php?idsite=413" style="border:0;" alt="" /></p></noscript>
+ <div data-theiaStickySidebar-sidebarSelector='".zox-sticky-side"' data-theiaStickySidebar-options='{"containerSelector":"","additionalMarginTop":70,"additionalMarginBottom":0,"updateSidebarHeight":false,"minWidth":1004,"sidebarBehavior":"modern","disableOnResponsiveLayouts":true}'></div>
+<script>
+		( function ( body ) {
+			'use strict';
+			body.className = body.className.replace( /\btribe-no-js\b/, 'tribe-js' );
+		} )( document.body );
+		</script>
+<script> /* <![CDATA[ */var tribe_l10n_datatables = {"aria":{"sort_ascending":": activate to sort column ascending","sort_descending":": activate to sort column descending"},"length_menu":"Show _MENU_ entries","empty_table":"No data available in table","info":"Showing _START_ to _END_ of _TOTAL_ entries","info_empty":"Showing 0 to 0 of 0 entries","info_filtered":"(filtered from _MAX_ total entries)","zero_records":"No matching records found","search":"Search:","all_selected_text":"All items on this page were selected. ","select_all_link":"Select all pages","clear_selection":"Clear Selection.","pagination":{"all":"All","next":"Next","previous":"Previous"},"select":{"rows":{"0":"","_":": Selected %d rows","1":": Selected 1 row"}},"datepicker":{"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["S","M","T","W","T","F","S"],"monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesMin":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"nextText":"Next","prevText":"Prev","currentText":"Today","closeText":"Done","today":"Today","clear":"Clear"}};/* ]]> */ </script> <script type="text/javascript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})();
+	</script>
+<script type="text/javascript">
+		/* ExactMetrics Scroll Tracking */
+		if ( typeof(jQuery) !== 'undefined' ) {
+		jQuery( document ).ready(function(){
+		function exactmetrics_scroll_tracking_load() {
+		if ( ( typeof(__gaTracker) !== 'undefined' && __gaTracker && __gaTracker.hasOwnProperty( "loaded" ) && __gaTracker.loaded == true ) || ( typeof(__gtagTracker) !== 'undefined' && __gtagTracker ) ) {
+		(function(factory) {
+		factory(jQuery);
+		}(function($) {
+
+		/* Scroll Depth */
+		"use strict";
+		var defaults = {
+		percentage: true
+		};
+
+		var $window = $(window),
+		cache = [],
+		scrollEventBound = false,
+		lastPixelDepth = 0;
+
+		/*
+		* Plugin
+		*/
+
+		$.scrollDepth = function(options) {
+
+		var startTime = +new Date();
+
+		options = $.extend({}, defaults, options);
+
+		/*
+		* Functions
+		*/
+
+		function sendEvent(action, label, scrollDistance, timing) {
+		if ( 'undefined' === typeof ExactMetricsObject || 'undefined' === typeof ExactMetricsObject.sendEvent ) {
+		return;
+		}
+			var type        = 'event';
+	var eventName   = action;
+	var fieldsArray = {
+	event_category : 'Scroll Depth',
+	event_label    : label,
+	value          : 1,
+	non_interaction: true,
+	send_to: 'UA-21052018-1'
+	};
+
+	ExactMetricsObject.sendEvent( type, eventName, fieldsArray );
+
+	if (arguments.length > 3) {
+	var type        = 'event';
+	var eventName   = 'timing_complete';
+	fieldsArray = {
+	event_category : 'Scroll Depth',
+	name           : action,
+	event_label    : label,
+	value          : timing,
+	non_interaction: 1,
+	send_to: 'UA-21052018-1'
+	};
+
+	ExactMetricsObject.sendEvent( type, eventName, fieldsArray );
+	}
+			}
+
+		function calculateMarks(docHeight) {
+		return {
+		'25%' : parseInt(docHeight * 0.25, 10),
+		'50%' : parseInt(docHeight * 0.50, 10),
+		'75%' : parseInt(docHeight * 0.75, 10),
+		/* Cushion to trigger 100% event in iOS */
+		'100%': docHeight - 5
+		};
+		}
+
+		function checkMarks(marks, scrollDistance, timing) {
+		/* Check each active mark */
+		$.each(marks, function(key, val) {
+		if ( $.inArray(key, cache) === -1 && scrollDistance >= val ) {
+		sendEvent('Percentage', key, scrollDistance, timing);
+		cache.push(key);
+		}
+		});
+		}
+
+		function rounded(scrollDistance) {
+		/* Returns String */
+		return (Math.floor(scrollDistance/250) * 250).toString();
+		}
+
+		function init() {
+		bindScrollDepth();
+		}
+
+		/*
+		* Public Methods
+		*/
+
+		/* Reset Scroll Depth with the originally initialized options */
+		$.scrollDepth.reset = function() {
+		cache = [];
+		lastPixelDepth = 0;
+		$window.off('scroll.scrollDepth');
+		bindScrollDepth();
+		};
+
+		/* Add DOM elements to be tracked */
+		$.scrollDepth.addElements = function(elems) {
+
+		if (typeof elems == "undefined" || !$.isArray(elems)) {
+		return;
+		}
+
+		$.merge(options.elements, elems);
+
+		/* If scroll event has been unbound from window, rebind */
+		if (!scrollEventBound) {
+		bindScrollDepth();
+		}
+
+		};
+
+		/* Remove DOM elements currently tracked */
+		$.scrollDepth.removeElements = function(elems) {
+
+		if (typeof elems == "undefined" || !$.isArray(elems)) {
+		return;
+		}
+
+		$.each(elems, function(index, elem) {
+
+		var inElementsArray = $.inArray(elem, options.elements);
+		var inCacheArray = $.inArray(elem, cache);
+
+		if (inElementsArray != -1) {
+		options.elements.splice(inElementsArray, 1);
+		}
+
+		if (inCacheArray != -1) {
+		cache.splice(inCacheArray, 1);
+		}
+
+		});
+
+		};
+
+		/*
+		* Throttle function borrowed from:
+		* Underscore.js 1.5.2
+		* http://underscorejs.org
+		* (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+		* Underscore may be freely distributed under the MIT license.
+		*/
+
+		function throttle(func, wait) {
+		var context, args, result;
+		var timeout = null;
+		var previous = 0;
+		var later = function() {
+		previous = new Date;
+		timeout = null;
+		result = func.apply(context, args);
+		};
+		return function() {
+		var now = new Date;
+		if (!previous) previous = now;
+		var remaining = wait - (now - previous);
+		context = this;
+		args = arguments;
+		if (remaining <= 0) {
+		clearTimeout(timeout);
+		timeout = null;
+		previous = now;
+		result = func.apply(context, args);
+		} else if (!timeout) {
+		timeout = setTimeout(later, remaining);
+		}
+		return result;
+		};
+		}
+
+		/*
+		* Scroll Event
+		*/
+
+		function bindScrollDepth() {
+
+		scrollEventBound = true;
+
+		$window.on('scroll.scrollDepth', throttle(function() {
+		/*
+		* We calculate document and window height on each scroll event to
+		* account for dynamic DOM changes.
+		*/
+
+		var docHeight = $(document).height(),
+		winHeight = window.innerHeight ? window.innerHeight : $window.height(),
+		scrollDistance = $window.scrollTop() + winHeight,
+
+		/* Recalculate percentage marks */
+		marks = calculateMarks(docHeight),
+
+		/* Timing */
+		timing = +new Date - startTime;
+
+		checkMarks(marks, scrollDistance, timing);
+		}, 500));
+
+		}
+
+		init();
+		};
+
+		/* UMD export */
+		return $.scrollDepth;
+
+		}));
+
+		jQuery.scrollDepth();
+		} else {
+		setTimeout(exactmetrics_scroll_tracking_load, 200);
+		}
+		}
+		exactmetrics_scroll_tracking_load();
+		});
+		}
+		/* End ExactMetrics Scroll Tracking */
+		
+</script> 
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+
+<div class="pswp__container">
+<div class="pswp__item"></div>
+<div class="pswp__item"></div>
+<div class="pswp__item"></div>
+</div>
+
+<div class="pswp__ui pswp__ui--hidden">
+<div class="pswp__top-bar">
+
+<div class="pswp__counter"></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title="Share"></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+
+<div class="pswp__preloader">
+<div class="pswp__preloader__icn">
+<div class="pswp__preloader__cut">
+<div class="pswp__preloader__donut"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class="pswp__share-tooltip"></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class="pswp__caption">
+<div class="pswp__caption__center"></div>
+</div>
+</div>
+</div>
+</div>
+<script type='text/javascript' id='ngg_common-js-extra'>
+/* <![CDATA[ */
+
+var nextgen_lightbox_settings = {"static_path":"https:\/\/dragillustrated.com\/wp-content\/plugins\/nextgen-gallery\/products\/photocrati_nextgen\/modules\/lightbox\/static\/{placeholder}","context":"all_images_direct"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_gallery_display/static/common.js?ver=3.35' id='ngg_common-js'></script>
+<script type='text/javascript' id='ngg_lightbox_context-js-extra'>
+/* <![CDATA[ */
+
+var nextgen_thickbox_i18n = {"next":"Next &gt;","prev":"&lt; Prev","image":"Image","of":"of","close":"Close","noiframes":"This feature requires inline frames. You have iframes disabled or your browser does not support them."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/lightbox_context.js?ver=3.35' id='ngg_lightbox_context-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/thickbox/nextgen_thickbox_init.js?ver=3.35' id='thickbox-0-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/thickbox/thickbox.js?ver=3.35' id='thickbox-1-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/theia-sticky-sidebar/js/ResizeSensor.js?ver=1.7.0' id='theia-sticky-sidebar/ResizeSensor.js-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/theia-sticky-sidebar/js/theia-sticky-sidebar.js?ver=1.7.0' id='theia-sticky-sidebar/theia-sticky-sidebar.js-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/theia-sticky-sidebar/js/main.js?ver=1.7.0' id='theia-sticky-sidebar/main.js-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2' id='jquery-ui-core-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/zoxpress-plugin//scripts/jquery.sticky-kit.min.js?ver=81582bdb254a94e4464424087c6479a8' id='jquery-sticky-kit-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/zoxpress-plugin//scripts/jquery.waypoints.min.js?ver=81582bdb254a94e4464424087c6479a8' id='jquery-waypoints-js'></script>
+<script type='text/javascript' id='advanced-ads-responsive-js-extra'>
+/* <![CDATA[ */
+var advanced_ads_responsive = {"reload_on_resize":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/advanced-ads-responsive/public/assets/js/script.js?ver=1.10.6' id='advanced-ads-responsive-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/js/jquery.nouislider.all.min.js?ver=3.14.2' id='reviewer-nouislider-plugin-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/js/photoswipe.js?ver=3.14.2' id='reviewer-photoswipe-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/js/jquery.knob.js?ver=3.14.2' id='reviewer-knob-plugin-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/js/reviewer.public.min.js?ver=3.14.2' id='reviewer-public-script-js'></script>
+<script type='text/javascript' id='reviewer-reviews-boxes-script-js-extra'>
+/* <![CDATA[ */
+var rwpConstants = {"debugVue":""};
+var reviewerRatingObj = {"ajax_nonce":"62111ae027","ajax_url":"https:\/\/dragillustrated.com\/wp-admin\/admin-ajax.php","action":"rwp_ajax_action_rating"};
+var reviewerJudgeObj = {"ajax_nonce":"3a13da7d63","ajax_url":"https:\/\/dragillustrated.com\/wp-admin\/admin-ajax.php","action":"rwp_ajax_action_like"};
+var reviewerQueryURs = {"ajax_nonce":"ab19206fe3","ajax_url":"https:\/\/dragillustrated.com\/wp-admin\/admin-ajax.php","action":"rwp_reviews_box_query_users_reviews"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/js/reviewer-reviews-boxes.js?ver=3.14.2' id='reviewer-reviews-boxes-script-js'></script>
+<script type='text/javascript' id='reviewer-widget-users-reviews-script-js-extra'>
+/* <![CDATA[ */
+var rwpConstants = {"debugVue":""};
+var reviewerQueryAllURs = {"ajax_nonce":"96b2cd54b9","ajax_url":"https:\/\/dragillustrated.com\/wp-admin\/admin-ajax.php","action":"rwp_reviews_box_query_all_users_reviews"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/reviewer/public/assets/js/reviewer-widget-users-reviews.js?ver=3.14.2' id='reviewer-widget-users-reviews-script-js'></script>
+<script type='text/javascript' id='advanced-ads-pro/front-js-extra'>
+/* <![CDATA[ */
+var advadsCfpInfo = {"cfpExpHours":"1","cfpClickLimit":"8","cfpBan":"1","cfpPath":"","cfpDomain":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/advanced-ads-pro/assets/js/advanced-ads-pro.min.js?ver=2.21.2' id='advanced-ads-pro/front-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/themes/zoxpress/js/zoxcustom.js?ver=81582bdb254a94e4464424087c6479a8' id='zox-custom-js'></script>
+<script type='text/javascript' id='zox-custom-js-after'>
+
+			jQuery(document).ready(function($) {
+			var leaderHeight = $("#zox-lead-top").outerHeight();
+			var botHeight = $("#zox-bot-head-wrap").outerHeight();
+			var navHeight = $("#zox-main-head-wrap").outerHeight();
+			var headerHeight = navHeight + leaderHeight;
+			var stickHeight = headerHeight - botHeight;
+			var previousScroll = 0;
+			$(window).scroll(function(event){
+				var scroll = $(this).scrollTop();
+				if ( typeof leaderHeight !== "undefined" ) {
+					if ($(window).scrollTop() > headerHeight){
+						$("#zox-bot-head-wrap").addClass("zox-fix-up");
+						$("#zox-site-grid").css("margin-top", botHeight);
+						$(".zox-post-soc-scroll").addClass("zox-post-soc-scroll-out");
+						$(".zox-fly-top").addClass("zox-to-top");
+					} else {
+						$("#zox-bot-head-wrap").removeClass("zox-fix-up");
+						$("#zox-site-grid").css("margin-top", "0" );
+						$(".zox-post-soc-scroll").removeClass("zox-post-soc-scroll-out");
+						$(".zox-fly-top").removeClass("zox-to-top");
+					}
+					if ($(window).scrollTop() > headerHeight - botHeight){
+						$("#zox-bot-head-wrap").addClass("zox-fix");
+						if(scroll < previousScroll) {
+							$("#zox-bot-head-wrap").addClass("zox-fix");
+							$("#zox-site-grid").css("margin-top", botHeight);
+						} else {
+							$("#zox-bot-head-wrap").removeClass("zox-fix");
+						}
+					} else {
+						$("#zox-bot-head-wrap").removeClass("zox-fix");
+						$("#zox-site-grid").css("margin-top", "0" );
+					}
+				} else {
+					if ($(window).scrollTop() > navHeight){
+						$("#zox-bot-head-wrap").addClass("zox-fix-up");
+						$("#zox-site-grid").css("margin-top", botHeight);
+						$(".zox-post-soc-scroll").addClass("zox-post-soc-scroll-out");
+						$(".zox-fly-top").addClass("zox-to-top");
+					} else {
+						$("#zox-bot-head-wrap").removeClass("zox-fix-up");
+						$("#zox-site-grid").css("margin-top", "0" );
+						$(".zox-post-soc-scroll").removeClass("zox-post-soc-scroll-out");
+						$(".zox-fly-top").removeClass("zox-to-top");
+					}
+					if ($(window).scrollTop() > navHeight - botHeight){
+						$("#zox-bot-head-wrap").addClass("zox-fix");
+						if(scroll < previousScroll) {
+							$("#zox-bot-head-wrap").addClass("zox-fix");
+							$("#zox-site-grid").css("margin-top", botHeight);
+						} else {
+							$("#zox-bot-head-wrap").removeClass("zox-fix");
+						}
+					} else {
+						$("#zox-bot-head-wrap").removeClass("zox-fix");
+						$("#zox-site-grid").css("margin-top", "0" );
+					}
+				}
+				previousScroll = scroll;
+			});
+			$(".zox-alp-side-in").niceScroll({cursorcolor:"#ccc",cursorwidth: 5,cursorborder: 0,zindex:999999});
+			});
+			
+
+	jQuery(document).ready(function($) {
+	$(".zox-fly-nav-menu .menu-item-has-children a").click(function(event){
+	  event.stopPropagation();
+  	});
+
+	$(".zox-fly-nav-menu .menu-item-has-children").click(function(){
+    	  $(this).addClass("toggled");
+    	  if($(".menu-item-has-children").hasClass("toggled"))
+    	  {
+    	  $(this).children("ul").toggle();
+	  $(".zox-fly-nav-menu").getNiceScroll().resize();
+	  }
+	  $(this).toggleClass("tog-minus");
+    	  return false;
+  	});
+
+	// Main Menu Scroll
+	  $(".zox-fly-nav-menu").niceScroll({cursorcolor:"#888",cursorwidth: 7,cursorborder: 0,zindex:999999});
+	});
+	
+
+	jQuery(document).ready(function($) {
+		var headwrap = $("#zox-bot-head-wrap");
+		var position = headwrap.offset();
+		var headWidth = $("#zox-bot-head-wrap").outerWidth();
+		$(".zox-mega-dropdown").css("width", headWidth );
+		$(".zox-mega-dropdown").offset({
+			left: position.left,
+			width: headwrap.offsetWidth
+		});
+		$(window).resize(function(){
+			var headwrap = $("#zox-bot-head-wrap");
+			var position = headwrap.offset();
+			var headWidth = $("#zox-bot-head-wrap").outerWidth();
+			$(".zox-mega-dropdown").css("width", headWidth );
+			$(".zox-mega-dropdown").offset({
+  				left: position.left,
+				width: headwrap.offsetWidth
+			});
+		});
+	});
+	
+
+	jQuery(document).ready(function($) {
+		$("#zox-site").toggleClass(localStorage.toggled);
+		$(".zox-night-mode").on("click", function(){
+			if (localStorage.toggled != "zox-dark") {
+				$("#zox-site").toggleClass("zox-dark", true);
+				localStorage.toggled = "zox-dark";
+			} else {
+				$("#zox-site").toggleClass("zox-dark", false);
+				localStorage.toggled = "";
+			}
+		});
+	});
+	
+
+	jQuery(document).ready(function($) {
+	$(".infinite-content").infinitescroll({
+	  navSelector: ".zox-nav-links",
+	  nextSelector: ".zox-nav-links a:first",
+	  itemSelector: ".infinite-post",
+	  errorCallback: function(){ $(".zox-inf-more-wrap").css("display", "none") }
+	});
+	$(window).unbind(".infscr");
+	$(".zox-inf-more-but").click(function(){
+   		$(".infinite-content").infinitescroll("retrieve");
+        	return false;
+	});
+	if ($(".zox-nav-links a").length) {
+		$(".zox-inf-more-wrap").css("display","inline-block");
+	} else {
+		$(".zox-inf-more-wrap").css("display","none");
+	}
+	});
+	
+
+	jQuery(document).ready(function($) {
+	var leaderHeight = $("#zox-lead-top").outerHeight();
+	$("#zox-lead-top-wrap").css("height", leaderHeight );
+
+	$(window).resize(function(){
+		var leaderHeight = $("#zox-lead-top").outerHeight();
+		$("#zox-lead-top-wrap").css("height", leaderHeight );
+	});
+
+	});
+  	
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/themes/zoxpress/js/scripts.js?ver=81582bdb254a94e4464424087c6479a8' id='zox-scripts-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/themes/zoxpress/js/retina.js?ver=81582bdb254a94e4464424087c6479a8' id='zox-retina-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/themes/zoxpress/js/jquery.infinitescroll.min.js?ver=81582bdb254a94e4464424087c6479a8' id='zox-infinitescroll-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/themes/zoxpress/js/intersection-observer.js' id='zox-intersection-observer-polyfill-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/themes/zoxpress/js/lozad.min.js' id='zox-lozad-js'></script>
+<script type='text/javascript' id='zox-lozad-js-after'>
+
+	var zoxWidgets = document.querySelectorAll("#zox-home-widget-wrap img");
+	lozad(zoxWidgets, {
+		rootMargin: "0px 0px",
+		loaded: function (el) {
+			el.classList.add("is-loaded");
+		}
+	}).observe();
+</script>
+<script type='text/javascript' id='advanced-ads-pro/cache_busting-js-extra'>
+/* <![CDATA[ */
+var advanced_ads_pro_ajax_object = {"ajax_url":"https:\/\/dragillustrated.com\/wp-admin\/admin-ajax.php","lazy_load_module_enabled":"","lazy_load":{"default_offset":0,"offsets":[]},"moveintohidden":"","wp_timezone_offset":"-18000"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/advanced-ads-pro/assets/js/base.min.js?ver=2.21.2' id='advanced-ads-pro/cache_busting-js'></script>
+<script type='text/javascript' id='advadsTrackingScript-js-extra'>
+/* <![CDATA[ */
+var advadsTracking = {"impressionActionName":"aatrack-records","clickActionName":"aatrack-click","targetClass":"dragi-target","blogId":"1","frontendPrefix":"dragi-"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/advanced-ads-tracking/public/assets/js/dist/tracking.min.js?ver=2.4.4' id='advadsTrackingScript-js'></script>
+<script type='text/javascript' src='https://dragillustrated.com/wp-content/plugins/youtube-embed-plus/scripts/fitvids.min.js?ver=14.1.4.1' id='__ytprefsfitvids__-js'></script>
+<script>window.advads_admin_bar_items = [];</script><script>!function(){window.advanced_ads_ready_queue=window.advanced_ads_ready_queue||[],advanced_ads_ready_queue.push=window.advanced_ads_ready;for(var d=0,a=advanced_ads_ready_queue.length;d<a;d++)advanced_ads_ready(advanced_ads_ready_queue[d])}();</script> <script src='https://stats.wp.com/e-202312.js' defer></script>
+<script>
+		_stq = window._stq || [];
+		_stq.push([ 'view', {v:'ext',blog:'37035244',post:'0',tz:'-5',srv:'dragillustrated.com',j:'1:11.9.1'} ]);
+		_stq.push([ 'clickTrackerInit', '37035244', '0' ]);
+	</script><script id="dragi-tracking">var advads_tracking_ads = {};var advads_tracking_urls = {"1":"https:\/\/dragillustrated.com\/wp-content\/ajax-handler.php"};var advads_tracking_methods = {"1":"frontend"};var advads_tracking_parallel = {"1":false};var advads_tracking_linkbases = {"1":"https:\/\/dragillustrated.com\/linkout\/"};</script>
+</body>
+</html>

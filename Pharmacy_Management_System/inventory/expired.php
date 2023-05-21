@@ -43,12 +43,13 @@
 
     $(".btnRemove").click(function(){
       var choice = confirm("Are you sure want to remove?");
+      var id = $(this).attr("id");
       if(choice)
       {
         $.ajax({
           url: "../ajax/ajax.php",
           method: "POST", 
-          data: {action: "deleteDrugStock", id: $(".btnRemove").attr("id")} ,
+          data: {action: "deleteDrugStock", id: id} ,
           success: function(result){
             alert(result);
             location.reload();

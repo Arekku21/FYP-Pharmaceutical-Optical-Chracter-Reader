@@ -111,7 +111,7 @@ include "../menu/menu.php";
               $count=0;
               $res=mysqli_query($Links, "select * from user");
               $count=mysqli_num_rows($res);
-              echo $count." people<br><br>";
+              echo "<br><b>".$count." people</b>";
             ?>
           </h1>
           </h1>
@@ -124,19 +124,58 @@ include "../menu/menu.php";
     <div class="col-md-4">
     <div class="card" style="width:23rem; height:30%; border-style:solid; border-width:10px; border-radius:10px; margin-right:10px">
           <div class="card-body">
-          <h1 style="font-size:24px; text-align:center;">Total Drug Quantity</h1>
+          <h1 style="font-size:24px; text-align:center;">Monthly Sales</h1>
           <h1 style="font-size:20px; text-align:center;">
             <?php
-              $count=0;
-              $res=mysqli_query($Links, "select * from tblmedicine");
-              $count=mysqli_num_rows($res);
-              echo $count." types<br><br>";
+                $count=0;
+                $sql = mysqli_query($Links, "SELECT * FROM tblpurchase_invoice WHERE DATE_FORMAT(purchaseDate, '%M') = '".date('F')."'");
+                if(mysqli_num_rows($sql) > 0)
+                {
+                  $drugBatchArr = array();
+                  $drugNameArr = array();
+                  $drugPriceArr = array();
+                  $storeBatch = array();
+                  for($i = 0; $i < mysqli_num_rows($sql); $i++)
+                  {
+                    $row = mysqli_fetch_array($sql);
+                    $drugName = explode(":", $row["drugID"]);
+                    $drugQty = explode(":", $row["drugQty"]);
+                    $drugPrice = explode(":", $row["drugPrice"]);
+                    $drugBatchNo = explode(":", $row["drugBatchNo"]);
+                    for($j = 0; $j < count($drugBatchNo); $j++)
+                    {
+                      if($drugQty[$j] > 0)
+                      {
+                        $drugBatchArr[$drugBatchNo[$j]] += $drugQty[$j];
+                        $drugNameArr[$drugBatchNo[$j]] = $drugName[$j];
+                        $drugPriceArr[$drugBatchNo[$j]] = $drugPrice[$j];
+                        array_push($storeBatch, $drugBatchNo[$j]);
+                      }
+                    }
+                  }
+                  ksort($drugArr);
+                  $unique_batch = array_unique($storeBatch);
+                  // print_r($drugArr);
+                  $total = 0;
+                  foreach ($drugBatchArr as $key => $item)
+                  {
+                    for($i = 0; $i < count($unique_batch); $i++)
+                    {
+                      // echo $drugBatchNo[$i]."<br>";
+                      if($unique_batch[$i] == $key)
+                      {
+                        $total += $item * $drugPriceArr[$unique_batch[$i]];
+                      }
+                    }
+                  }
+                  echo "<br><b>RM".$total."</b>"; 
+                }
             ?>
           </h1>
           </h1>
 
           </div>
-          <a href="../inventory/inventoryList.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Drugs" style="margin-bottom: 15px; margin-top:10px;"></a>
+          <a href="../inventory/inventoryList.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Sales Report<?php echo "(".date("M").")" ?>" style="margin-bottom: 15px; margin-top:10px;"></a>
       </div>
     </div>
 
@@ -145,24 +184,23 @@ include "../menu/menu.php";
           <div class="card-body">
           <h1 style="font-size:24px; text-align:center;">Expired Notifications</h1>
           <h1 style="font-size:20px; text-align:center;">
-          <ol>
             <?php
               $count=0;
               $res=mysqli_query($Links, "SELECT * FROM tblmedicine, tblstored_drug WHERE tblmedicine.DrugID = tblstored_drug.DrugID AND tblstored_drug.expiryDate < '".date('Y-m-d')."'");
 
               if(mysqli_num_rows($res) > 0)
-                {
-                  for($i = 0; $i < mysqli_num_rows($res); $i++)
-                  {
-                    $row = mysqli_fetch_array($res);
-                    echo "<li>".ucwords(strtolower($row["drugName"]))." (".$row["batchNo"].")".'</li>';
-                  }
-                } 
+                echo "<br><b>".mysqli_num_rows($res)." drugs expired</b>";
+                // {
+                //   for($i = 0; $i < mysqli_num_rows($res); $i++)
+                //   {
+                //     $row = mysqli_fetch_array($res);
+                //     echo "<li>".ucwords(strtolower($row["drugName"]))." (".$row["batchNo"].")".'</li>';
+                //   }
+                // } 
                 else {
-                  echo 'None';
+                  echo "<br><b>None</b>";
                 }
             ?>
-            <ol>
           </h1>
           </h1>
 
@@ -223,7 +261,7 @@ include "../menu/menu.php";
           <div class="card" style="width:35rem; border-style:solid; border-width:10px; border-radius:10px; margin-top:15px">
           <div class="card-body">
           <h1 style="font-size:24px; text-align:center;">Out of Stock Drugs</h1>
-            <h1 style="font-size:20px; margin-left: 20px;">
+            <h1 style="font-size:20px; margin-left: 20px; text-align:center;">
             <?php
                 $count=0;
                 $sql = mysqli_query($Links, "SELECT DISTINCT DrugID from tblstored_drug WHERE NOT EXISTS(SELECT * from tblmedicine WHERE tblmedicine.DrugID = tblstored_drug.DrugID) OR (SELECT DISTINCT DrugID FROM tblmedicine WHERE tblmedicine.DrugID = tblstored_drug.DrugID AND tblstored_drug.quantity = 0)");
@@ -246,7 +284,7 @@ include "../menu/menu.php";
                     }
                 }
                 else {
-                    echo 'None';
+                    echo "<br><b>None</b>";
                 }
                 ?>
             </h1>
@@ -261,20 +299,21 @@ include "../menu/menu.php";
           <div class="card" style="width:35rem; border-style:solid; border-width:10px; border-radius:10px; margin-top:15px;">
           <div class="card-body">
           <h1 style="font-size:24px; text-align:center;">Drugs About to Expire</h1>
-          <h1 style="font-size:20px; margin-left: 20px;">
+          <h1 style="font-size:20px; margin-left: 20px; text-align:center;">
           <?php
               $count=0;
               $sql = mysqli_query($Links, "SELECT * FROM tblmedicine, tblstored_drug WHERE tblmedicine.DrugID = tblstored_drug.DrugID AND DATE(tblstored_drug.expiryDate) >= CURDATE() AND DATE(tblstored_drug.expiryDate) <= DATE(LAST_DAY(NOW() + INTERVAL 1 MONTH))");
               if(mysqli_num_rows($sql) > 0)
               {
-                for($i = 0; $i < mysqli_num_rows($sql); $i++)
-                {
-                  $row = mysqli_fetch_array($sql);
-                  echo ($i+1).". ".ucwords(strtolower($row["drugName"]))." - ".$row["batchNo"]. " (".$row["expiryDate"].")"."<br>";
-                }
+                echo "<br><b>".mysqli_num_rows($sql)." drugs</b>";
+                // for($i = 0; $i < mysqli_num_rows($sql); $i++)
+                // {
+                //   $row = mysqli_fetch_array($sql);
+                //   echo ($i+1).". ".ucwords(strtolower($row["drugName"]))." - ".$row["batchNo"]. " (".$row["expiryDate"].")"."<br>";
+                // }
               }
                 else {
-                  echo 'None';
+                  echo "<br><b>None</b>";
                 }
             ?>
           </h1>

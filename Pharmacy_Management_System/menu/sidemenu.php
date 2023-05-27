@@ -75,7 +75,7 @@ if($_SESSION['logged_in'] !== True){
 header("Location: $login_page");
 }
   ?>
-  <div style="min-width: 270px; width: 15%; position: fixed; background-color: #000000; z-index: 1;">
+  <div style="min-width: 270px; width: 15%; position: fixed; background-color: #000000; z-index: 1; height: 1000%;">
   <!-- style="margin-left: 0%; margin-top: 30%; width: 100%;"  -->
     <aside class="menu" style="margin-left: 0%; margin-top: 10%; width: 123%;" >
         <img src="../image/logo.png" width="142" height="40" class="middle" >
@@ -87,10 +87,10 @@ header("Location: $login_page");
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../menu/dashboard.php" style="color:white; text-align: left;"><span class="icon"><i class="fa fa-tachometer-alt fa-lg" style="margin-right: 7px;"></i></span> Dashboard</a>
     </li>
     <li class="newclass :hover">
-      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../pos/pos.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-puzzle-piece fa-lg" style="margin-right: 7px;"></i></span> PoS</a>
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../pos/pos.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-dollar-sign fa-lg" style="margin-right: 7px;"></i></span> Billing</a>
     </li>
     <li class="newclass :hover">
-      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../report/dailyReport.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-folder-open" style="margin-right: 7px;"></i></span> Sales Report</a>
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../report/overview.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-folder-open" style="margin-right: 7px;"></i></span> Sales Report</a>
     </li>
     <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../inventory/addInventory.php" style="color:white; text-align: left"><span class="icon"><i class="fab fa-y-combinator fa-lg " style="margin-right:7px;"></i></span> Inventory</a>

@@ -152,6 +152,7 @@ include "../db.php";
     const videoElement = document.getElementById('videoElement');
     let stream;
 
+    let isModalOpen = false;
     // Select the button that opens the modal
     const openModalBtn = document.getElementById('openModal');
 
@@ -178,6 +179,8 @@ include "../db.php";
       // Close the modal
       modal.style.display = 'none';
 
+      isModalOpen = false;
+
       // Stop the camera stream
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
@@ -197,16 +200,28 @@ include "../db.php";
 
           // Open the modal
           modal.style.display = 'block';
+
+          // Set the isModalOpen variable to true
+          isModalOpen = true;
         })
         .catch(error => {
           console.error('Unable to access the camera.', error);
         });
     });
 
+    document.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13 && isModalOpen) {
+        captureBtn.click();
+
+      }
+    });
+
     // Close the modal and stop the camera stream when the user clicks outside of it
     window.addEventListener('click', event => {
       if (event.target == modal) {
         modal.style.display = 'none';
+
+        isModalOpen = false;
 
         // Stop the camera stream
         if (stream) {
@@ -287,7 +302,7 @@ include "../menu/menu.php";
         </div>
       </section>
 
-    <section class="panel" style="margin-left: 19.8% ; margin-top: -30px; width: 96.5%;">
+    <section class="panel" style="margin-left: 19.8% ; margin-top: 1%; width: 96.5%;">
     <!-- <form action="" method="post" enctype="multipart/form-data">
       Select image to upload:
       <input type="file" name="image" id="image">
@@ -300,16 +315,16 @@ include "../menu/menu.php";
       <button id="captureBtn" type="button" class="btnOpenCamera button is-small is-primary" >Capture</button>
     </div>
   </div>
-    <form action="" method="post" enctype="multipart/form-data">
-      Modal API: <select id="modalAPI">
-        <option value="http://127.0.0.1:5002/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
-        <option value="http://127.0.0.1:5001/api/easyocr/output/best_confidence">EasyOCR</option>
-        <option value="http://127.0.0.1:5001/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
-        <option value="http://127.0.0.1:5001/api/pytesseract/output/best_confidence">PyTesseract</option>
-      </select>
-      <!-- The button to open the modal -->
-      <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" ><img src="../image/scan-icon-white.png" class='btnScan' alt="button image">Scan Medicine</button>
-    </form>
+  <button id="openModal" type="button" style="width: 60%; margin-left:20%; margin-top:-3%;" class="btnOpenCamera button is-large is-primary" ><img src="../image/scan-icon-white.png" class='btnScan' alt="button image">Scan Medicine</button>
+  <form action="" method="post" enctype="multipart/form-data" style="width: 60%; margin-left:40%; margin-top:1%;">
+    <select id="modalAPI" style="width: 35%; margin-top:1%;">
+      <option value="http://127.0.0.1:5002/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
+      <option value="http://127.0.0.1:5001/api/easyocr/output/best_confidence">EasyOCR</option>
+      <option value="http://127.0.0.1:5001/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
+      <option value="http://127.0.0.1:5001/api/pytesseract/output/best_confidence">PyTesseract</option>
+    </select>
+    <!-- The button to open the modal -->
+  </form>
     <?php
     if($_POST["btnAdd"])
     {

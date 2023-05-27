@@ -83,6 +83,12 @@ include "../menu/menu.php";
           <div class="tabs is-toggle is-fullwidth">
           <ul>
               <li>
+                <a href="overview.php">
+                  <span>Overview</span>
+                </a>
+              </li>
+
+              <li>
                 <a href="dailyReport.php">
                   <span>Sales Report (Daily)</span>
                 </a>

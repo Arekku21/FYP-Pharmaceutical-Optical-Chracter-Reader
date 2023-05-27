@@ -873,15 +873,15 @@ include "../menu/menu.php";
       <button id="captureBtn" type="button" class="btnOpenCamera button is-small is-primary" >Capture</button>
     </div>
   </div>
-  <form action="" method="post" enctype="multipart/form-data">
-    Modal API: <select id="modalAPI">
+  <button id="openModal" type="button" style="width: 60%; margin-left:20%; margin-top:-3%;" class="btnOpenCamera button is-large is-primary" ><img src="../image/scan-icon-white.png" class='btnScan' alt="button image">Scan Medicine</button>
+  <form action="" method="post" enctype="multipart/form-data" style="width: 60%; margin-left:40%; margin-top:1%;">
+    <select id="modalAPI" style="width: 35%; margin-top:1%;">
       <option value="http://127.0.0.1:5002/api/paddleocr/output/best_confidence" selected>PaddleOCR</option>
       <option value="http://127.0.0.1:5001/api/easyocr/output/best_confidence">EasyOCR</option>
       <option value="http://127.0.0.1:5001/api/easyocr_custom/output/best_confidence">EasyOCR (Custom)</option>
       <option value="http://127.0.0.1:5001/api/pytesseract/output/best_confidence">PyTesseract</option>
     </select>
     <!-- The button to open the modal -->
-    <button id="openModal" type="button" class="btnOpenCamera button is-small is-primary" ><img src="../image/scan-icon-white.png" class='btnScan' alt="button image">Scan Medicine</button>
   </form>
   <div>
     <div id="output">

@@ -175,7 +175,7 @@ include "../menu/menu.php";
           </h1>
 
           </div>
-          <a href="../inventory/inventoryList.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Sales Report<?php echo "(".date("M").")" ?>" style="margin-bottom: 15px; margin-top:10px;"></a>
+          <a href="../report/monthlyReport.php"><input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Sales Report<?php echo "(".date("M").")" ?>" style="margin-bottom: 15px; margin-top:10px;"></a>
       </div>
     </div>
 

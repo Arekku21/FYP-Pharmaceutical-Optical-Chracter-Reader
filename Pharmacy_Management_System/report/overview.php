@@ -111,7 +111,7 @@ include "../menu/menu.php";
               $count=0;
               $res=mysqli_query($Links, "select * from user");
               $count=mysqli_num_rows($res);
-              echo $count." people";
+              echo $count." people<br><br>";
             ?>
           </h1>
           </h1>
@@ -130,7 +130,7 @@ include "../menu/menu.php";
               $count=0;
               $res=mysqli_query($Links, "select * from tblmedicine");
               $count=mysqli_num_rows($res);
-              echo $count." types";
+              echo $count." types<br><br>";
             ?>
           </h1>
           </h1>

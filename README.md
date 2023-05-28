@@ -61,11 +61,14 @@ git clone https://github.com/Billy-06/FallDetectionPipeline.git
 Proceed as below:
 
 Download the docker images from here
+
 [Download Docker Images](https://www.google.com "Google's Homepage")
 
 3) Virtual Machine Image
 Proceed as below:
 
 Download the Virtual Machine images from here
+
 [Download Virtual Machine Images Linux](https://www.google.com "Google's Homepage")
+
 [Download Virtual Machine Images Windows](https://www.google.com "Google's Homepage")

@@ -35,15 +35,11 @@
                                 <h3 class="title ">Welcome</h3>
                                 <br/>
                             </div>
-
                             <div class="form-group">
                                 <form action="login.php">
                                 <input type="submit"  name="submit_btn" class="button is-block is-primary is-medium is-fullwidth" value="Log In"><i class="fas fas-sign-in" aria-hidden="true"></i>
                                 </form>
                             </div>
-
-                            <p><a href="register.php">Click Here to Sign Up</a>.</p>
-                            <p>
 
                             
                         </div>

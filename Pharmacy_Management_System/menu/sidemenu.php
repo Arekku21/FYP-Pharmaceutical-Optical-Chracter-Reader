@@ -87,22 +87,28 @@ header("Location: $login_page");
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../menu/dashboard.php" style="color:white; text-align: left;"><span class="icon"><i class="fa fa-tachometer-alt fa-lg" style="margin-right: 7px;"></i></span> Dashboard</a>
     </li>
     <li class="newclass :hover">
-      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../pos/pos.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-dollar-sign fa-lg" style="margin-right: 7px;"></i></span> Billing</a>
-    </li>
+    <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../pos/pos.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-dollar-sign fa-lg" style="margin-right: 7px;"></i></span> Billing</a>
+</li>
     <li class="newclass :hover">
-      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../report/overview.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-folder-open" style="margin-right: 7px;"></i></span> Sales Report</a>
+    <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../report/overview.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-folder-open" style="margin-right: 7px;"></i></span> Sales Report</a>   
     </li>
     <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../inventory/addInventory.php" style="color:white; text-align: left"><span class="icon"><i class="fab fa-y-combinator fa-lg " style="margin-right:7px;"></i></span> Inventory</a>
     </li>
     <li class="newclass :hover">
-      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../employee/addEmployee.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-users" style="margin-right: 7px;"></i></span> Employee</a>
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../registration/addUsers.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-users" style="margin-right: 7px;"></i></span> Registration</a>
     </li>
     <!-- <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="http://localhost:5000/index" style="color:white; text-align: left"><span class="icon"><i class="fa fa-camera" style="margin-right: 7px;"></i></span>Retraining Pipeline</a>
     </li> -->
     <li class="newclass :hover">
       <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../retraining/retraining.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-camera" style="margin-right: 7px;"></i></span>Retraining Pipeline</a>
+    </li>
+    <li class="newclass :hover">
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../audit/audit.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-address-book" style="margin-right: 7px;"></i></span>Audit Log</a>
+    </li>
+    <li class="newclass :hover">
+      <a class="btn" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='white'" href="../users/pharma.php" style="color:white; text-align: left"><span class="icon"><i class="fa fa-user-md"></i></span>Users</a>
     </li>
   </ul>
   <br>

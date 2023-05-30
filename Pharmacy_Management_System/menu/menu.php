@@ -24,9 +24,10 @@
     include "header.php";
 
     // Your Login Page
+
     $login_page = "../login.php";
 
-    echo "<script type='text/javascript'> console.log('Role: " .  $_SESSION['roleID'] . $log['action'] ."' ); </script>";
+    echo "<script type='text/javascript'> console.log('Role ID: " .  $_SESSION['roleID'] . "' ); </script>";
 
     // Check if user is logged in
     if($_SESSION['logged_in'] !== True)

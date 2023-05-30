@@ -1,4 +1,5 @@
 <?php
+
     require("db.php");
 
     session_start();
@@ -22,13 +23,9 @@
 
         // Login query here
         $sql = "SELECT * FROM user WHERE email = '$emailLogin' AND password = '$passwordLogin'";
-        $verified = "SELECT `is_verified` FROM `user` WHERE `email` = '$emailLogin' AND `password` = '$passwordLogin'";
         $result = mysqli_query($Links, $sql);
-        $isVer = mysqli_query($Links, $verified);
-        $row = mysqli_fetch_assoc($isVer);
-        $is_verified = $row['is_verified'];
         // If any record exists means the user has entered the correct
-        if ((mysqli_num_rows($result) > 0) && ($is_verified == 1)) {
+        if (mysqli_num_rows($result) > 0) {
              // output data of each row
              // PHP IS SO L MANNN
              $_SESSION['logged_in'] = True;
@@ -36,20 +33,14 @@
              while ($row = $result->fetch_assoc()) {
                 $loggedInUser = $row;
             }
+
              $_SESSION['roleID'] = $loggedInUser['roleID'];
              $_SESSION['id'] = $loggedInUser['id'];
-             $_SESSION['email'] = $loggedInUser['email'];
 
-             $log = "User logged in";
-             $email =  $loggedInUser['email'];
-             $role = $loggedInUser['roleID'];
-             $logger = "INSERT INTO logs(role, email, action) VALUES ($role, '$email', '$log')";
-             $result = mysqli_query($Links, $logger);
+             echo "<script type='text/javascript'> console.log('Role ID: " .  $_SESSION['roleID'] . "' ); </script>";
              echo "<script type='text/javascript'>location.href='menu/dashboard.php';</script>";
-        } else if ((mysqli_num_rows($result) > 0) && ($is_verified == 0)){
-            echo "<script type='text/javascript'>alert('Please verify your account to continue');</script>";
         } else {
-            echo "<script type='text/javascript'>alert('Invalid credentials ');</script>";
+            echo "<script type='text/javascript'>alert('Invalid credentials');</script>";
         }
     }
 ?>
@@ -97,6 +88,7 @@
                                             <div class="control">
                                             <label for="email_add">  Email Address: </label> <br/>
                                             <input type="email" placeholder="Email Address" name="email_add" id="email_add" class="input is-medium"  autofocus="" required email />
+                                            
                                             </div>
                                         </div>
             
@@ -114,7 +106,8 @@
                         </form>
 
                             <p class="has-text-grey" style="color: #00d1b2;">
-                            <a style="color: #00d1b2;" href="forgot_password.php">Forgot Password</a>
+                                <a href="register.php" style="color: #00d1b2;">Sign Up  ·  </a>
+                                <a style="color: #00d1b2;" routerLink="/">Forgot Password</a>
                             </p><br><br><br>
                             <!-- <p class="subtitle ">Please login to proceed.</p> -->
                             <a class=" level-item logo-margin" >

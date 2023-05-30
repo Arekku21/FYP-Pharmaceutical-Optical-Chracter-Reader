@@ -29,7 +29,8 @@
     .section {
         margin-top: 5px;
         padding: 5px;
-        background-color: #1E90FF;
+        background-color: #90caf9;
+        /* background-color: #134ssq; */
         border-radius: 5px;
         display: flex;
         flex-direction: column;
@@ -73,7 +74,7 @@
         font-weight: bold; /* Add font-weight property */
         text-transform: uppercase; /* Add text-transform property */
         margin-bottom: 5px; /* Adjust the margin as desired */
-        color: #ffffff;
+        color: #000000;
         text-align: center;
     }
         
@@ -83,7 +84,7 @@
         align-items: center;
         justify-content: center;
         padding: 6px 10px; /* Adjust the padding as desired */
-        background-color: #DC143C;
+        /* background-color: #DC143C; */
         color: #ffffff;
         text-decoration: none;
         border-radius: 5px;
@@ -111,43 +112,42 @@
     
   
     <div class="container">
-   
-    <div class="left-section">
-            <div class="section">
-                <h2>Billing Order</h2><img src="../images/bill.png" alt="Billing Order">
-                <a href="../billing/billing.php" class="btn">View Billing Order</a>
+    <div class="left-section" style="margin-top: 1%;">
+            <div class="section" style="margin-bottom: 10%">
+                <h2>Billing Order</h2><img src="../image/bill.png" alt="Billing Order">
+                <a href="../pos/pos.php" class="btn" style="background-color: #DC4C64;">View Billing Order</a>
             </div>
     </div>
         <div class="right-section">
             <div class="section">
-                <h2>Inventory</h2><img src="../images/inv.png" alt="Inventory">
+                <h2>Inventory</h2><img src="../image/inv.png" alt="Inventory">
                 
-                <a href="../inventory/inventory.php" class="btn">Manage Inventory</a>
+                <a href="../inventory/inventoryList.php" class="btn" style="background-color: #14A44D;">Manage Inventory</a>
             </div>
             <div class="section">
                 <h2>Sales Report</h2>
-                <img src="../images/sales.png" alt="Retraining Pipeline">
-                <a href="../report/dailyReport.php" class="btn">Sales Report</a>
+                <img src="../image/sales.png" alt="Retraining Pipeline">
+                <a href="../report/dailyReport.php" class="btn" style="background-color: #3B71CA;">Sales Report</a>
             </div>
             <div class="section">
-                <h2> Pipeline</h2><img src="../images/pipe.png" alt="Retraining Pipeline">
+                <h2> Pipeline</h2><img src="../image/pipe.png" alt="Retraining Pipeline">
                 
-                <a href="../retraining/retraining.php" class="btn">Retraining Pipeline</a>
+                <a href="../retraining/retraining.php" class="btn" style="background-color: #54B4D3;">Retraining Pipeline</a>
             </div>
-            <div class="section"><h2>Registration</h2><img src="../images/reg.png" alt="Registration">
+            <div class="section" style="width:47%;"><h2>Registration</h2><img src="../image/reg.png" alt="Registration">
                 
-                <a href="../registration/addUsers.php" class="btn">Manage Registration</a>
+                <a href="../employee/addEmployee.php" class="btn" style="background-color: #E4A11B;">Manage Registration</a>
             </div>
-            <div class="section">
-                <h2>Users</h2><img src="../images/users.png" alt="Users">
+            <div class="section" style="width:48%;">
+                <h2>Users</h2><img src="../image/users.png" alt="Users">
                 
-                <a href="../users/pharma.php" class="btn">View Users</a>
+                <a href="../employee/employeeList.php" class="btn" style="background-color: #332D2D;">View Users</a>
             </div>
-            <div class="section">
-                <h2>Audit Logs</h2><img src="../images/aud.png" alt="Audit Logs">
+            <!-- <div class="section">
+                <h2>Audit Logs</h2><img src="../image/aud.png" alt="Audit Logs">
                 
                 <a href="../audit/audit.php" class="btn">View Audit Logs</a>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

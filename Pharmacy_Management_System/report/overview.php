@@ -110,8 +110,12 @@ include "../menu/menu.php";
             <?php
               $count=0;
               $res=mysqli_query($Links, "select * from user");
-              $count=mysqli_num_rows($res);
-              echo "<br><b>".$count." people</b>";
+              if(mysqli_num_rows($res) > 0)
+              {
+                $count=mysqli_num_rows($res);
+                echo "<br><b>".$count." people</b>";
+              }
+              else echo "<br><b>None</b>";
             ?>
           </h1>
           </h1>
@@ -170,6 +174,7 @@ include "../menu/menu.php";
                   }
                   echo "<br><b>RM".$total."</b>"; 
                 }
+                else echo "<br><b>RM 0</b>";
             ?>
           </h1>
           </h1>
